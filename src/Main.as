@@ -68,8 +68,8 @@ package {
 			//} endregion
 			
 			//{ region ResourceManager
-			const starling:Starling = new Starling(StarlingView, stage);
-			starling.start();
+			//const starling:Starling = new Starling(StarlingView, stage);
+			//starling.start();
 			//} endregion
 			
 		}
@@ -90,33 +90,33 @@ package {
 //} endregion
 
 //{ region fake view for test ResourceManager
-import slavara.as3.game.starling.enums.ResBundleNameEnum;
-import slavara.as3.game.starling.gui.builders.StarlingGUIBuilder;
-import slavara.as3.game.starling.managers.ResourceManager;
-import slavara.as3.game.starling.resources.ARPResBundle;
-import slavara.as3.game.starling.resources.IResBundle;
-import starling.display.Image;
-import starling.display.Sprite;
-import starling.textures.Texture;
-class StarlingView extends starling.display.Sprite {
-	public function StarlingView() {
-		super();
-		const arpResList:Vector.<String> = new <String>["../assets/arp/ARP_logotype.arp"];
-		const arpBundle:IResBundle = new ARPResBundle(ResBundleNameEnum.ARP, arpResList);
-		ResourceManager.instance.setBundles(new <IResBundle>[arpBundle]);
-		ResourceManager.instance.onLoadComplete.add(onResourcesLoadComplete);
-		ResourceManager.instance.loadBundles();
-		//ResourceManager.instance.unloadBundles();//ok
-	}
-	
-	private function onResourcesLoadComplete():void {
-		//const bunble:IResBundle = ResourceManager.instance.getBundle(ResBundleNameEnum.ARP);
-		//trace(bunble);//ok
-		//trace(bunble is ARPResBundle);//ok
-		//trace(bunble.getTexture(ResBundleNameEnum.ARP_LOGOTYPE));//ok
-		//addChild(StarlingGUIBuilder.createImageFromARP(ResBundleNameEnum.ARP_LOGOTYPE));//ok
-	}
-}
+//import slavara.as3.game.starling.enums.ResBundleNameEnum;
+//import slavara.as3.game.starling.gui.builders.StarlingGUIBuilder;
+//import slavara.as3.game.starling.managers.ResourceManager;
+//import slavara.as3.game.starling.resources.ARPResBundle;
+//import slavara.as3.game.starling.resources.IResBundle;
+//import starling.display.Image;
+//import starling.display.Sprite;
+//import starling.textures.Texture;
+//class StarlingView extends starling.display.Sprite {
+	//public function StarlingView() {
+		//super();
+		//const arpResList:Vector.<String> = new <String>["../assets/arp/ARP_logotype.arp"];
+		//const arpBundle:IResBundle = new ARPResBundle(ResBundleNameEnum.ARP, arpResList);
+		//ResourceManager.instance.setBundles(new <IResBundle>[arpBundle]);
+		//ResourceManager.instance.onLoadComplete.add(onResourcesLoadComplete);
+		//ResourceManager.instance.loadBundles();
+		////ResourceManager.instance.unloadBundles();//ok
+	//}
+	//
+	//private function onResourcesLoadComplete():void {
+		////const bunble:IResBundle = ResourceManager.instance.getBundle(ResBundleNameEnum.ARP);
+		////trace(bunble);//ok
+		////trace(bunble is ARPResBundle);//ok
+		////trace(bunble.getTexture(ResBundleNameEnum.ARP_LOGOTYPE));//ok
+		////addChild(StarlingGUIBuilder.createImageFromARP(ResBundleNameEnum.ARP_LOGOTYPE));//ok
+	//}
+//}
 //} endregion
 
 

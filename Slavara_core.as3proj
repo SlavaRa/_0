@@ -59,6 +59,7 @@
     <element path="swc\as3commons-logging-2.7.swc" />
     <element path="swc\as3commons-reflect-1.6.2.swc" />
     <element path="swc\signals.swc" />
+    <element path="swc\CEV3-1-6-Core.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
