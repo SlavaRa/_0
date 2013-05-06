@@ -3,7 +3,7 @@ package slavara.as3.game.starling.gui.windows {
 	import slavara.as3.core.enums.StateMachineEnum;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.enums.gui.WindowsEnum;
-	import slavara.as3.game.starling.enums.StateWindowEnum;
+	import slavara.as3.game.starling.enums.gui.StateWindowEnum;
 	import slavara.as3.game.starling.gui.builders.GUIBuilder;
 	import slavara.as3.game.starling.gui.builders.IGUIBuilder;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
