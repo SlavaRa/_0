@@ -1,7 +1,7 @@
 package slavara.as3.core.statemachine {
 	import flash.utils.Dictionary;
 	import slavara.as3.core.enums.BaseEnum;
-	import slavara.as3.core.utils.Assert;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Validate;
 	
 	/**

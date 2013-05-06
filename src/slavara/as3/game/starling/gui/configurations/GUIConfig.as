@@ -1,4 +1,5 @@
 package slavara.as3.game.starling.gui.configurations {
+	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.game.starling.resources.IResBundle;
 	import starling.filters.BlurFilter;
 	
@@ -19,6 +20,7 @@ package slavara.as3.game.starling.gui.configurations {
 			scaleY = 1;
 			alpha = 1;
 			rotation = 0;
+			children = new Vector.<GUIConfig>(0, true);
 		}
 		
 		public var bundle:IResBundle;
@@ -32,5 +34,19 @@ package slavara.as3.game.starling.gui.configurations {
 		public var alpha:Number;
 		public var filter:BlurFilter;
 		public var rotation:Number;
+		public var tex:BaseEnum;
+		public var children:Vector.<GUIConfig>;
+		
+		public function addChildren(children:Vector.<GUIConfig>):void {
+			this.children.fixed = false;
+			this.children = this.children.concat(children);
+			this.children.fixed = true;
+		}
+		
+		public function addChild(child:GUIConfig):void {
+			children.fixed = false;
+			children.push(child);
+			children.fixed = true;
+		}
 	}
 }

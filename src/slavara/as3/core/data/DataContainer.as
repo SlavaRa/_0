@@ -1,6 +1,6 @@
 package slavara.as3.core.data {
 	import flash.utils.getQualifiedClassName;
-	import slavara.as3.core.utils.Assert;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.MathUtils;
 

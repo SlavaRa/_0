@@ -1,5 +1,5 @@
 package slavara.as3.core.commands{
-	import slavara.as3.core.utils.Assert;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Validate;
 	/**
 	 * @author СлаваRa

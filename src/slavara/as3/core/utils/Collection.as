@@ -2,6 +2,7 @@ package slavara.as3.core.utils {
 	
 	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
+	import slavara.as3.core.debug.Assert;
 	
 	/**
 	 * @author SlavaRa

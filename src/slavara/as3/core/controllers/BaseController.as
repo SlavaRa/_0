@@ -4,7 +4,7 @@ package slavara.as3.core.controllers {
 	import slavara.as3.core.commands.Command;
 	import slavara.as3.core.commands.CommandDispatcher;
 	import slavara.as3.core.data.Data;
-	import slavara.as3.core.utils.Assert;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.IDestroyable;
 	
 	/**

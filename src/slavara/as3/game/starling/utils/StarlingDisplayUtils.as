@@ -11,15 +11,26 @@ package slavara.as3.game.starling.utils {
 	public class StarlingDisplayUtils {
 		
 		[Inline]
-		public static function removeChildFrom(child:DisplayObject, container:DisplayObjectContainer):void {
+		public static function addChildTo(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
+			if (Validate.isNull(child)) {
+				return null;
+			}
+			if (Validate.isNull(container)) {
+				return null;
+			}
+			return container.addChild(child);
+		}
+		
+		[Inline]
+		public static function removeChildFrom(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
 			if(Validate.isNull(child)) {
-				return;
+				return null;
 			}
 			if(Validate.isNull(child.parent)) {
-				return;
+				return null;
 			}
 			if(child.parent !== container) {
-				return;
+				return null;
 			}
 			return container.removeChild(child);
 		}

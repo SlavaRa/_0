@@ -20,7 +20,7 @@ package slavara.as3.core.utils {
 		
 		public function MathUtils() {
 			super();
-			if ((this as Object).constructor === MathUtils) {
+			if (Object(this).constructor === MathUtils) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}

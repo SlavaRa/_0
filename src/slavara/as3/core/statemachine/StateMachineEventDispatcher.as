@@ -3,7 +3,7 @@ package slavara.as3.core.statemachine {
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.enums.StateMachineEnum;
-	import slavara.as3.core.utils.Assert;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Callback;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.IDestroyable;

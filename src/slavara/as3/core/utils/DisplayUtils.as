@@ -40,7 +40,7 @@ package slavara.as3.core.utils {
 		
 		public function DisplayUtils() {
 			super();
-			if ((this as Object).constructor === DisplayUtils) {
+			if (Object(this).constructor === DisplayUtils) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}

@@ -1,6 +1,7 @@
-package slavara.as3.core.utils {
+package slavara.as3.core.debug {
 	
 	import flash.utils.getQualifiedClassName;
+	import slavara.as3.core.utils.Validate;
 	
 	/**
 	 * @author SlavaRa

@@ -1,11 +1,11 @@
 package slavara.as3.game.starling.resources {
-	import enums.BaseEnum;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.utils.ByteArray;
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.enums.BaseEnum;
+	import starling.textures.Texture;
 	
 	/**
 	 * @author SlavaRa
@@ -18,6 +18,7 @@ package slavara.as3.game.starling.resources {
 		function getBitmap(uri:BaseEnum):Bitmap;
 		function getBitmapData(uri:BaseEnum):BitmapData;
 		function getByteArray(uri:BaseEnum):ByteArray;
+		function getTexture(uri:BaseEnum):Texture;
 		function unload():void;
 		
 		function toString():String;
