@@ -9,7 +9,7 @@ package slavara.as3.core.utils {
 	 */
 	public class DisplayUtils {
 		
-		[Inline]
+		
 		public static function removeChildFrom(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
 			if(Validate.isNull(child)) {
 				return null;
@@ -23,7 +23,7 @@ package slavara.as3.core.utils {
 			return container.removeChild(child);
 		}
 		
-		[Inline]
+		
 		public static function clearContainer(container:DisplayObjectContainer, destroyChildren:Boolean = true, safeMode:Boolean = true):void {
 			if (Validate.isNull(container)) {
 				return;

@@ -8,22 +8,22 @@ package slavara.as3.core.utils {
 	 */
 	public class Validate {
 		
-		[Inline]
+		
 		public static function isNull(object:Object):Boolean {
 			return object === null;
 		}
 		
-		[Inline]
+		
 		public static function isNotNull(object:Object):Boolean {
 			return !isNull(object);
 		}
 		
-		[Inline]
+		
 		public static function stringIsNullOrEmpty(string:String):Boolean {
 			return isNull(string) || (string.length === 0);
 		}
 		
-		[Inline]
+		
 		public static function stringIsNotEmpty(string:String):Boolean {
 			if(isNull(string)) {
 				return false;
@@ -31,7 +31,7 @@ package slavara.as3.core.utils {
 			return string.length > 0;
 		}
 		
-		[Inline]
+		
 		public static function isVector(vector:Object):Boolean {
 			if(vector is Vector.<int>) {
 				return true;
@@ -51,7 +51,7 @@ package slavara.as3.core.utils {
 			return false;
 		}
 		
-		[Inline]
+		
 		public static function isArray(array:Object):Boolean {
 			return (array is Array) || (array is ByteArray);
 		}

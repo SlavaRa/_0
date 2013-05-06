@@ -7,7 +7,7 @@ package slavara.as3.core.utils {
 	 */
 	public class MathUtils {
 		
-		[Inline]
+		
 		public static function clamp(value:Number, min:Number, max:Number):Number {
 			if(value < min) {
 				return min;

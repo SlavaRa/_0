@@ -115,7 +115,7 @@ package slavara.as3.core.utils {
 		/**
 		 * for Object, Dictionary, Array, Vector
 		 */
-		[Inline]
+		
 		public static function exists(item:*, collection:Object):Boolean {
 			Assert.isNull(collection, "collection");
 			
@@ -137,7 +137,7 @@ package slavara.as3.core.utils {
 			return false;
 		}
 		
-		[Inline]
+		
 		public static function isNotEmpty(collection:Object):Boolean {
 			return !isEmpty(collection);
 		}
@@ -145,7 +145,7 @@ package slavara.as3.core.utils {
 		/**
 		 * for Array || ByteArray || Vector
 		 */
-		[Inline]
+		
 		public static function setLength(collection:Object, length:int):void {
 			if(Validate.isArray(collection)) {
 				collection.length = length;
