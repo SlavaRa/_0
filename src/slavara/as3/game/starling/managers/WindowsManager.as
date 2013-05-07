@@ -37,12 +37,13 @@ package slavara.as3.game.starling.managers {
 			if (_isInitialized) {
 				throw new Error("Singleton, use WindowsManager.instance");
 			}
+			initialize();
 		}
 		
 		public function setup(enum2window:Dictionary):WindowsManager {
 			Assert.isNull(enum2window, "enum2window");
 			if (Validate.isNull(_enum2window)) {
-				initialize();
+				_enum2window = enum2window;
 				constructWindows();
 			}
 			return this;
@@ -82,12 +83,10 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function close(window:BaseWindow):void {
-			if (window === _alert) {
-				_alert.close();
-			} else if (Validate.isNotNull(window)) {
+			if(Validate.isNotNull(window)) {
 				window.close();
 			} else {
-				onWindowClosed();
+				onCurWindowClosed();
 			}
 		}
 		
@@ -95,7 +94,6 @@ package slavara.as3.game.starling.managers {
 			if (Validate.isNotNull(_alert)) {
 				_alert.close();
 			}
-			
 			_queue.length = 0;
 			close(openedWindow);
 		}
@@ -109,8 +107,7 @@ package slavara.as3.game.starling.managers {
 		private var _onWindowOpen:Signal;
 		private var _onWindowClosed:Signal;
 		
-		private function initialize(enum2Window:Dictionary):void {
-			_enum2window = enum2window;
+		private function initialize():void {
 			_containerDialogWindows = new Sprite();
 			_containerAlert = new Sprite();
 			_queue = new <BaseWindow>[];
@@ -124,7 +121,7 @@ package slavara.as3.game.starling.managers {
 			}
 		}
 		
-		private function onWindowClosed(window:BaseWindow = null):void {
+		private function onCurWindowClosed(window:BaseWindow = null):void {
 			if (window) {
 				Starling.current.juggler.remove(_openedWindow);
 				StarlingDisplayUtils.removeChildFrom(window.view, _containerDialogWindows);
@@ -138,7 +135,7 @@ package slavara.as3.game.starling.managers {
 			}
 			
 			window = _queue.shift();
-			window.onClosed.addOnce(onWindowClosed);
+			window.onClosed.addOnce(onCurWindowClosed);
 			StarlingDisplayUtils.addChildTo(window.view, _containerDialogWindows);
 			_openedWindow = window.open();
 			_onWindowOpen.dispatch();
@@ -152,6 +149,14 @@ package slavara.as3.game.starling.managers {
 		
 		private function canNotOpenWindowOrAlert(uri:BaseEnum):Boolean {
 			return alertIsOpened() && !has(uri);
+		}
+		
+		public function get containerDialogWindows():DisplayObjectContainer {
+			return _containerDialogWindows;
+		}
+		
+		public function get containerAlert():DisplayObjectContainer {
+			return _containerAlert;
 		}
 		
 		public function get openedWindow():BaseWindow {

@@ -44,6 +44,7 @@
       <path-element>E:\slavara\dev\as3\slavara_core\swc\as3commons-logging-2.7.swc</path-element>
       <path-element>E:\slavara\dev\as3\slavara_core\swc\as3commons-reflect-1.6.2.swc</path-element>
       <path-element>E:\slavara\dev\as3\slavara_core\swc\signals.swc</path-element>
+      <path-element>E:\slavara\dev\as3\slavara_core\swc\CEV3-1-6-Core.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

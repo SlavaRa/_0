@@ -43,7 +43,7 @@ package slavara.as3.game.starling.managers {
 			registerARP();
 		}
 		
-		public function setBundles(bundles:Vector.<IResBundle>):void {
+		public function setup(bundles:Vector.<IResBundle>):void {
 			Assert.isNull(bundles, "bundles");
 			_bundles = bundles;
 		}

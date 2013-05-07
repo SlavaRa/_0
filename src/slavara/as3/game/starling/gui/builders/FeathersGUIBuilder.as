@@ -129,14 +129,14 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		private function getFeathersProgressBar(config:FeathersProgressBarConfig):DisplayObject {
-			const progressBar:.ProgressBar = new ProgressBar();
+			const progressBar:ProgressBar = new ProgressBar();
 			
 			if(Validate.isNotNull(config.backgroundSkin)) {
 				progressBar.backgroundSkin = createImageFromARP(config.backgroundSkin);
 			}
 			
 			if(Validate.isNotNull(config.fillSkin)) {
-				const image:Scale9Image = new Scale9Image(TexUtils.getScale9Textures(name, scale9Grid));
+				const image:Scale9Image = new Scale9Image(TexUtils.getScale9Textures(config.fillSkin, config.rect));
 				image.width = config.rect.x << 1;
 				progressBar.fillSkin = image;
 			}

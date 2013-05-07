@@ -42,24 +42,26 @@ package slavara.as3.core.statemachine {
 				_currentState = from;
 			}
 			
-			if (Validate.isNotNull(to)) {
-				var toState2Transition:Dictionary = _transitions[from] as Dictionary;
-				if (Validate.isNull(toState2Transition)) {
-					toState2Transition = _transitions[from] = new Dictionary();
-				}
-				
-				if (Validate.isNotNull(via)) {
-					if (via is BaseEnum) {
-						via = new <BaseEnum>[via];
-					} else if (via is Array) {
-						via = Vector.<BaseEnum>(via);
-					} else if (!(via is Vector.<BaseEnum>)) {
-						Error.throwError(TypeError, 0, "via");
-					}
-				}
-				
-				toState2Transition[to] = new Transition(from, to, via);
+			if (Validate.isNull(to)) {
+				return;
 			}
+			
+			var toState2Transition:Dictionary = _transitions[from] as Dictionary;
+			if (Validate.isNull(toState2Transition)) {
+				toState2Transition = _transitions[from] = new Dictionary();
+			}
+			
+			if (Validate.isNotNull(via)) {
+				if (via is BaseEnum) {
+					via = new <BaseEnum>[via];
+				} else if (via is Array) {
+					via = Vector.<BaseEnum>(via);
+				} else if (!(via is Vector.<BaseEnum>)) {
+					Error.throwError(TypeError, 0, "via");
+				}
+			}
+			
+			toState2Transition[to] = new Transition(from, to, via);
 		}
 		
 		public function setState(to:BaseEnum):void {
@@ -71,20 +73,24 @@ package slavara.as3.core.statemachine {
 			}
 			
 			const curState2toState:Dictionary = _transitions[_currentState] as Dictionary;
-			if (Validate.isNotNull(curState2toState)) {
-				const transition:Transition = curState2toState[to] as Transition;
-				if (Validate.isNotNull(transition)) {
-					_previousState = _currentState;
-					
-					if (transition.simple) {
-						_currentState = transition.to;
-						broadcastStateChange(transition.from, transition.to);
-					} else {
-						_inTransition = true;
-						_statesQueue = transition.queue;
-						setNextQueuedState();
-					}
-				}
+			if (Validate.isNull(curState2toState)) {
+				return;
+			}
+			
+			const transition:Transition = curState2toState[to] as Transition;
+			if (Validate.isNull(transition)) {
+				return;
+			}
+			
+			_previousState = _currentState;
+			
+			if (transition.simple) {
+				_currentState = transition.to;
+				broadcastStateChange(transition.from, transition.to);
+			} else {
+				_inTransition = true;
+				_statesQueue = transition.queue;
+				setNextQueuedState();
 			}
 		}
 		
@@ -106,7 +112,7 @@ package slavara.as3.core.statemachine {
 			
 			broadcastStateChange(_previousState, _currentState);
 			
-			if (Validate.collectionIsNotEmpty(_statesQueue)) {
+			if (_statesQueue.length === 0) {
 				_inTransition = false;
 			}
 			
@@ -148,26 +154,19 @@ class Transition {
 	
 	public function Transition(from:BaseEnum, to:BaseEnum, via:Vector.<BaseEnum> = null) {
 		super();
-		_from = from;
-		_to = to;
+		this.from = from;
+		this.to = to;
 		
 		if (Validate.isNotNull(via)) {
 			_queue = via.slice();
-			_queue.push(_to);
+			_queue.push(to);
 		}
 	}
 	
-	private var _from:BaseEnum;
-	private var _to:BaseEnum;
+	public var from:BaseEnum;
+	public var to:BaseEnum;
+	
 	private var _queue:Vector.<BaseEnum>;
-	
-	public function get from():BaseEnum {
-		return _from;
-	}
-	
-	public function get to():BaseEnum {
-		return _to;
-	}
 	
 	public function get queue():Vector.<BaseEnum> {
 		return Validate.isNotNull(_queue) ? _queue.slice() : null;

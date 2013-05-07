@@ -1,6 +1,5 @@
 package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 
-	import configurations.GUIConfig;
 	import feathers.controls.Scroller;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.VerticalLayout;

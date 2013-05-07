@@ -1,14 +1,10 @@
 package slavara.as3.game.starling.resources {
 	
 	import arp.remote.ARPBundle;
-	import arp.remote.ARPResource;
-	import arp.remote.Region;
-	import arp.utils.toFixedString;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import flash.geom.Rectangle;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
@@ -16,8 +12,8 @@ package slavara.as3.game.starling.resources {
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.utils.ARPUtils;
 	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
 	
 	[Exclude(kind="method",name="getClass")]
 	[Exclude(kind="method",name="getDisplayObject")]
@@ -93,24 +89,8 @@ package slavara.as3.game.starling.resources {
 				return;
 			}
 			
-			const _textures:Array = [];
-			for (var i:int = 0; i < bundle.atfTextures.length; i++) {
-				const atf:ByteArray = bundle.atfTextures[i];
-				const texture:Texture = Texture.fromAtfData(atf, 1, false);
-				_textures.push(texture);
-				atf.clear();
-			}
+			ARPUtils.fillHash(bundle, NAME_2_RESOURCE);
 			
-			for (var name:String in bundle.resources) {
-				const resource:ARPResource = bundle.getResource(name);
-				if (resource.regions.length) {
-					const region:Region = resource.regions[0];
-					const atlas:TextureAtlas = new TextureAtlas(_textures[region.textureId]);
-					const regName:String = resource.name + "_" + toFixedString(String(i), 4);
-					atlas.addRegion(regName, region.rect.toRectangle(), new Rectangle(region.pivot.x, region.pivot.y, resource.size.width, resource.size.height));
-					NAME_2_RESOURCE[name] = atlas.getTexture(regName);
-				}
-			}
 			_numLoadedRes++;
 			if (_numLoadedRes == _resList.length) {
 				_isLoaded = true;

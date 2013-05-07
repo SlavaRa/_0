@@ -9,8 +9,8 @@ package slavara.as3.game.starling.enums.gui {
 		public static const VALUES:Vector.<StateWindowEnum> = new <StateWindowEnum>[];
 		public static const NAMES:Vector.<String> = new <String>[];
 		
-		public static const OPENING:BaseEnum = new StateWindowEnum("Open");
-		public static const OPEN:BaseEnum = new StateWindowEnum("Opening");
+		public static const OPENING:BaseEnum = new StateWindowEnum("Opening");
+		public static const OPEN:BaseEnum = new StateWindowEnum("Open");
 		public static const CLOSING:BaseEnum = new StateWindowEnum("Closing");
 		public static const CLOSED:BaseEnum = new StateWindowEnum("Closed");
 		

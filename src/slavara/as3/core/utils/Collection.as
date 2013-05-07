@@ -19,7 +19,7 @@ package slavara.as3.core.utils {
 			
 			const isVector:Boolean = Validate.isVector(collection);
 			if(Validate.isArray(collection) || isVector) {
-				const i:int = collection.length;
+				var i:int = collection.length;
 				while (i-->0) {
 					collection[i] = null;
 				}

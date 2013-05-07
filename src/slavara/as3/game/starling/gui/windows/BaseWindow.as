@@ -28,10 +28,10 @@ package slavara.as3.game.starling.gui.windows {
 			stateMachine.add(StateWindowEnum.CLOSED, StateWindowEnum.OPEN, StateWindowEnum.OPENING);
 			stateMachine.add(StateWindowEnum.OPEN, StateWindowEnum.CLOSED, StateWindowEnum.CLOSING);
 			
-			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateMachineEnum.OPENING, onOpeningState);
-			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateMachineEnum.OPEN, onOpenState);
-			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateMachineEnum.CLOSING, onClosingState);
-			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateMachineEnum.CLOSED, onClosedState);
+			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.OPENING, onOpeningState);
+			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.OPEN, onOpenState);
+			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.CLOSING, onClosingState);
+			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.CLOSED, onClosedState);
 		}
 		
 		/* INTERFACE starling.animation.IAnimatable */
@@ -39,12 +39,12 @@ package slavara.as3.game.starling.gui.windows {
 		}
 		
 		public function open():BaseWindow {
-			stateMachine.setState(StateMachineEnum.OPEN);
+			stateMachine.setState(StateWindowEnum.OPEN);
 			return this;
 		}
 		
 		public function close():BaseWindow {
-			stateMachine.setState(StateMachineEnum.CLOSED);
+			stateMachine.setState(StateWindowEnum.CLOSED);
 			return this;
 		}
 		
@@ -52,8 +52,8 @@ package slavara.as3.game.starling.gui.windows {
 		 * если не передать координаты, окно центрируется
 		 */
 		protected function setPositionView(x:Number = NaN, y:Number = NaN):void {
-			view.x = isNaN(x) ? int((view.stage.stageWidth  - view.width)  >> 1) : int(x);
-			view.y = isNaN(y) ? int((view.stage.stageHeight - view.height) >> 1) : int(y);
+			//view.x = isNaN(x) ? int((view.stage.stageWidth  - view.width)  >> 1) : int(x);
+			//view.y = isNaN(y) ? int((view.stage.stageHeight - view.height) >> 1) : int(y);
 		}
 		
 		/**
@@ -72,20 +72,24 @@ package slavara.as3.game.starling.gui.windows {
 		private var _onClosed:Signal;
 		
 		private function onOpeningState():void {
+			trace("onOpeningState");
 			//opening
 			stateMachine.release();
 		}
 		
 		private function onOpenState():void {
+			trace("onOpenState");
 			_onOpened.dispatch(this);
 		}
 		
 		private function onClosingState():void {
+			trace("onClosingState");
 			//closing
 			stateMachine.release();
 		}
 		
 		private function onClosedState():void {
+			trace("onClosedState");
 			_onClosed.dispatch(this);
 		}
 		
