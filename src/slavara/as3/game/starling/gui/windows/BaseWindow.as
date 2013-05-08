@@ -1,16 +1,12 @@
 package slavara.as3.game.starling.gui.windows {
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.enums.StateMachineEnum;
-	import slavara.as3.core.utils.Validate;
-	import slavara.as3.game.starling.enums.gui.WindowsEnum;
 	import slavara.as3.game.starling.enums.gui.StateWindowEnum;
 	import slavara.as3.game.starling.gui.builders.GUIBuilder;
 	import slavara.as3.game.starling.gui.builders.IGUIBuilder;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.gui.GUIItem;
-	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.animation.IAnimatable;
-	import starling.display.DisplayObject;
 	
 	/**
 	 * @author SlavaRa
@@ -48,48 +44,24 @@ package slavara.as3.game.starling.gui.windows {
 			return this;
 		}
 		
-		/**
-		 * если не передать координаты, окно центрируется
-		 */
-		protected function setPositionView(x:Number = NaN, y:Number = NaN):void {
-			//view.x = isNaN(x) ? int((view.stage.stageWidth  - view.width)  >> 1) : int(x);
-			//view.y = isNaN(y) ? int((view.stage.stageHeight - view.height) >> 1) : int(y);
-		}
-		
-		/**
-		 * если не передать координаты, заголовок центрируется
-		 */
-		protected function setPositionTitle(x:Number = NaN, y:Number = NaN):void {
-			const title:DisplayObject = StarlingDisplayUtils.getChildByEnum(view, WindowsEnum.TITLE);
-			if (Validate.isNull(title)) {
-				return;
-			}
-			title.x = isNaN(x) ? int((view.width - title.width) >> 1) : int(x);
-			title.y = isNaN(y) ? int(title.y) : int(y);
-		}
-		
 		private var _onOpened:Signal;
 		private var _onClosed:Signal;
 		
 		private function onOpeningState():void {
-			trace("onOpeningState");
 			//opening
 			stateMachine.release();
 		}
 		
 		private function onOpenState():void {
-			trace("onOpenState");
 			_onOpened.dispatch(this);
 		}
 		
 		private function onClosingState():void {
-			trace("onClosingState");
 			//closing
 			stateMachine.release();
 		}
 		
 		private function onClosedState():void {
-			trace("onClosedState");
 			_onClosed.dispatch(this);
 		}
 		
