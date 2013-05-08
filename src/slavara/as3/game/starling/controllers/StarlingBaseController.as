@@ -19,8 +19,10 @@ package slavara.as3.game.starling.controllers {
 			if ((this as Object).constructor === StarlingBaseController) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
+			_isDestroyed = false;
 			_container = container;
 			_data = data;
+			initialize();
 		}
 		
 		/* INTERFACE slavara.as3.core.controllers.IBaseController */
@@ -43,12 +45,22 @@ package slavara.as3.game.starling.controllers {
 			removeCommandListeners();
 			_data = null;
 			_container = null;
+			_isDestroyed = true;
+		}
+		
+		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		public function get isDestroyed():Boolean {
+			return _isDestroyed;
+		}
+		
+		protected function initialize():void {
 		}
 		
 		public function call(commandName:String, ...args):* {
 			dispatchCommand(new Command(commandName, args));
 		}
 		
+		private var _isDestroyed:Boolean;
 		private var _container:DisplayObjectContainer;
 		private var _data:Data;
 		

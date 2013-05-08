@@ -1,9 +1,9 @@
 package slavara.as3.core.statemachine {
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
+	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.enums.StateMachineEnum;
-	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Callback;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.IDestroyable;
@@ -25,12 +25,20 @@ package slavara.as3.core.statemachine {
 			if ((this as Object).constructor === StateMachineEventDispatcher) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
+			_isDestroyed = false;
 		}
 		
 		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function destroy():void {
+			Assert.isTrue(_isDestroyed);
 			removeTransitionListeners();
 			_transitionListeners = null;
+			_isDestroyed = true;
+		}
+		
+		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		public function get isDestroyed():Boolean {
+			return _isDestroyed;
 		}
 		
 		public function reset():void {
@@ -92,6 +100,7 @@ package slavara.as3.core.statemachine {
 			callListeners(_transitionListeners[from], to);
 		}
 		
+		private var _isDestroyed:Boolean;
 		private var _transitionListeners:Dictionary/*of Vector.<Function>*/;
 		
 		private function callListeners(listeners:Object, to:BaseEnum):void {

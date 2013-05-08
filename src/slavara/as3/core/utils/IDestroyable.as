@@ -5,6 +5,7 @@ package slavara.as3.core.utils {
 	 */
 	public interface IDestroyable {
 		function destroy():void
+		function get isDestroyed():Boolean;
 	}
 
 }
