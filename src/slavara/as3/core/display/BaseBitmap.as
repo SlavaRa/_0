@@ -10,7 +10,6 @@ package slavara.as3.core.display {
 		
 		public function BaseBitmap(bitmapData:BitmapData=null, pixelSnapping:String="auto", smoothing:Boolean=false) {
 			super(bitmapData, pixelSnapping, smoothing);
-			mouseEnabled = false;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStageHandler, false, int.MAX_VALUE, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStageHandler, false, int.MAX_VALUE, true);
 		}

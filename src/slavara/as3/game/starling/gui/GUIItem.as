@@ -24,6 +24,12 @@ package slavara.as3.game.starling.gui {
 			DestroyUtils.destroy(_stateMachine);
 			_builder = null;
 			_stateMachine = null;
+			_isDestroyed = true;
+		}
+		
+		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		public function get isDestroyed():Boolean {
+			return _isDestroyed;
 		}
 		
 		/* DELEGATE slavara.as3.game.starling.gui.builders.IGUIBuilder */
@@ -32,6 +38,7 @@ package slavara.as3.game.starling.gui {
 		}
 		
 		protected function initialize(builder:IGUIBuilder):void {
+			_isDestroyed = false;
 			_builder = builder;
 			_stateMachine = new StateMachine();
 		}
@@ -39,6 +46,7 @@ package slavara.as3.game.starling.gui {
 		protected function configureStateMachine():void {
 		}
 		
+		private var _isDestroyed:Boolean;
 		private var _builder:IGUIBuilder;
 		private var _stateMachine:StateMachine;
 		

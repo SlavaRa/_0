@@ -5,6 +5,7 @@ package slavara.as3.game.starling.managers {
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
+	import slavara.as3.core.utils.Collection;
 	import slavara.as3.game.starling.enums.ResBundleNameEnum;
 	import slavara.as3.game.starling.resources.IResBundle;
 	import starling.textures.Texture;
@@ -53,7 +54,7 @@ package slavara.as3.game.starling.managers {
 				throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
 			}
 			
-			if (!_isLoaded) {
+			if (!_isLoaded && Collection.isNotEmpty(_bundles)) {
 				for each (var item:IResBundle in _bundles) {
 					item.onLoadComplete.addOnce(onBundleLoadComplete);
 					item.load();

@@ -41,12 +41,19 @@ package slavara.as3.game.starling.gui.builders {
 			_onBuild = null;
 			product = null;
 			config = null;
+			_isDestroyed = true;
+		}
+		
+		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		public function get isDestroyed():Boolean {
+			return _isDestroyed;
 		}
 		
 		protected var config:GUIConfig;
 		protected var product:DisplayObjectContainer;
 		
 		protected function initialize(config:GUIConfig):void {
+			_isDestroyed = false;
 			this.config = config;
 			_onBuild = new Signal();
 		}
@@ -88,6 +95,7 @@ package slavara.as3.game.starling.gui.builders {
 			}
 		}
 		
+		private var _isDestroyed:Boolean;
 		private var _onBuild:Signal;
 		
 		public function get onBuild():Signal {

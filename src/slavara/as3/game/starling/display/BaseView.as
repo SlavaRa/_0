@@ -79,8 +79,12 @@ package slavara.as3.game.starling.display {
 			if(Validate.isNull(_data)) {
 				return;
 			}
-			_data.onChange.add(stateMachine.setState).params = [_data.state];
+			_data.onChange.add(onDataChange);
 			_data.onReset.add(stateMachine.reset);
+		}
+		
+		private function onDataChange():void {
+			stateMachine.setState(_data.state);
 		}
 		
 		private function destroyDataStateMachine():void {

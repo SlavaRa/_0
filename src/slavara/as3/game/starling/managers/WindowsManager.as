@@ -40,10 +40,13 @@ package slavara.as3.game.starling.managers {
 			initialize();
 		}
 		
-		public function setup(enum2window:Dictionary):WindowsManager {
+		public function setup(enum2window:Dictionary, container:DisplayObjectContainer):WindowsManager {
 			Assert.isNull(enum2window, "enum2window");
+			Assert.isNull(container, "container");
 			if (Validate.isNull(_enum2window)) {
 				_enum2window = enum2window;
+				_container = container;
+				configureContainers();
 				constructWindows();
 			}
 			return this;
@@ -99,10 +102,11 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		private var _enum2window:Dictionary;
+		private var _container:DisplayObjectContainer;
 		private var _containerDialogWindows:DisplayObjectContainer;
+		private var _containerAlert:DisplayObjectContainer;
 		private var _queue:Vector.<BaseWindow>;
 		private var _openedWindow:BaseWindow;
-		private var _containerAlert:DisplayObjectContainer;
 		private var _alert:BaseWindow;
 		private var _onWindowOpen:Signal;
 		private var _onWindowClosed:Signal;
@@ -113,6 +117,11 @@ package slavara.as3.game.starling.managers {
 			_queue = new <BaseWindow>[];
 			_onWindowOpen = new Signal();
 			_onWindowClosed = new Signal();
+		}
+		
+		private function configureContainers():void {
+			_container.addChild(_containerDialogWindows);
+			_container.addChild(_containerAlert);
 		}
 		
 		private function constructWindows():void {

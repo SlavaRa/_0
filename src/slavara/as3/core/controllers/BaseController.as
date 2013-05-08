@@ -21,6 +21,7 @@ package slavara.as3.core.controllers {
 			}
 			_container = container;
 			_data = data;
+			initialize();
 		}
 		
 		/* INTERFACE slavara.as3.core.controllers.IBaseController */
@@ -43,14 +44,25 @@ package slavara.as3.core.controllers {
 			removeCommandListeners();
 			_data = null;
 			_container = null;
+			_isDestroyed = true;
+		}
+		
+		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		public function get isDestroyed():Boolean {
+			return _isDestroyed;
 		}
 		
 		public function call(commandName:String, ...args):* {
 			dispatchCommand(new Command(commandName, args));
 		}
 		
+		protected function initialize():void {
+			_isDestroyed = false;
+		}
+		
 		private var _container:DisplayObjectContainer;
 		private var _data:Data;
+		private var _isDestroyed:Boolean;
 		
 	}
 }

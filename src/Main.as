@@ -5,6 +5,7 @@ package {
 	/**
 	 * @author SlavaRa
 	 */
+	[LiveCodeDisable]
 	public class Main extends BaseSprite {
 		
 		public function Main() {
