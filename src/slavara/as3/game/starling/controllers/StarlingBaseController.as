@@ -1,11 +1,11 @@
 package slavara.as3.game.starling.controllers {
-	import starling.display.DisplayObjectContainer;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.commands.Command;
 	import slavara.as3.core.commands.CommandDispatcher;
 	import slavara.as3.core.data.Data;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.IDestroyable;
+	import starling.display.DisplayObjectContainer;
 	
 	/**
 	 * @author СлаваRa
@@ -53,6 +53,7 @@ package slavara.as3.game.starling.controllers {
 			return _isDestroyed;
 		}
 		
+		/**virtual*/
 		protected function initialize():void {
 		}
 		
