@@ -42,12 +42,15 @@ package slavara.as3.game.starling.display {
 			initializeStateMachine();
 		}
 		
+		/** virtual */
 		protected function configureStateMachine():void {
 		}
 		
+		/** virtual */
 		protected function onAddedToStage():void {
 		}
 		
+		/** virtual */
 		protected function onRemovedFromStage():void {
 		}
 		

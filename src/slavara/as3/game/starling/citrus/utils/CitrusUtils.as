@@ -34,13 +34,13 @@ package slavara.as3.game.starling.citrus.utils {
 			return getObjectByEnum(container, enum) as Sensor;
 		}
 		
-		public static function getSensorsWhitName(container:StarlingState, enum:BaseEnum):Vector.<Sensor> {
+		public static function getSensorsWhitAnchor(container:StarlingState, anchor:BaseEnum):Vector.<Sensor> {
 			Assert.isNull(container, "container");
-			Assert.isNull(enum, "enum");
+			Assert.isNull(anchor, "enum");
 			const objects:Vector.<CitrusObject> = container.getObjectsByType(Sensor);
 			const sensors:Vector.<Sensor> = new <Sensor>[];
 			for each (var item:CitrusObject in objects) {
-				if (item.name.indexOf(enum.toString()) !== -1) {
+				if (item.name.indexOf(anchor.toString()) !== -1) {
 					sensors.push(item);
 				}
 			}

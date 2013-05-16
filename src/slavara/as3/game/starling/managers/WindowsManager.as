@@ -47,7 +47,7 @@ package slavara.as3.game.starling.managers {
 				_enum2window = enum2window;
 				_container = container;
 				configureContainers();
-				constructWindows();
+				buildWindows();
 			}
 			return this;
 		}
@@ -124,7 +124,7 @@ package slavara.as3.game.starling.managers {
 			_container.addChild(_containerAlert);
 		}
 		
-		private function constructWindows():void {
+		private function buildWindows():void {
 			for (var uri:* in _enum2window) {
 				GUIItem(_enum2window[uri]).build();
 			}

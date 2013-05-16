@@ -27,18 +27,14 @@ package slavara.air.utils {
 			return result;
 		}
 		
+		//NOTE: 
 		public static function readUTFFile(path:String):String {
-			try {
-				const file:File = new File(path);
-				const reader:FileStream = new FileStream();
-				reader.open(file, FileMode.READ);
-				const result:String = reader.readUTF();
-				reader.close();
-				return result;
-			} catch (err:Error) {
-				trace(err);
-			}
-			return null;
+			const file:File = File.applicationDirectory.resolvePath(File.applicationDirectory.nativePath + path);
+			const reader:FileStream = new FileStream();
+			reader.open(file, FileMode.READ);
+			reader.position = 0;
+			reader.close();
+			return ""//result;
 		}
 		
 		public function Filesystem() {

@@ -88,7 +88,7 @@ package slavara.as3.game.starling.utils {
 		
 		public function StarlingDisplayUtils() {
 			super();
-			if ((this as Object).constructor === StarlingDisplayUtils) {
+			if (Object(this).constructor === StarlingDisplayUtils) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}
