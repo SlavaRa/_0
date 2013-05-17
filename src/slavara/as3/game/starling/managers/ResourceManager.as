@@ -52,7 +52,7 @@ package slavara.as3.game.starling.managers {
 			Assert.isNull(bundles, "bundles");
 			if(Validate.isNull(_bundles)) {
 				_bundles = bundles;
-			} else {
+			} else if(Collection.isNotEmpty(bundles)) {
 				_bundles = _bundles.concat(bundles);
 				_isLoaded = false;
 			}
