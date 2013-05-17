@@ -12,7 +12,7 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 			super();
 			super.width = 0;
 			super.height = 0;
-			useHandCursor = false;
+			useHandCursor = true;
 			label = "";
 		}
 		
