@@ -3,12 +3,12 @@ package slavara.as3.game.starling.managers {
 	import arp.remote.registerARP;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
-	import resources.FontResBundle;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.enums.ResBundleNameEnum;
+	import slavara.as3.game.starling.resources.BaseFontResBundle;
 	import slavara.as3.game.starling.resources.IResBundle;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
@@ -110,7 +110,7 @@ package slavara.as3.game.starling.managers {
 			if(!hasBundle(bundleName)) {
 				return;
 			}
-			const bundle:FontResBundle = FontResBundle(getBundle(bundleName));
+			const bundle:BaseFontResBundle = BaseFontResBundle(getBundle(bundleName));
 			if(Validate.isNull(bundle.has(bundleName))){
 				return;
 			}

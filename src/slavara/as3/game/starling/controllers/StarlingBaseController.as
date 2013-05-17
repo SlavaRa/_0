@@ -16,7 +16,7 @@ package slavara.as3.game.starling.controllers {
 			Assert.isNull(container, "container");
 			Assert.isNull(data, "data");
 			super();
-			if ((this as Object).constructor === StarlingBaseController) {
+			if (Object(this).constructor === StarlingBaseController) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 			_isDestroyed = false;
