@@ -99,9 +99,9 @@ package slavara.as3.game.starling.managers {
 			return IResBundle(_NAME_BUNDLE_2_BUNDLE[name]);
 		}
 		
-		public function fontIsRegistered(fontName:BaseEnum):Boolean {
-			Assert.isNull(fontName, "fontName");
-			return Validate.isNotNull(TextField.getBitmapFont(fontName.toString()));
+		public function fontIsRegistered(name:BaseEnum):Boolean {
+			Assert.isNull(name, "name");
+			return Validate.isNotNull(TextField.getBitmapFont(name.toString()));
 		}
 		
 		public function registerFont(bundleName:BaseEnum, fontName:BaseEnum):void {
@@ -117,14 +117,14 @@ package slavara.as3.game.starling.managers {
 			TextField.registerBitmapFont(bundle.getBitmapFont(fontName), fontName.toString());
 		}
 		
-		public function getFont(fontName:BaseEnum):BitmapFont {
-			Assert.isNull(fontName, "fontName");
-			return TextField.getBitmapFont(fontName.toString());
+		public function getFont(name:BaseEnum):BitmapFont {
+			Assert.isNull(name, "name");
+			return TextField.getBitmapFont(name.toString());
 		}
 		
-		public function unregisterFont(fontName:BaseEnum, dispose:Boolean = true):void {
-			Assert.isNull(fontName, "fontName");
-			TextField.unregisterBitmapFont(fontName.toString(), dispose);
+		public function unregisterFont(name:BaseEnum, dispose:Boolean = true):void {
+			Assert.isNull(name, "name");
+			TextField.unregisterBitmapFont(name.toString(), dispose);
 		}
 		
 		private var _bundles:Vector.<IResBundle>;
