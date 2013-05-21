@@ -73,6 +73,10 @@ package slavara.as3.game.starling.managers {
 			return Boolean(_enum2window[uri]);
 		}
 		
+		public function getWindowByEnum(enum:BaseEnum):BaseWindow {
+			return _enum2window[enum] as BaseWindow;
+		}
+		
 		public function show(uri:BaseEnum):BaseWindow {
 			Assert.isNull(uri, "uri");
 			if (canNotOpenWindowOrAlert(uri)) {
@@ -139,7 +143,7 @@ package slavara.as3.game.starling.managers {
 			_openedWindow = null;
 			_onWindowClosed.dispatch();
 			
-			if (_queue.length === 0) {
+			if (Validate.collectionIsNullOrEmpty(_queue)) {
 				return;
 			}
 			
