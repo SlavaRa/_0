@@ -65,7 +65,7 @@ package slavara.as3.game.starling.utils {
 			return null;
 		}
 		
-		public function getChildrenWithAnchor(container:DisplayObjectContainer, anchor:BaseEnum, fixed:Boolean = true):Vector.<DisplayObject> {
+		public static function getChildrenWithAnchor(container:DisplayObjectContainer, anchor:BaseEnum, fixed:Boolean = true):Vector.<DisplayObject> {
 			Assert.isNull(container, "container");
 			Assert.isNull(anchor, "anchor");
 			const children:Vector.<DisplayObject> = new <DisplayObject>[];
