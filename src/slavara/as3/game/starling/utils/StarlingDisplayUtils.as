@@ -65,6 +65,24 @@ package slavara.as3.game.starling.utils {
 			return null;
 		}
 		
+		public function getChildrenWithAnchor(container:DisplayObjectContainer, anchor:BaseEnum, fixed:Boolean = true):Vector.<DisplayObject> {
+			Assert.isNull(container, "container");
+			Assert.isNull(anchor, "anchor");
+			const children:Vector.<DisplayObject> = new <DisplayObject>[];
+			const anchorString:String = anchor.toString().toLowerCase();
+			for(var i:int = 0; i < container.numChildren; i++) {
+				const child:DisplayObject = container.getChildAt(i);
+				if(Validate.stringIsNullOrEmpty(child.name)) {
+					continue;
+				}
+				if(child.name.toLowerCase().indexOf(anchorString) != -1) {
+					children.push(child);
+				}
+			}
+			children.fixed = fixed;
+			return children;
+		}
+		
 		public static function setxy(object:DisplayObject, x:Number, y:Number):void {
 			if(Validate.isNotNull(object)) {
 				object.x = x;
