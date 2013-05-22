@@ -35,24 +35,24 @@ package slavara.as3.game.starling.gui.builders {
 			var item:DisplayObject;
 			switch (Object(config).constructor) {
 				case StarlingTextFieldConfig:
-					item = getStarlingTextField(StarlingTextFieldConfig(config));
+					item = buildTextField(StarlingTextFieldConfig(config));
 					break;
 				case StarlingImageConfig:
 					item = StarlingGUIBuilder.createImageFromARP(config.tex);
 					break;
 				case StarlingQuadConfig:
-					item = getStarlingQuad(StarlingQuadConfig(config));
+					item = buildQuad(StarlingQuadConfig(config));
 					break;
 				default: item = super.preBuildItem(config);
 			}
 			return postBuildItem(item, config);
 		}
 		
-		private function getStarlingTextField(config:StarlingTextFieldConfig):DisplayObject {
+		protected function buildTextField(config:StarlingTextFieldConfig):DisplayObject {
 			return new TextField(config.width, config.height, config.text, config.fontName, config.fontSize, config.color, config.bold);
 		}
 		
-		private function getStarlingQuad(config:StarlingQuadConfig):DisplayObject {
+		protected function buildQuad(config:StarlingQuadConfig):DisplayObject {
 			return new Quad(config.width, config.height, config.color, config.premultipliedAlpha);
 		}
 		

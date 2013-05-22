@@ -30,13 +30,13 @@ package slavara.as3.game.starling.gui.builders {
 					item = buildButton(new Button(), FeathersButtonConfig(config));
 					break;
 				case FeathersSliderConfig:
-					item = getSlider(FeathersSliderConfig(config));
+					item = buildSlider(new Slider(), FeathersSliderConfig(config));
 					break;
 				case FeathersScrollContainerConfig:
-					item = getScrollContainer(FeathersScrollContainerConfig(config));
+					item = buildScrollContainer(new ScrollContainer(), FeathersScrollContainerConfig(config));
 					break;
 				case FeathersProgressBarConfig:
-					item = getProgressBar(FeathersProgressBarConfig(config));
+					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
 					break;
 				default: return super.preBuildItem(config);
 			}
@@ -62,15 +62,12 @@ package slavara.as3.game.starling.gui.builders {
 			if (Validate.isNotNull(config.texDefaultIcon)) {
 				button.defaultIcon = createImageFromARP(config.texDefaultIcon);
 			}
-			
 			return button;
 		}
 		
-		private function getSlider(config:FeathersSliderConfig):DisplayObject {
-			const slider:Slider = new Slider();
+		protected function buildSlider(slider:Slider, config:FeathersSliderConfig):DisplayObject {
 			const watcher:DisplayListWatcher = new DisplayListWatcher(slider);
 			
-			slider.name = config.name;
 			slider.minimum = config.minimum;
 			slider.maximum = config.maximum;
 			slider.value = config.value;
@@ -78,7 +75,7 @@ package slavara.as3.game.starling.gui.builders {
 			slider.showThumb = config.showThumb;
 			slider.trackLayoutMode = Slider.TRACK_LAYOUT_MODE_SINGLE;
 			
-			watcher.setInitializerForClass(feathers.controls.Button, function():void {
+			watcher.setInitializerForClass(Button, function():void {
 				if (Validate.isNotNull(config.texThumbDefaultSkin)) {
 					slider.thumbProperties.defaultSkin = createImageFromARP(config.texThumbDefaultSkin);
 				}
@@ -90,7 +87,7 @@ package slavara.as3.game.starling.gui.builders {
 				}
 			}, feathers.controls.Slider.DEFAULT_CHILD_NAME_THUMB);
 			
-			watcher.setInitializerForClass(feathers.controls.Button, function():void {
+			watcher.setInitializerForClass(Button, function():void {
 				if (Validate.isNotNull(config.texMinimumTrackDefaultSkin)) {
 					slider.minimumTrackProperties.defaultSkin = createImageFromARP(config.texMinimumTrackDefaultSkin);
 				}
@@ -99,7 +96,7 @@ package slavara.as3.game.starling.gui.builders {
 				}
 			}, Slider.DEFAULT_CHILD_NAME_MINIMUM_TRACK);
 			
-			watcher.setInitializerForClass(feathers.controls.Button, function():void {
+			watcher.setInitializerForClass(Button, function():void {
 				if (Validate.isNotNull(config.texMaximumTrackDefaultSkin)) {
 					slider.maximumTrackProperties.defaultSkin = createImageFromARP(config.texMaximumTrackDefaultSkin);
 				}
@@ -111,16 +108,13 @@ package slavara.as3.game.starling.gui.builders {
 			return slider;
 		}
 		
-		private function getScrollContainer(config:FeathersScrollContainerConfig):DisplayObject {
-			const container:ScrollContainer = new ScrollContainer();
-			
+		protected function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
 			if (Validate.isNotNull(config.horizontalLayout)) {
 				container.layout = config.horizontalLayout;
 			}
 			if (Validate.isNotNull(config.verticalLayout)) {
 				container.layout = config.verticalLayout;
 			}
-			
 			container.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
 			container.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
 			container.verticalScrollPosition = config.verticalScrollPosition;
@@ -128,13 +122,10 @@ package slavara.as3.game.starling.gui.builders {
 			return container;
 		}
 		
-		private function getProgressBar(config:FeathersProgressBarConfig):DisplayObject {
-			const progressBar:ProgressBar = new ProgressBar();
-			
+		protected function buildProgressBar(progressBar:ProgressBar, config:FeathersProgressBarConfig):DisplayObject {
 			if(Validate.isNotNull(config.backgroundSkin)) {
 				progressBar.backgroundSkin = createImageFromARP(config.backgroundSkin);
 			}
-			
 			if(Validate.isNotNull(config.fillSkin)) {
 				const image:Scale9Image = new Scale9Image(TexUtils.getScale9Textures(config.fillSkin, config.rect));
 				image.width = config.rect.x << 1;
