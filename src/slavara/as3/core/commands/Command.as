@@ -1,6 +1,6 @@
 package slavara.as3.core.commands{
 	import slavara.as3.core.debug.Assert;
-	import slavara.as3.core.utils.Validate;
+	import slavara.as3.core.utils.Collection;
 	/**
 	 * @author СлаваRa
 	 */
@@ -10,7 +10,7 @@ package slavara.as3.core.commands{
 			Assert.stringIsNullOrEmpty(name, "name");
 			super();
 			this.name = name;
-			if ((args !== null) && (args.length !== 0)) {
+			if (Collection.isNotEmpty(args)) {
 				push.apply(this, args);
 			}
 		}

@@ -27,24 +27,23 @@ package slavara.as3.game.starling.gui.builders {
 			var item:DisplayObject;
 			switch(Object(config).constructor) {
 				case FeathersButtonConfig:
-					item = getFeathersButton(FeathersButtonConfig(config));
+					item = buildButton(new Button(), FeathersButtonConfig(config));
 					break;
 				case FeathersSliderConfig:
-					item = getFeathersSlider(FeathersSliderConfig(config));
+					item = getSlider(FeathersSliderConfig(config));
 					break;
 				case FeathersScrollContainerConfig:
-					item = getFeathersScrollContainer(FeathersScrollContainerConfig(config));
+					item = getScrollContainer(FeathersScrollContainerConfig(config));
 					break;
 				case FeathersProgressBarConfig:
-					item = getFeathersProgressBar(FeathersProgressBarConfig(config));
+					item = getProgressBar(FeathersProgressBarConfig(config));
 					break;
 				default: return super.preBuildItem(config);
 			}
 			return postBuildItem(item, config);
 		}
 		
-		private function getFeathersButton(config:FeathersButtonConfig):DisplayObject {
-			const button:Button = new Button();
+		protected function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
 			button.useHandCursor = config.useHandCursor;
 			
 			if (Validate.stringIsNotEmpty(config.label)) {
@@ -63,10 +62,11 @@ package slavara.as3.game.starling.gui.builders {
 			if (Validate.isNotNull(config.texDefaultIcon)) {
 				button.defaultIcon = createImageFromARP(config.texDefaultIcon);
 			}
+			
 			return button;
 		}
 		
-		private function getFeathersSlider(config:FeathersSliderConfig):DisplayObject {
+		private function getSlider(config:FeathersSliderConfig):DisplayObject {
 			const slider:Slider = new Slider();
 			const watcher:DisplayListWatcher = new DisplayListWatcher(slider);
 			
@@ -111,7 +111,7 @@ package slavara.as3.game.starling.gui.builders {
 			return slider;
 		}
 		
-		private function getFeathersScrollContainer(config:FeathersScrollContainerConfig):DisplayObject {
+		private function getScrollContainer(config:FeathersScrollContainerConfig):DisplayObject {
 			const container:ScrollContainer = new ScrollContainer();
 			
 			if (Validate.isNotNull(config.horizontalLayout)) {
@@ -128,7 +128,7 @@ package slavara.as3.game.starling.gui.builders {
 			return container;
 		}
 		
-		private function getFeathersProgressBar(config:FeathersProgressBarConfig):DisplayObject {
+		private function getProgressBar(config:FeathersProgressBarConfig):DisplayObject {
 			const progressBar:ProgressBar = new ProgressBar();
 			
 			if(Validate.isNotNull(config.backgroundSkin)) {
