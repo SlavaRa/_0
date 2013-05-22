@@ -37,6 +37,10 @@ package slavara.as3.game.starling.gui.configurations {
 		public var tex:BaseEnum;
 		public var children:Vector.<GUIConfig>;
 		
+		public function setName(enum:BaseEnum):void {
+			name = enum.toString();
+		}
+		
 		public function setxy(x:Number = 0, y:Number = 0):void {
 			this.x = x;
 			this.y = y;
