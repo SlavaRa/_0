@@ -11,6 +11,7 @@ package slavara.as3.game.starling.enums {
 		
 		public static const ARP:BaseEnum = new ResBundleNameEnum("arp");
 		public static const ARP_LOGOTYPE:BaseEnum = new ResBundleNameEnum("ARPLogo");
+		public static const FONTS:BaseEnum = new ResBundleNameEnum("Fonts");
 		
 		public function ResBundleNameEnum(num:String){
 			super(num);

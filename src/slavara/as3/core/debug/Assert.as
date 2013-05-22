@@ -14,6 +14,12 @@ package slavara.as3.core.debug {
 			}
 		}
 		
+		public static function isFalse(b:Boolean, message:String = ""):void {
+			if(!b) {
+				new Error(message);
+			}
+		}
+		
 		public static function isNull(object:Object, message:String = ""):void {
 			if(Validate.isNull(object)) {
 				Error.throwError(TypeError, 1009, message);
