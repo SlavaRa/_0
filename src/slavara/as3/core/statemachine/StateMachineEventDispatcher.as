@@ -14,7 +14,7 @@ package slavara.as3.core.statemachine {
 	 */
 	public class StateMachineEventDispatcher implements IDestroyable{
 		
-		private static function validateListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
+		private static function validator(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
 			Assert.isNull(from, "from");
 			Assert.isNull(to, "to");
 			Assert.isNull(listener, "listener");
@@ -28,7 +28,8 @@ package slavara.as3.core.statemachine {
 			initialize();
 		}
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		//{ region INTERFACE slavara.as3.core.utils.IDestroyable
+		
 		public function destroy():void {
 			Assert.isTrue(_isDestroyed);
 			removeTransitionListeners();
@@ -36,17 +37,18 @@ package slavara.as3.core.statemachine {
 			_isDestroyed = true;
 		}
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function get isDestroyed():Boolean {
 			return _isDestroyed;
 		}
+		
+		//} endregion INTERFACE slavara.as3.core.utils.IDestroyable
 		
 		public function reset():void {
 			Collection.clear(_transitionListeners);
 		}
 		
 		public function addTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
-			validateListener(from, to, listener);
+			validator(from, to, listener);
 			
 			if (Validate.isNull(_transitionListeners[from])) {
 				_transitionListeners[from] = new Dictionary(true);
@@ -54,7 +56,7 @@ package slavara.as3.core.statemachine {
 			
 			var listeners:Vector.<Function/*():void*/> = _transitionListeners[from][to];
 			if (Validate.isNull(listeners)) {
-				listeners = _transitionListeners[from][to] = new <Function>[];
+				listeners = _transitionListeners[from][to] = new <Function/*():void*/>[];
 			}
 			
 			if(!Collection.exists(listener, listeners)) {
@@ -63,7 +65,7 @@ package slavara.as3.core.statemachine {
 		}
 		
 		public function removeTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
-			validateListener(from, to, listener);
+			validator(from, to, listener);
 			
 			const toState2listeners:Dictionary = Dictionary(_transitionListeners[from]);
 			if (Validate.isNull(toState2listeners)) {
