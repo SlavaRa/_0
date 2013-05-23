@@ -15,13 +15,14 @@ package slavara.as3.game.starling.display {
 		
 		public function BaseView(data:IStateMachineHolder = null) {
 			super();
-			_data = Validate.isNotNull(data) ? data.stateMachine : null;
+			_dataStateMachine = Validate.isNotNull(data) ? data.stateMachine : null;
 			addListeners();
 			initialize();
 			configureStateMachine();
 		}
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
+		//{ region INTERFACE slavara.as3.core.utils.IDestroyable
+		
 		public function destroy():void {
 			Assert.isTrue(_isDestroyed);
 			removeEventListeners();
@@ -30,10 +31,11 @@ package slavara.as3.game.starling.display {
 			_isDestroyed = true;
 		}
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function get isDestroyed():Boolean {
 			return _isDestroyed;
 		}
+		
+		//} endregion INTERFACE slavara.as3.core.utils.IDestroyable
 		
 		protected var stateMachine:StateMachine;
 		
@@ -55,9 +57,9 @@ package slavara.as3.game.starling.display {
 		protected function onRemovedFromStage():void {
 		}
 		
-		private var _data:IStateMachine;
 		private var _isDestroyed:Boolean;
 		private var _onAddedToStage:Boolean;
+		private var _dataStateMachine:IStateMachine;
 		
 		private function addListeners():void {
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStageHandler);
@@ -80,24 +82,24 @@ package slavara.as3.game.starling.display {
 		
 		private function initializeStateMachine():void {
 			stateMachine = new StateMachine();
-			if(Validate.isNull(_data)) {
+			if(Validate.isNull(_dataStateMachine)) {
 				return;
 			}
-			_data.onChange.add(onDataChange);
-			_data.onReset.add(stateMachine.reset);
+			_dataStateMachine.onChange.add(onDataChange);
+			_dataStateMachine.onReset.add(stateMachine.reset);
 		}
 		
 		private function onDataChange():void {
-			stateMachine.setState(_data.currentState);
+			stateMachine.setState(_dataStateMachine.currentState);
 		}
 		
 		private function destroyDataStateMachine():void {
-			if(Validate.isNull(_data)) {
+			if(Validate.isNull(_dataStateMachine)) {
 				return;
 			}
-			_data.onChange.remove(stateMachine.setState);
-			_data.onReset.remove(stateMachine.reset);
-			_data = null;
+			_dataStateMachine.onChange.remove(stateMachine.setState);
+			_dataStateMachine.onReset.remove(stateMachine.reset);
+			_dataStateMachine = null;
 		}
 		
 		private function destroyStateMachine():void {
