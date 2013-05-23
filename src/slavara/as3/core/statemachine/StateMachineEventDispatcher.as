@@ -25,7 +25,7 @@ package slavara.as3.core.statemachine {
 			if (Object(this).constructor === StateMachineEventDispatcher) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
-			_isDestroyed = false;
+			initialize();
 		}
 		
 		/* INTERFACE slavara.as3.core.utils.IDestroyable */
@@ -42,7 +42,7 @@ package slavara.as3.core.statemachine {
 		}
 		
 		public function reset():void {
-			_transitionListeners = new Dictionary(true);
+			Collection.clear(_transitionListeners);
 		}
 		
 		public function addTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
@@ -93,6 +93,11 @@ package slavara.as3.core.statemachine {
 				Collection.clear(_transitionListeners[key]);
 				delete _transitionListeners[key];
 			}
+		}
+		
+		protected function initialize():void {
+			_isDestroyed = false;
+			_transitionListeners = new Dictionary(true);
 		}
 		
 		protected function broadcastStateChange(from:BaseEnum, to:BaseEnum):void {

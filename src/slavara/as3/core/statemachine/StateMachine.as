@@ -1,35 +1,93 @@
 package slavara.as3.core.statemachine {
 	import flash.utils.Dictionary;
+	import org.osflash.signals.Signal;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
+	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
 	
 	/**
 	 * @author SlavaRa
 	 */
-	public final class StateMachine extends StateMachineEventDispatcher {
+	public final class StateMachine extends StateMachineEventDispatcher implements IStateMachine {
 		
 		public function StateMachine() {
 			super();
 			reset();
 		}
 		
+		//{ region INTERFACE slavara.as3.core.statemachine.IStateMachine
+		
 		public override function reset():void {
-			_inTransition = false;
-			_canChangeState = true;
-			_transitions = new Dictionary(true);
 			super.reset();
+			_inTransition = false;
+			_transitions = new Dictionary(true);
+			_onReset.dispatch();
 		}
 		
+		public function setState(to:BaseEnum):void {
+			if (_inTransition) {
+				_queuedState = to;
+				return;
+			} else {
+				_queuedState = null;
+			}
+			
+			const curState2toState:Dictionary = _transitions[_curState] as Dictionary;
+			if (Validate.isNull(curState2toState)) {
+				return;
+			}
+			
+			const transition:Transition = curState2toState[to] as Transition;
+			if (Validate.isNull(transition)) {
+				return;
+			}
+			
+			_prevState = _curState;
+			
+			if (transition.simple) {
+				_curState = transition.to;
+				_onChange.dispatch();
+				broadcastStateChange(transition.from, transition.to);
+			} else {
+				_inTransition = true;
+				_statesQueue = transition.queue;
+				setNextQueuedState();
+			}
+		}
+		
+		public function get onChange():Signal {
+			return _onChange;
+		}
+		
+		public function get onReset():Signal {
+			return _onReset;
+		}
+		
+		public function get currentState():BaseEnum {
+			return _curState;
+		}
+		
+		public function get previousState():BaseEnum {
+			return _prevState;
+		}
+		
+		//} endregion INTERFACE slavara.as3.core.statemachine.IStateMachine
+		
 		public override function destroy():void {
-			_canChangeState = false;
-			_currentState = null;
-			_previousState = null;
+			_curState = null;
+			_prevState = null;
 			_transitions = null;
 			_inTransition = false;
 			_statesQueue = null;
 			_queuedState = null;
 			super.destroy();
+		}
+		
+		protected override function initialize():void {
+			super.initialize();
+			_onChange = new Signal();
+			_onReset = new Signal();
 		}
 		
 		/**
@@ -38,8 +96,8 @@ package slavara.as3.core.statemachine {
 		public function add(from:BaseEnum, to:BaseEnum = null, via:* = null):void {
 			Assert.isNull(from, "from");
 			
-			if (Validate.isNull(_currentState)) {
-				_currentState = from;
+			if (Validate.isNull(_curState)) {
+				_curState = from;
 			}
 			
 			if (Validate.isNull(to)) {
@@ -64,61 +122,33 @@ package slavara.as3.core.statemachine {
 			toState2Transition[to] = new Transition(from, to, via);
 		}
 		
-		public function setState(to:BaseEnum):void {
-			if (_inTransition && _canChangeState) {
-				_queuedState = to;
-				return;
-			} else {
-				_queuedState = null;
-			}
-			
-			const curState2toState:Dictionary = _transitions[_currentState] as Dictionary;
-			if (Validate.isNull(curState2toState)) {
-				return;
-			}
-			
-			const transition:Transition = curState2toState[to] as Transition;
-			if (Validate.isNull(transition)) {
-				return;
-			}
-			
-			_previousState = _currentState;
-			
-			if (transition.simple) {
-				_currentState = transition.to;
-				broadcastStateChange(transition.from, transition.to);
-			} else {
-				_inTransition = true;
-				_statesQueue = transition.queue;
-				setNextQueuedState();
-			}
-		}
-		
 		public function release():void {
 			setNextQueuedState();
 		}
 		
-		private var _canChangeState:Boolean;
-		private var _currentState:BaseEnum;
-		private var _previousState:BaseEnum;
+		private var _curState:BaseEnum;
+		private var _prevState:BaseEnum;
 		private var _transitions:Dictionary;
 		private var _inTransition:Boolean;
 		private var _statesQueue:Vector.<BaseEnum>;
 		private var _queuedState:BaseEnum;
+		private var _onChange:Signal;
+		private var _onReset:Signal;
 		
 		private function setNextQueuedState():void {
-			_previousState = _currentState;
-			_currentState = _statesQueue.shift();
+			_prevState = _curState;
+			_curState = _statesQueue.shift();
+			_onChange.dispatch();
 			
-			broadcastStateChange(_previousState, _currentState);
+			broadcastStateChange(_prevState, _curState);
 			
-			if (_statesQueue.length === 0) {
+			if (Collection.isEmpty(_statesQueue)) {
 				_inTransition = false;
 			}
 			
-			if (!_inTransition || Validate.isNotNull(_transitions[_currentState])) {
+			if (!_inTransition || Validate.isNotNull(_transitions[_curState])) {
 				if (Validate.isNotNull(_queuedState)) {
-					if (_transitions[_currentState][_queuedState] is Transition) {
+					if (_transitions[_curState][_queuedState] is Transition) {
 						_inTransition = false;
 						_statesQueue = null;
 						setState(_queuedState);
@@ -127,22 +157,6 @@ package slavara.as3.core.statemachine {
 					setNextQueuedState();
 				}
 			}
-		}
-		
-		public function get canChangeState():Boolean {
-			return _canChangeState;
-		}
-		
-		public function set canChangeState(value:Boolean):void {
-			_canChangeState = value;
-		}
-		
-		public function get currentState():BaseEnum {
-			return _currentState;
-		}
-		
-		public function get previousState():BaseEnum {
-			return _previousState;
 		}
 		
 	}
