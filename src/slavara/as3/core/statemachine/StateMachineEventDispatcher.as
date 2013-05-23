@@ -22,7 +22,7 @@ package slavara.as3.core.statemachine {
 		
 		public function StateMachineEventDispatcher() {
 			super();
-			if ((this as Object).constructor === StateMachineEventDispatcher) {
+			if (Object(this).constructor === StateMachineEventDispatcher) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 			_isDestroyed = false;
@@ -42,7 +42,7 @@ package slavara.as3.core.statemachine {
 		}
 		
 		public function reset():void {
-			_transitionListeners = new Dictionary(true)
+			_transitionListeners = new Dictionary(true);
 		}
 		
 		public function addTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {

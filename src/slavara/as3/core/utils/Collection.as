@@ -133,9 +133,8 @@ package slavara.as3.core.utils {
 					return false;
 				}
 			}
-			return false;
+			return true;
 		}
-		
 		
 		public static function isNotEmpty(collection:Object):Boolean {
 			return !isEmpty(collection);
@@ -155,7 +154,7 @@ package slavara.as3.core.utils {
 		
 		public function Collection() {
 			super();
-			if ((this as Object).constructor === Collection) {
+			if (Object(this).constructor === Collection) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}

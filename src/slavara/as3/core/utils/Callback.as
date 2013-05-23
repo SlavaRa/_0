@@ -6,7 +6,6 @@ package slavara.as3.core.utils {
 	 */
 	public final class Callback {
 		
-		
 		public static function call(callback:Function, args:Array = null):void {
 			if (Validate.isNull(callback)) {
 				return;

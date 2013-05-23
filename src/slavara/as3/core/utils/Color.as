@@ -32,7 +32,7 @@ package slavara.as3.core.utils {
 		
 		public function Color() {
 			super();
-			if ((this as Object).constructor === Color) {
+			if (Object(this).constructor === Color) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}

@@ -84,7 +84,7 @@ package slavara.as3.core.utils {
 		
 		public function Validate() {
 			super();
-			if ((this as Object).constructor === Validate) {
+			if (Object(this).constructor === Validate) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}

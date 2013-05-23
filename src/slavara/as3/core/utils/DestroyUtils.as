@@ -19,10 +19,6 @@ package slavara.as3.core.utils {
 	 * @author SlavaRa
 	 */
 	public final class DestroyUtils {
-		// NAMESPACES --------------------------------------------------------------------------/
-		// CLASS VARIABLES ---------------------------------------------------------------------/
-		// CLASS PROPERTIES --------------------------------------------------------------------/
-		// CLASS METHODS -----------------------------------------------------------------------/
 		
 		public static function destroy(object:*, safeMode:Boolean = true):void {
 			if (object) {
@@ -103,27 +99,13 @@ package slavara.as3.core.utils {
 			child.mask = null;
 		}
 		
-		// CONSTRUCTOR -------------------------------------------------------------------------/
-		
 		[ExcludeClass]
 		public function DestroyUtils() {
 			super();
-			if ((this as Object).constructor === DestroyUtils) {
+			if (Object(this).constructor === DestroyUtils) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}
 		
-		// OVERRIDEN PROPERTIES ----------------------------------------------------------------/
-		// OVERRIDEN METHODS -------------------------------------------------------------------/
-		// IMPLEMENTED METHODS -----------------------------------------------------------------/
-		// PUBLIC PROPERTIES -------------------------------------------------------------------/
-		// PUBLIC METHODS ----------------------------------------------------------------------/
-		// PROTECTED PROPERTIES ----------------------------------------------------------------/
-		// PROTECTED METHODS -------------------------------------------------------------------/
-		// PRIVATE PROPERTIES ------------------------------------------------------------------/
-		// PRIVATE METHODS ---------------------------------------------------------------------/
-		// EVENT HANDLERS ----------------------------------------------------------------------/
-		// ACCESSORS ---------------------------------------------------------------------------/
-		// DEPRECATED --------------------------------------------------------------------------/
 	}
 }
