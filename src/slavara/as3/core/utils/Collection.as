@@ -99,8 +99,12 @@ package slavara.as3.core.utils {
 				if(pos < 0) {
 					pos = 0;
 				}
+				const length:int = collection.length - 1;
+				if(pos > length) {
+					pos = length;
+				}
 				const item:* = collection[pos];
-				for (var i:int = pos, length:int = collection.length - 1; i < length; i++) {
+				for (var i:int = pos; i < length; i++) {
 					collection[i] = collection[i + 1];
 				}
 				if(isVector) {
@@ -114,6 +118,7 @@ package slavara.as3.core.utils {
 		
 		/**
 		 * for Object, Dictionary, Array, Vector
+		 * XXX: check this for Vector.<*>
 		 */
 		public static function exists(item:*, collection:Object):Boolean {
 			Assert.isNull(collection, "collection");

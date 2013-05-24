@@ -92,10 +92,10 @@ class CommandListener {
 	public var commandDispatcher:CommandDispatcher;
 	
 	public function handler(event:CommandEvent):void {
-		try {
+		//try {
 			listener.apply(null, event.command);
-		} catch (error:*) {
-			commandDispatcher.dispatchError(error);
-		}
+		//} catch (error:*) {
+			//commandDispatcher.dispatchError(error);
+		//}
 	}
 }
