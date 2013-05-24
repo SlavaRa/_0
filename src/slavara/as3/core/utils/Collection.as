@@ -118,7 +118,6 @@ package slavara.as3.core.utils {
 		
 		/**
 		 * for Object, Dictionary, Array, Vector
-		 * XXX: check this for Vector.<*>
 		 */
 		public static function exists(item:*, collection:Object):Boolean {
 			Assert.isNull(collection, "collection");
