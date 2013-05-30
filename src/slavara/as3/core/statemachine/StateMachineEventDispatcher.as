@@ -56,7 +56,7 @@ package slavara.as3.core.statemachine {
 			
 			var listeners:Vector.<Function/*():void*/> = _transitionListeners[from][to];
 			if (Validate.isNull(listeners)) {
-				listeners = _transitionListeners[from][to] = new <Function/*():void*/>[];
+				listeners = _transitionListeners[from][to] = new <Function>[];/*():void*/
 			}
 			
 			if(!Collection.exists(listener, listeners)) {
