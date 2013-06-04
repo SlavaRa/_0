@@ -51,7 +51,6 @@ package slavara.as3.core.utils {
 			return false;
 		}
 		
-		
 		public static function isArray(array:Object):Boolean {
 			return (array is Array) || (array is ByteArray);
 		}
@@ -80,6 +79,19 @@ package slavara.as3.core.utils {
 				}
 			}
 			return false;
+		}
+		
+		public static function existsInString(pattern:String, string:String, strict:Boolean = true):Boolean {
+			if (stringIsNullOrEmpty(pattern)) {
+				return false;
+			}
+			if (stringIsNullOrEmpty(string)) {
+				return false;
+			}
+			if(!strict) {
+				string.toLowerCase().indexOf(pattern.toLowerCase()) != -1;
+			}
+			return string.indexOf(pattern) != -1
 		}
 		
 		public function Validate() {
