@@ -73,6 +73,7 @@ package slavara.as3.game.starling.managers {
 			for each (var item:IResBundle in _bundles) {
 				item.unload();
 			}
+			Collection.clear(_bundles);
 			
 			_isLoaded = false;
 		}
