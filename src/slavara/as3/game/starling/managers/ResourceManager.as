@@ -1,7 +1,6 @@
 package slavara.as3.game.starling.managers {
 
 	import arp.remote.registerARP;
-	import feathers.text.BitmapFontTextFormat;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.debug.Assert;
@@ -9,10 +8,7 @@ package slavara.as3.game.starling.managers {
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.enums.ResBundleNameEnum;
-	import slavara.as3.game.starling.resources.BaseFontResBundle;
 	import slavara.as3.game.starling.resources.IResBundle;
-	import starling.text.BitmapFont;
-	import starling.text.TextField;
 	import starling.textures.Texture;
 	
 	/**
@@ -22,17 +18,13 @@ package slavara.as3.game.starling.managers {
 		
 		private static const _ENUM_2_BUNDLE:Dictionary = new Dictionary(false);
 		
+		public static function getTextureFromARPBundle(texName:BaseEnum):Texture {
+			const bundle:IResBundle = (_ENUM_2_BUNDLE[ResBundleNameEnum.ARP] as IResBundle);
+			return bundle ? bundle.getTexture(texName) : null;
+		}
+		
 		private static var _instance:ResourceManager;
 		private static var _isInitialized:Boolean = true;
-		
-		public static function getBitmapFontTextFormat(fontName:BaseEnum, size:Number = NaN, color:uint = 16777215, align:String = "left"):BitmapFontTextFormat {
-			CONFIG::debug
-			{
-				Assert.isFalse(instance.fontIsRegistered(fontName), ("You should register font: " + fontName.toString()));
-			}
-			
-			return new BitmapFontTextFormat(instance.getFont(fontName), size, color, align);
-		}
 		
 		public static function get instance():ResourceManager {
 			if (!_instance) {
@@ -41,11 +33,6 @@ package slavara.as3.game.starling.managers {
 				_isInitialized = true;
 			}
 			return _instance;
-		}
-		
-		public static function getTextureFromARPBundle(texName:BaseEnum):Texture {
-			const bundle:IResBundle = (_ENUM_2_BUNDLE[ResBundleNameEnum.ARP] as IResBundle);
-			return bundle ? bundle.getTexture(texName) : null;
 		}
 		
 		public function ResourceManager() {
@@ -98,7 +85,7 @@ package slavara.as3.game.starling.managers {
 			}
 		}
 		
-		public function unloadBundles():void {
+		public function unloadAll():void {
 			if (!_isLoaded) {
 				return;
 			}
@@ -110,58 +97,15 @@ package slavara.as3.game.starling.managers {
 			_isLoaded = false;
 		}
 		
-		public function hasBundle(name:BaseEnum):Boolean {
+		public function has(name:BaseEnum):Boolean {
 			return Boolean(_ENUM_2_BUNDLE[name]);
 		}
 		
-		public function getBundle(name:BaseEnum):IResBundle {
-			if (!hasBundle(name)) {
+		public function getByName(name:BaseEnum):IResBundle {
+			if (!has(name)) {
 				return null;
 			}
 			return IResBundle(_ENUM_2_BUNDLE[name]);
-		}
-		
-		public function fontIsRegistered(name:BaseEnum):Boolean {
-			CONFIG::debug
-			{
-				Assert.isNull(name, "name");
-			}
-			
-			return Validate.isNotNull(TextField.getBitmapFont(name.toString()));
-		}
-		
-		public function registerFont(name:BaseEnum):void {
-			CONFIG::debug
-			{
-				Assert.isNull(name, "name");
-			}
-			
-			if(!hasBundle(ResBundleNameEnum.FONTS)) {
-				return;
-			}
-			const bundle:BaseFontResBundle = BaseFontResBundle(getBundle(ResBundleNameEnum.FONTS));
-			if(Validate.isNull(bundle.has(ResBundleNameEnum.FONTS))){
-				return;
-			}
-			TextField.registerBitmapFont(bundle.getBitmapFont(name), name.toString());
-		}
-		
-		public function getFont(name:BaseEnum):BitmapFont {
-			CONFIG::debug
-			{
-				Assert.isNull(name, "name");
-			}
-			
-			return TextField.getBitmapFont(name.toString());
-		}
-		
-		public function unregisterFont(name:BaseEnum, dispose:Boolean = true):void {
-			CONFIG::debug
-			{
-				Assert.isNull(name, "name");
-			}
-			
-			TextField.unregisterBitmapFont(name.toString(), dispose);
 		}
 		
 		private var _bundles:Vector.<IResBundle>;
