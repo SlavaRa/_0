@@ -1,5 +1,4 @@
 package slavara.as3.game.starling.display {
-	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.statemachine.IStateMachine;
 	import slavara.as3.core.statemachine.StateMachine;
 	import slavara.as3.core.utils.IDestroyable;
@@ -11,20 +10,22 @@ package slavara.as3.game.starling.display {
 	/**
 	 * @author SlavaRa
 	 */
-	public class BaseView extends Sprite implements IDestroyable {
+	public class StarlingBaseView extends Sprite implements IDestroyable {
 		
-		public function BaseView(data:IStateMachineHolder = null) {
+		public function StarlingBaseView(data:IStateMachineHolder = null) {
 			super();
 			_dataStateMachine = Validate.isNotNull(data) ? data.stateMachine : null;
-			addListeners();
 			initialize();
+			addListeners();
 			configureStateMachine();
 		}
 		
 		//{ region INTERFACE slavara.as3.core.utils.IDestroyable
 		
 		public function destroy():void {
-			Assert.isTrue(_isDestroyed);
+			if(_isDestroyed) {
+				return;
+			}
 			removeEventListeners();
 			destroyDataStateMachine();
 			destroyStateMachine();
@@ -94,9 +95,6 @@ package slavara.as3.game.starling.display {
 		}
 		
 		private function destroyDataStateMachine():void {
-			if(Validate.isNull(_dataStateMachine)) {
-				return;
-			}
 			_dataStateMachine.onChange.remove(stateMachine.setState);
 			_dataStateMachine.onReset.remove(stateMachine.reset);
 			_dataStateMachine = null;

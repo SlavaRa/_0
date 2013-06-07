@@ -18,8 +18,12 @@ package slavara.as3.game.starling.resources {
 		private static const _BITMAP_DATAS_HASH:Object = new Dictionary(false);
 		
 		public function BaseResBundle(name:BaseEnum, assetsHash:Dictionary) {
-			Assert.isNull(name, "name");
-			Assert.isNull(assetsHash, "assetsHash");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+				Assert.isNull(assetsHash, "assetsHash");
+			}
+			
 			super();
 			_isLoaded = false;
 			_onLoadComplete = new Signal(BaseResBundle);
@@ -29,8 +33,11 @@ package slavara.as3.game.starling.resources {
 		
 		/* INTERFACE manager.IResourceBundle */
 		public function load():void {
-			if (_onLoadComplete.numListeners === 0) {
-				throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
+			CONFIG::debug
+			{
+				if (_onLoadComplete.numListeners === 0) {
+					throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
+				}
 			}
 			
 			if (!isLoaded) {

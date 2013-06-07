@@ -19,8 +19,12 @@ package slavara.as3.core.data {
 		
 		public function Data() {
 			super();
-			if ((this as Object).constructor === Data) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if ((this as Object).constructor === Data) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

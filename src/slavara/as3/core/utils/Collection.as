@@ -39,7 +39,10 @@ package slavara.as3.core.utils {
 		 * pos = collection.length if pos >= collection.length;
 		 */
 		public static function insert(item:*, pos:int, collection:Object):*{
-			Assert.isNull(collection, "collection");
+			CONFIG::debug
+			{
+				Assert.isNull(collection, "collection");
+			}
 			
 			const isVector:Boolean = Validate.isVector(collection);
 			if(Validate.isArray(collection) || isVector) {
@@ -64,7 +67,10 @@ package slavara.as3.core.utils {
 		 * for Object, Dictionary, Array, ByteArray, Vector
 		 */
 		public static function remove(item:*, collection:Object):* {
-			Assert.isNull(collection, "collection");
+			CONFIG::debug
+			{
+				Assert.isNull(collection, "collection");
+			}
 			
 			const isVector:Boolean = Validate.isVector(collection);
 			if(Validate.isArray(collection) || isVector) {
@@ -92,7 +98,10 @@ package slavara.as3.core.utils {
 		 * pos = 0 if pos < 0
 		 */
 		public static function removeAt(pos:int, collection:Object):*{
-			Assert.isNull(collection, "collection");
+			CONFIG::debug
+			{
+				Assert.isNull(collection, "collection");
+			}
 			
 			const isVector:Boolean = Validate.isVector(collection);
 			if((collection is Array) || (collection is ByteArray) || isVector) {
@@ -120,7 +129,10 @@ package slavara.as3.core.utils {
 		 * for Object, Dictionary, Array, Vector
 		 */
 		public static function exists(item:*, collection:Object):Boolean {
-			Assert.isNull(collection, "collection");
+			CONFIG::debug
+			{
+				Assert.isNull(collection, "collection");
+			}
 			
 			if((collection is Array) || Validate.isVector(collection)) {
 				return collection.indexOf(item) !== -1;
@@ -158,8 +170,12 @@ package slavara.as3.core.utils {
 		
 		public function Collection() {
 			super();
-			if (Object(this).constructor === Collection) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === Collection) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

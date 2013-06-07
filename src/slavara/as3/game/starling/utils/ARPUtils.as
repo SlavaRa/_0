@@ -45,8 +45,12 @@ package slavara.as3.game.starling.utils {
 		
 		public function ARPUtils() {
 			super();
-			if (Object(this).constructor === ARPUtils) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === ARPUtils) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

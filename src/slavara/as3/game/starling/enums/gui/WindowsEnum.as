@@ -19,11 +19,16 @@ package slavara.as3.game.starling.enums.gui {
 			NAMES.fixed = true;
 		}
 		
-		public function WindowsEnum(num:String){
+		public function WindowsEnum(num:String) {
 			super(num);
-			if (_lockUp) {
-				throw new Error("This enum vas already initialized");
+			
+			CONFIG::debug
+			{
+				if (_lockUp) {
+					throw new Error("This enum vas already initialized");
+				}
 			}
+			
 			VALUES.push(this);
 			NAMES.push(num);
 		}

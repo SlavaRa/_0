@@ -15,13 +15,21 @@ package slavara.as3.game.starling.resources {
 		
 		public function BaseFontResBundle(name:BaseEnum) {
 			super(name, NAME_2_SOURCE)
-			if (Object(this).constructor === BaseFontResBundle) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === BaseFontResBundle) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		
 		public function getBitmapFont(name:BaseEnum):BitmapFont {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			if (!(hasAtlas(name) && hasConfig(name))) {
 				return null;
 			}

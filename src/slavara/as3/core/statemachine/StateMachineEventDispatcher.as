@@ -22,16 +22,23 @@ package slavara.as3.core.statemachine {
 		
 		public function StateMachineEventDispatcher() {
 			super();
-			if (Object(this).constructor === StateMachineEventDispatcher) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === StateMachineEventDispatcher) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
+			
 			initialize();
 		}
 		
 		//{ region INTERFACE slavara.as3.core.utils.IDestroyable
 		
 		public function destroy():void {
-			Assert.isTrue(_isDestroyed);
+			if(_isDestroyed){
+				return;
+			}
 			removeTransitionListeners();
 			_transitionListeners = null;
 			_isDestroyed = true;
@@ -48,7 +55,10 @@ package slavara.as3.core.statemachine {
 		}
 		
 		public function addTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
-			validator(from, to, listener);
+			CONFIG::debug
+			{
+				validator(from, to, listener);
+			}
 			
 			if (Validate.isNull(_transitionListeners[from])) {
 				_transitionListeners[from] = new Dictionary(true);
@@ -65,7 +75,10 @@ package slavara.as3.core.statemachine {
 		}
 		
 		public function removeTransitionListener(from:BaseEnum, to:BaseEnum, listener:Function/*():void*/):void {
-			validator(from, to, listener);
+			CONFIG::debug
+			{
+				validator(from, to, listener);
+			}
 			
 			const toState2listeners:Dictionary = Dictionary(_transitionListeners[from]);
 			if (Validate.isNull(toState2listeners)) {

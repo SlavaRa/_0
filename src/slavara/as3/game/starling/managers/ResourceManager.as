@@ -26,7 +26,11 @@ package slavara.as3.game.starling.managers {
 		private static var _isInitialized:Boolean = true;
 		
 		public static function getBitmapFontTextFormat(fontName:BaseEnum, size:Number = NaN, color:uint = 16777215, align:String = "left"):BitmapFontTextFormat {
-			Assert.isFalse(instance.fontIsRegistered(fontName), ("You should register font: " + fontName.toString()));
+			CONFIG::debug
+			{
+				Assert.isFalse(instance.fontIsRegistered(fontName), ("You should register font: " + fontName.toString()));
+			}
+			
 			return new BitmapFontTextFormat(instance.getFont(fontName), size, color, align);
 		}
 		
@@ -46,16 +50,25 @@ package slavara.as3.game.starling.managers {
 		
 		public function ResourceManager() {
 			super();
-			if (_isInitialized) {
-				throw new Error("Singleton, use ResourceManager.instance");
+			
+			CONFIG::debug
+			{
+				if (_isInitialized) {
+					throw new Error("Singleton, use ResourceManager.instance");
+				}
 			}
+			
 			_isLoaded = false;
 			_onLoadComplete = new Signal();
 			registerARP();
 		}
 		
 		public function setup(bundles:Vector.<IResBundle>):void {
-			Assert.isNull(bundles, "bundles");
+			CONFIG::debug
+			{
+				Assert.isNull(bundles, "bundles");
+			}
+			
 			if(Validate.isNull(_bundles)) {
 				_bundles = bundles;
 			} else if(Collection.isNotEmpty(bundles)) {
@@ -65,8 +78,11 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function loadBundles():void {
-			if (_onLoadComplete.numListeners === 0) {
-				throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
+			CONFIG::debug
+			{
+				if (_onLoadComplete.numListeners === 0) {
+					throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
+				}
 			}
 			
 			if (!_isLoaded && Collection.isNotEmpty(_bundles)) {
@@ -106,12 +122,20 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function fontIsRegistered(name:BaseEnum):Boolean {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			return Validate.isNotNull(TextField.getBitmapFont(name.toString()));
 		}
 		
 		public function registerFont(name:BaseEnum):void {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			if(!hasBundle(ResBundleNameEnum.FONTS)) {
 				return;
 			}
@@ -123,12 +147,20 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function getFont(name:BaseEnum):BitmapFont {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			return TextField.getBitmapFont(name.toString());
 		}
 		
 		public function unregisterFont(name:BaseEnum, dispose:Boolean = true):void {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			TextField.unregisterBitmapFont(name.toString(), dispose);
 		}
 		

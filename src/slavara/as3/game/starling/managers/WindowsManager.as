@@ -34,15 +34,24 @@ package slavara.as3.game.starling.managers {
 		
 		public function WindowsManager() {
 			super();
-			if (_isInitialized) {
-				throw new Error("Singleton, use WindowsManager.instance");
+			
+			CONFIG::debug
+			{
+				if (_isInitialized) {
+					throw new Error("Singleton, use WindowsManager.instance");
+				}
 			}
+			
 			initialize();
 		}
 		
 		public function setup(enum2window:Dictionary, container:DisplayObjectContainer):WindowsManager {
-			Assert.isNull(enum2window, "enum2window");
-			Assert.isNull(container, "container");
+			CONFIG::debug
+			{
+				Assert.isNull(enum2window, "enum2window");
+				Assert.isNull(container, "container");
+			}
+			
 			if (Validate.isNull(_enum2window)) {
 				_enum2window = enum2window;
 				_container = container;
@@ -57,7 +66,11 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function alert(uri:BaseEnum):BaseWindow {
-			Assert.isNull(uri, "uri");
+			CONFIG::debug
+			{
+				Assert.isNull(uri, "uri");
+			}
+			
 			if (canNotOpenWindowOrAlert(uri)) {
 				return null;
 			}
@@ -78,7 +91,11 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function show(uri:BaseEnum):BaseWindow {
-			Assert.isNull(uri, "uri");
+			CONFIG::debug
+			{
+				Assert.isNull(uri, "uri");
+			}
+			
 			if (canNotOpenWindowOrAlert(uri)) {
 				return null;
 			}

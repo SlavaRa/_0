@@ -13,10 +13,14 @@ package slavara.as3.core.controllers {
 	public class BaseController extends CommandDispatcher implements IBaseController, IDestroyable {
 		
 		public function BaseController(container:DisplayObjectContainer, data:Data) {
-			Assert.isNull(container, "container");
-			Assert.isNull(data, "data");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(data, "data");
+			}
+			
 			super();
-			if ((this as Object).constructor === BaseController) {
+			if (Object(this).constructor === BaseController) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 			_container = container;

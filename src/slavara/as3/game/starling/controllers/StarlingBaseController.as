@@ -13,8 +13,12 @@ package slavara.as3.game.starling.controllers {
 	public class StarlingBaseController extends CommandDispatcher implements IStarlingBaseController, IDestroyable {
 		
 		public function StarlingBaseController(container:DisplayObjectContainer, data:Data) {
-			Assert.isNull(container, "container");
-			Assert.isNull(data, "data");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(data, "data");
+			}
+			
 			super();
 			if (Object(this).constructor === StarlingBaseController) {
 				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
@@ -42,6 +46,9 @@ package slavara.as3.game.starling.controllers {
 		
 		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function destroy():void {
+			if(_isDestroyed){
+				return;
+			}
 			removeCommandListeners();
 			_data = null;
 			_container = null;

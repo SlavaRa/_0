@@ -11,15 +11,22 @@ package slavara.as3.core.data {
 		
 		public function DataContainer() {
 			super();
-			if ((this as Object).constructor === DataContainer) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if ((this as Object).constructor === DataContainer) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 			_list = new <Data>[];
 		}
 		
 		public function addChild(child:Data):Data {
-			Assert.isNull(child, "child");
-			Assert.isThis(child, this);
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+				Assert.isThis(child, this);
+			}
 			
 			if (child.$parent === this)	{
 				$setChildIndex(child, _list.indexOf(child));
@@ -29,9 +36,12 @@ package slavara.as3.core.data {
 		}
 		
 		public function addChildAt(child:Data, index:int):Data {
-			Assert.isNull(child, "child");
-			Assert.indexLessThanOrMoreThan(index, 0, _list.length);
-			Assert.isThis(child, this);
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+				Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+				Assert.isThis(child, this);
+			}
 			
 			if (child.$parent === this) {
 				$setChildIndex(child, _list.indexOf(child));
@@ -41,14 +51,20 @@ package slavara.as3.core.data {
 		}
 		
 		public function removeChild(child:Data):Data {
-			Assert.isNull(child, "child");
-			Assert.isThis(child, this);
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+				Assert.isThis(child, this);
+			}
 			
 			return Data(Collection.remove(child, _list));
 		}
 		
 		public function removeChildAt(index:int):Data {
-			Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			CONFIG::debug
+			{
+				Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			}
 			
 			return $removeChildAt(index);
 		}
@@ -62,9 +78,12 @@ package slavara.as3.core.data {
 			
 			const length:int = endIndex - startIndex;
 			
-			Assert.indexLessThan(length, 0);
-			Assert.indexLessThan(startIndex, 0);
-			Assert.indexMoreThan(endIndex, _list.length);
+			CONFIG::debug
+			{
+				Assert.indexLessThan(length, 0);
+				Assert.indexLessThan(startIndex, 0);
+				Assert.indexMoreThan(endIndex, _list.length);
+			}
 			
 			if (length > 0) {
 				for each (var child:Data in _list.splice(startIndex, length)) {
@@ -74,7 +93,10 @@ package slavara.as3.core.data {
 		}
 		
 		public function getChildAt(index:int):Data {
-			Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			CONFIG::debug
+			{
+				Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			}
 			
 			return _list[index];
 		}
@@ -89,21 +111,30 @@ package slavara.as3.core.data {
 		}
 		
 		public function getChildIndex(child:Data):int {
-			Assert.isNull(child, "child");
-			Assert.isNotThis(child, $parent);
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+				Assert.isNotThis(child, $parent);
+			}
 			
 			return _list.indexOf(child);
 		}
 		
 		public function setChildIndex(child:Data, index:int):void {
-			Assert.isNull(child, "child");
-			Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+				Assert.indexLessThanOrMoreThan(index, 0, _list.length);
+			}
 			
 			$setChildIndex(child, index);
 		}
 		
 		public function contains(child:Data):Boolean {
-			Assert.isNull(child, "child");
+			CONFIG::debug
+			{
+				Assert.isNull(child, "child");
+			}
 			
 			return $contains(child);
 		}

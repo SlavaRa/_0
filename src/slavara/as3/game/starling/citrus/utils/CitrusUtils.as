@@ -15,14 +15,22 @@ package slavara.as3.game.starling.citrus.utils {
 	public class CitrusUtils {
 		
 		public static function getObjectByEnum(container:StarlingState, enum:BaseEnum):CitrusObject {
-			Assert.isNull(container, "container");
-			Assert.isNull(enum, "enum");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(enum, "enum");
+			}
+			
 			return container.getObjectByName(enum.toString())
 		}
 		
 		public static function getObjectsByEnum(container:StarlingState, enum:BaseEnum):Vector.<CitrusObject> {
-			Assert.isNull(container, "container");
-			Assert.isNull(enum, "enum");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(enum, "enum");
+			}
+			
 			return container.getObjectsByName(enum.toString());
 		}
 		
@@ -35,8 +43,12 @@ package slavara.as3.game.starling.citrus.utils {
 		}
 		
 		public static function getSensorsWhitAnchor(container:StarlingState, anchor:BaseEnum):Vector.<Sensor> {
-			Assert.isNull(container, "container");
-			Assert.isNull(anchor, "enum");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(anchor, "enum");
+			}
+			
 			const objects:Vector.<CitrusObject> = container.getObjectsByType(Sensor);
 			const sensors:Vector.<Sensor> = new <Sensor>[];
 			for each (var item:CitrusObject in objects) {
@@ -53,8 +65,12 @@ package slavara.as3.game.starling.citrus.utils {
 		
 		public function CitrusUtils() {
 			super();
-			if (Object(this).constructor === CitrusUtils) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === CitrusUtils) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

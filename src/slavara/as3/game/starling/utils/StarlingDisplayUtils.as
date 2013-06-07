@@ -37,8 +37,12 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function getChildByEnum(container:DisplayObjectContainer, enum:BaseEnum):DisplayObject {
-			Assert.isNull(container, "container");
-			Assert.isNull(enum, "enum");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(enum, "enum");
+			}
+			
 			return container.getChildByName(enum.toString());
 		}
 		
@@ -51,8 +55,12 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function getChildByPath(container:DisplayObjectContainer, path:Vector.<BaseEnum>):DisplayObject {
-			Assert.isNull(container, "container");
-			Assert.isNull(path, "path");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(path, "path");
+			}
+			
 			const length:int = path.length;
 			for (var i:int = 0; i < length; i++) {
 				const enum:BaseEnum = path[i];
@@ -66,8 +74,12 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function getChildrenWithAnchor(container:DisplayObjectContainer, anchor:BaseEnum, fixed:Boolean = true):Vector.<DisplayObject> {
-			Assert.isNull(container, "container");
-			Assert.isNull(anchor, "anchor");
+			CONFIG::debug
+			{
+				Assert.isNull(container, "container");
+				Assert.isNull(anchor, "anchor");
+			}
+			
 			const children:Vector.<DisplayObject> = new <DisplayObject>[];
 			const anchorString:String = anchor.toString().toLowerCase();
 			for(var i:int = 0; i < container.numChildren; i++) {
@@ -106,8 +118,12 @@ package slavara.as3.game.starling.utils {
 		
 		public function StarlingDisplayUtils() {
 			super();
-			if (Object(this).constructor === StarlingDisplayUtils) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === StarlingDisplayUtils) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

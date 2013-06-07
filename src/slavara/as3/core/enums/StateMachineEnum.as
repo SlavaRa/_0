@@ -18,11 +18,16 @@ package slavara.as3.core.enums {
 			NAMES.fixed = true;
 		}
 		
-		public function StateMachineEnum(num:String){
+		public function StateMachineEnum(num:String) {
 			super(num);
-			if (_lockUp) {
-				throw new Error("This enum vas already initialized");
+			
+			CONFIG::debug
+			{
+				if (_lockUp) {
+					throw new Error("This enum vas already initialized");
+				}
 			}
+			
 			VALUES.push(this);
 			NAMES.push(num);
 		}

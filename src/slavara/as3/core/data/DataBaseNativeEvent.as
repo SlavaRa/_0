@@ -14,9 +14,13 @@ package slavara.as3.core.data {
 		use namespace $internal;
 		
 		public function DataBaseNativeEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false) {
-			if (!(this is DataBaseEvent)) {
-				Error.throwError(IllegalOperationError, 2012, "DataBaseNativeEvent");
+			CONFIG::debug
+			{
+				if (!(this is DataBaseEvent)) {
+					Error.throwError(IllegalOperationError, 2012, "DataBaseNativeEvent");
+				}
 			}
+			
 			super(type, bubbles, cancelable);
 		}
 		

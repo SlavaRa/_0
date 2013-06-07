@@ -55,7 +55,11 @@ package slavara.as3.game.starling.resources {
 		}
 		
 		public function getAtlasTex(name:BaseEnum):Texture {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			if (!hasAtlas(name) && !hasConfig(name)) {
 				return null;
 			}
@@ -63,7 +67,11 @@ package slavara.as3.game.starling.resources {
 		}
 		
 		public function getTextureAtlas(name:BaseEnum):TextureAtlas {
-			Assert.isNull(name, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(name, "name");
+			}
+			
 			if (!hasAtlas(name) && !hasConfig(name)) {
 				return null;
 			}

@@ -19,7 +19,11 @@ package slavara.as3.game.starling.gui.builders {
 	public class GUIBuilder implements IGUIBuilder, IDestroyable {
 		
 		public function GUIBuilder(config:GUIConfig) {
-			Assert.isNull(config, "config");
+			CONFIG::debug
+			{
+				Assert.isNull(config, "config");
+			}
+			
 			super();
 			initialize(config);
 		}

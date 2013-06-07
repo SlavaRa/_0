@@ -7,7 +7,11 @@ package slavara.as3.core.commands{
 	public dynamic class Command extends Array{
 		
 		public function Command(name:String, args:Array = null) {
-			Assert.stringIsNullOrEmpty(name, "name");
+			CONFIG::debug
+			{
+				Assert.stringIsNullOrEmpty(name, "name");
+			}
+			
 			super();
 			this.name = name;
 			if (Collection.isNotEmpty(args)) {

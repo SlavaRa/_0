@@ -24,7 +24,11 @@ package slavara.as3.game.starling.resources {
 	public class ARPResBundle extends BaseResBundle {
 		
 		public function ARPResBundle(name:BaseEnum, uriList:Vector.<String>) {
-			Assert.isNull(Validate.collectionIsNullOrEmpty(uriList));
+			CONFIG::debug
+			{
+				Assert.isNull(Validate.collectionIsNullOrEmpty(uriList));
+			}
+			
 			super(name, NAME_2_RESOURCE);
 			_bundles = new <ARPBundle>[];
 			_resList = uriList;
@@ -66,7 +70,11 @@ package slavara.as3.game.starling.resources {
 		}
 		
 		public override function getTexture(uri:BaseEnum):Texture {
-			Assert.isNull(uri, "name");
+			CONFIG::debug
+			{
+				Assert.isNull(uri, "name");
+			}
+			
 			return NAME_2_RESOURCE[uri.toString()];
 		}
 		

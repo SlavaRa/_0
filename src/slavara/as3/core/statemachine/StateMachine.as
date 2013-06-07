@@ -94,7 +94,10 @@ package slavara.as3.core.statemachine {
 		 * @param	via BaseEnum || Array of BaseEnum || Vector.<BaseEnum>
 		 */
 		public function add(from:BaseEnum, to:BaseEnum = null, via:* = null):void {
-			Assert.isNull(from, "from");
+			CONFIG::debug
+			{
+				Assert.isNull(from, "from");
+			}
 			
 			if (Validate.isNull(_curState)) {
 				_curState = from;
