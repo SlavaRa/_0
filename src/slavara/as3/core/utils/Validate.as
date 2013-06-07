@@ -8,21 +8,17 @@ package slavara.as3.core.utils {
 	 */
 	public class Validate {
 		
-		
 		public static function isNull(object:Object):Boolean {
 			return object === null;
 		}
-		
 		
 		public static function isNotNull(object:Object):Boolean {
 			return !isNull(object);
 		}
 		
-		
 		public static function stringIsNullOrEmpty(string:String):Boolean {
 			return isNull(string) || (string.length === 0);
 		}
-		
 		
 		public static function stringIsNotEmpty(string:String):Boolean {
 			if(isNull(string)) {
@@ -30,7 +26,6 @@ package slavara.as3.core.utils {
 			}
 			return string.length > 0;
 		}
-		
 		
 		public static function isVector(vector:Object):Boolean {
 			if(vector is Vector.<int>) {
@@ -96,8 +91,12 @@ package slavara.as3.core.utils {
 		
 		public function Validate() {
 			super();
-			if (Object(this).constructor === Validate) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === Validate) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 	}
