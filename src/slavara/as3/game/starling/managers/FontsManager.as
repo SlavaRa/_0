@@ -1,4 +1,5 @@
 package slavara.as3.game.starling.managers {
+	import arp.remote.registerARP;
 	import feathers.text.BitmapFontTextFormat;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
@@ -9,6 +10,7 @@ package slavara.as3.game.starling.managers {
 	import slavara.as3.game.starling.enums.ResBundleNameEnum;
 	import slavara.as3.game.starling.resources.BaseFontResBundle;
 	import slavara.as3.game.starling.resources.IResBundle;
+	import starling.text.BitmapFont;
 	import starling.text.TextField;
 	
 	/**
@@ -21,10 +23,10 @@ package slavara.as3.game.starling.managers {
 		public static function getBitmapFontTextFormat(fontName:BaseEnum, size:Number = NaN, color:uint = 16777215, align:String = "left"):BitmapFontTextFormat {
 			CONFIG::debug
 			{
-				Assert.isFalse(instance.fontIsRegistered(fontName), ("You should register font: " + fontName.toString()));
+				Assert.isFalse(instance.isRegistered(fontName), ("You should register font: " + fontName.toString()));
 			}
 			
-			return new BitmapFontTextFormat(instance.getFont(fontName), size, color, align);
+			return new BitmapFontTextFormat(instance.getByName(fontName), size, color, align);
 		}
 		
 		private static var _instance:FontsManager;
@@ -49,6 +51,9 @@ package slavara.as3.game.starling.managers {
 				}
 			}
 			
+			_isLoaded = false;
+			_onLoadComplete = new Signal();
+			registerARP();
 		}
 		
 		public function setup(bundles:Vector.<IResBundle>):void {
@@ -63,6 +68,31 @@ package slavara.as3.game.starling.managers {
 				_bundles = _bundles.concat(bundles);
 				_isLoaded = false;
 			}
+		}
+		
+		public function loadBundles():void {
+			CONFIG::debug
+			{
+				if (_onLoadComplete.numListeners === 0) {
+					throw new Error("перед началом загрузки, необходимо подписаться на окончание загрузки, используйте ResourceManager.instance.onLoadComplete.add");
+				}
+			}
+			
+			if (!_isLoaded && Collection.isNotEmpty(_bundles)) {
+				for each (var item:IResBundle in _bundles) {
+					if(item.isLoaded) {
+						continue;
+					}
+					item.onLoadComplete.addOnce(onBundleLoadComplete);
+					item.load();
+				}
+			} else {
+				_onLoadComplete.dispatch();
+			}
+		}
+		
+		public function has(name:BaseEnum):Boolean {
+			return Boolean(_ENUM_2_BUNDLE[name]);
 		}
 		
 		public function unloadAll():void {
@@ -93,10 +123,10 @@ package slavara.as3.game.starling.managers {
 				Assert.isNull(name, "name");
 			}
 			
-			if(!hasBundle(ResBundleNameEnum.FONTS)) {
+			if(!has(ResBundleNameEnum.FONTS)) {
 				return;
 			}
-			const bundle:BaseFontResBundle = BaseFontResBundle(getBundle(ResBundleNameEnum.FONTS));
+			const bundle:BaseFontResBundle = BaseFontResBundle(getByName(ResBundleNameEnum.FONTS));
 			if(Validate.isNull(bundle.has(ResBundleNameEnum.FONTS))){
 				return;
 			}
