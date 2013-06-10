@@ -3,12 +3,12 @@ package slavara.as3.game.starling.managers {
 	import feathers.text.BitmapFontTextFormat;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
+	import resources.FontResBundle;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.enums.ResBundleNameEnum;
-	import slavara.as3.game.starling.resources.BaseFontResBundle;
 	import slavara.as3.game.starling.resources.IResBundle;
 	import starling.text.BitmapFont;
 	import starling.text.TextField;
@@ -92,7 +92,7 @@ package slavara.as3.game.starling.managers {
 		}
 		
 		public function has(name:BaseEnum):Boolean {
-			return Boolean(_ENUM_2_BUNDLE[name]);
+			return _ENUM_2_BUNDLE[name] !== null;
 		}
 		
 		public function unloadAll():void {
@@ -122,11 +122,10 @@ package slavara.as3.game.starling.managers {
 			{
 				Assert.isNull(name, "name");
 			}
-			
 			if(!has(ResBundleNameEnum.FONTS)) {
 				return;
 			}
-			const bundle:BaseFontResBundle = BaseFontResBundle(getByName(ResBundleNameEnum.FONTS));
+			const bundle:FontResBundle = FontResBundle(_ENUM_2_BUNDLE[ResBundleNameEnum.FONTS]);
 			if(Validate.isNull(bundle.has(ResBundleNameEnum.FONTS))){
 				return;
 			}
