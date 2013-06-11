@@ -102,8 +102,12 @@ package slavara.as3.core.utils {
 		[ExcludeClass]
 		public function DestroyUtils() {
 			super();
-			if (Object(this).constructor === DestroyUtils) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			
+			CONFIG::debug
+			{
+				if (Object(this).constructor === DestroyUtils) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		

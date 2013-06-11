@@ -73,5 +73,9 @@ package slavara.as3.game.starling.gui.windows {
 			return _onClosed;
 		}
 		
+		public function get isOpen():Boolean {
+			return stateMachine.currentState === StateWindowEnum.OPEN;
+		}
+		
 	}
 }
