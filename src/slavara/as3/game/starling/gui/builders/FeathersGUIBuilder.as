@@ -117,8 +117,8 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			container.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
 			container.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
-			container.verticalScrollPosition = config.verticalScrollPosition;
 			container.horizontalScrollPosition = config.horizontalScrollPosition;
+			container.verticalScrollPosition = config.verticalScrollPosition;
 			return container;
 		}
 		
