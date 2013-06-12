@@ -19,8 +19,11 @@ package slavara.as3.core.utils {
 		
 		public function Callback() {
 			super();
-			if (Object(this).constructor === Callback) {
-				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+			CONFIG::debug
+			{
+				if (Object(this).constructor === Callback) {
+					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
+				}
 			}
 		}
 		
