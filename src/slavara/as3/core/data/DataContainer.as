@@ -11,7 +11,6 @@ package slavara.as3.core.data {
 		
 		public function DataContainer() {
 			super();
-			
 			CONFIG::debug
 			{
 				if ((this as Object).constructor === DataContainer) {

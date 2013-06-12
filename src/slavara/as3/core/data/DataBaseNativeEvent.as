@@ -25,7 +25,7 @@ package slavara.as3.core.data {
 		}
 		
 		public override function get target():Object {
-			return Validate.isNotNull($target) || Validate.isNotNull(super.target);
+			return $target || super.target;
 		}
 		
 		public override function get eventPhase():uint {

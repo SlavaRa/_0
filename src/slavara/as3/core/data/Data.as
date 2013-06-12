@@ -7,8 +7,8 @@ package slavara.as3.core.data {
 	import slavara.as3.core.events.data.DataBaseEvent;
 	import slavara.as3.core.utils.Validate;
 	
-	[Event(type = "added", name = DataBaseEvent)]
-	[Event(type = "removed", name = DataBaseEvent)]
+	[Event(type = "added", name = "slavara.as3.core.events.data.DataBaseEvent")]
+	[Event(type = "removed", name = "slavara.as3.core.events.data.DataBaseEvent")]
 	[Exclude(kind = "property", name = "$parent")]
 	[Exclude(kind = "method", name = "$setParent")]
 	
