@@ -116,6 +116,22 @@ package slavara.as3.game.starling.utils {
 			}
 		}
 		
+		public static function resize(target:DisplayObject, width:Number, height:Number, allowEnlarge:Boolean = false):void {
+			var ratioX:Number = width / target.width;
+			var ratioY:Number = height / target.height;
+			if (ratioX <= ratioY) {
+				if ((ratioX < 1) || allowEnlarge) {
+					target.width = width;
+					target.scaleY = target.scaleX;
+				}
+			} else {
+				if ((ratioY < 1) || allowEnlarge) {
+					target.height = height;
+					target.scaleX = target.scaleY;
+				}
+			}
+		}
+		
 		public function StarlingDisplayUtils() {
 			super();
 			
