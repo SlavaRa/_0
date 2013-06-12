@@ -1,19 +1,13 @@
 package slavara.as3.core.commands{
-	import flash.events.AsyncErrorEvent;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import slavara.as3.core.events.CommandEvent;
 	import slavara.as3.core.utils.Validate;
 	
-	[Event(name = "asyncError", type = "flash.events.AsyncErrorEvent")]
-	
 	/**
 	 * @author СлаваRa
 	 */
 	public class CommandDispatcher extends EventDispatcher implements ICommandDispatcher {
-		
-		protected namespace $protected;
-		use namespace $protected;
 		
 		public static const PREFIX:String = "command_";
 		
@@ -59,25 +53,11 @@ package slavara.as3.core.commands{
 		}
 		
 		private var _listeners:Dictionary;
-		
-		$protected final function dispatchError(error:*):void {
-			if (hasEventListener(AsyncErrorEvent.ASYNC_ERROR)) {
-				dispatchEvent(new AsyncErrorEvent(AsyncErrorEvent.ASYNC_ERROR, false, false, String(error), error as Error));
-			}
-		}
-		
-		$private final function dispatchError(error:*):void {
-			this.dispatchError(error);
-		}
 	}
 }
 
 import slavara.as3.core.commands.CommandDispatcher;
 import slavara.as3.core.events.CommandEvent;
-
-internal namespace $private;
-use namespace $private;
-
 class CommandListener {
 	
 	public function CommandListener(commandDispatcher:CommandDispatcher, type:String, listener:Function) {
@@ -92,10 +72,6 @@ class CommandListener {
 	public var commandDispatcher:CommandDispatcher;
 	
 	public function handler(event:CommandEvent):void {
-		//try {
-			listener.apply(null, event.command);
-		//} catch (error:*) {
-			//commandDispatcher.dispatchError(error);
-		//}
+		listener.apply(null, event.command);
 	}
 }
