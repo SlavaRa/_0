@@ -23,9 +23,8 @@ package slavara.as3.game.starling.utils {
 				TextureAtlas(target).dispose();
 			} else if (target is DisplayObject) {
 				DisplayObject(target).dispose();
-			} else {
-				DestroyUtils.destroy(target, safeMode);
 			}
+			DestroyUtils.destroy(target, safeMode);
 		}
 		
 		public function StarlingDestroyUtils() {
