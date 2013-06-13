@@ -21,6 +21,7 @@ package slavara.as3.game.starling.gui.configurations {
 			alpha = 1;
 			rotation = 0;
 			children = new Vector.<GUIConfig>(0, true);
+			touchable = true;
 		}
 		
 		public var bundle:IResBundle;
@@ -36,6 +37,7 @@ package slavara.as3.game.starling.gui.configurations {
 		public var rotation:Number;
 		public var tex:BaseEnum;
 		public var children:Vector.<GUIConfig>;
+		public var touchable:Boolean;
 		
 		public function setName(enum:BaseEnum):void {
 			name = enum.toString();

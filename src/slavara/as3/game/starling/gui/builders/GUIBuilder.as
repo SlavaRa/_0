@@ -70,13 +70,14 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		/**
-		 * setups name, alpha, filter, rotation, scaleX, scaleY, x, y
+		 * setups name, alpha, filter, rotation, scaleX, scaleY, x, y, touchable
 		 */
 		protected function postBuildItem(item:DisplayObject, config:GUIConfig):DisplayObject {
 			item.name = config.name;
 			item.alpha = config.alpha;
 			item.filter = config.filter;
 			item.rotation = config.rotation;
+			item.touchable = config.touchable;
 			StarlingDisplayUtils.setxy(item, config.x, config.y);
 			StarlingDisplayUtils.setsize(item, config.width, config.height);
 			StarlingDisplayUtils.setscale(item, config.scaleX, config.scaleY);

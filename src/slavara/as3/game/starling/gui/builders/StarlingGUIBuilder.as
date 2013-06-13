@@ -10,7 +10,6 @@ package slavara.as3.game.starling.gui.builders {
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.text.TextField;
-	import starling.textures.Texture;
 	
 	/**
 	 * @author SlavaRa
@@ -49,7 +48,9 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		protected function buildTextField(config:StarlingTextFieldConfig):DisplayObject {
-			return new TextField(config.width, config.height, config.text, config.fontName, config.fontSize, config.color, config.bold);
+			const textField:TextField = new TextField(config.width, config.height, config.text, config.fontName, config.fontSize, config.color, config.bold);
+			textField.hAlign = config.hAlign;
+			return textField;
 		}
 		
 		protected function buildQuad(config:StarlingQuadConfig):DisplayObject {

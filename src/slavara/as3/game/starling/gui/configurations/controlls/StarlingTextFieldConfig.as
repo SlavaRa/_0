@@ -12,6 +12,8 @@ package slavara.as3.game.starling.gui.configurations.controlls {
 			fontSize = 12;
 			color = 0x000000;
 			bold = false;
+			hAlign = "left";
+			touchable = false;
 		}
 		
 		public var text:String;
@@ -19,6 +21,7 @@ package slavara.as3.game.starling.gui.configurations.controlls {
 		public var fontSize:Number;
 		public var color:uint;
 		public var bold:Boolean;
+		public var hAlign:String;
 		
 	}
 }
