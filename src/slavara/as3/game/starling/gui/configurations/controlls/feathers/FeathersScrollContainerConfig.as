@@ -15,8 +15,8 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 			verticalScrollPosition = 0;
 			horizontalScrollPosition = 0;
 			scrollerProperties = new ScrollerProperties();
-			scrollerProperties.horizontalScrollPolicy = Scroller.SCROLL_POLICY_AUTO;
-			scrollerProperties.verticalScrollPolicy = Scroller.SCROLL_POLICY_AUTO;
+			scrollerProperties.horizontalScrollPolicy = Scroller.SCROLL_POLICY_ON;
+			scrollerProperties.verticalScrollPolicy = Scroller.SCROLL_POLICY_ON;
 		}
 		
 		public var horizontalLayout:HorizontalLayout;
