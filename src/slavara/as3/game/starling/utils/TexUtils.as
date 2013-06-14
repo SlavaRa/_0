@@ -5,6 +5,7 @@ package slavara.as3.game.starling.utils {
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
+	import org.flashdevelop.utils.TraceLevel;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;
@@ -43,11 +44,11 @@ package slavara.as3.game.starling.utils {
 				Assert.isNull(data, "data");
 			}
 			if(data.width > 2048) {
-				trace("WARNING data.width > 2048");
+				trace(TraceLevel.WARNING+":", "TexUtils", "data.width > 2048");
 				return null;
 			}
 			if(data.height > 2048) {
-				trace("WARNING data.height > 2048");
+				trace(TraceLevel.WARNING+":", "TexUtils", "data.height > 2048");
 				return null;
 			}
 			if(Collection.exists(data, _bitmapData2tex)) {
