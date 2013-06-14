@@ -94,6 +94,24 @@ package slavara.as3.game.starling.managers.drag {
 			//}
 		}
 		
+		/*	
+		TODO: getObjectUnderPoint
+		var nodes = [{c:stage, depth:0}];
+		var res:Array<{c, depth}> = [];
+
+		while (nodes.length > 0) {
+		  var c = nodes.shift();
+		  if (c.c.children.length == 0) {
+			  res.push( p );
+		  } else {
+		  var i  = 0;
+		  for (child in c.c.children) {
+			if (child.hitTest(mousePos)) nodes.push({c:child, depth:c.depth + (i++));
+		  }
+		  }
+		}
+		}*/
+		
 		private function onStageTouch(event:TouchEvent):void {
 			const target:DisplayObject = DisplayObject(event.target);
 			if(Validate.isNotNull(event.getTouch(target, TouchPhase.MOVED))) {
