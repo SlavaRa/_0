@@ -3,8 +3,10 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.Slider;
+	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.TextInput;
 	import feathers.core.DisplayListWatcher;
+	import feathers.core.ITextEditor;
 	import feathers.display.Scale9Image;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
@@ -21,34 +23,7 @@ package slavara.as3.game.starling.gui.builders {
 	 */
 	public class FeathersGUIBuilder extends StarlingGUIBuilder {
 		
-		public function FeathersGUIBuilder(config:GUIConfig) {
-			super(config);
-		}
-		
-		protected override function preBuildItem(config:GUIConfig):DisplayObject {
-			var item:DisplayObject;
-			switch(Object(config).constructor) {
-				case FeathersButtonConfig:
-					item = buildButton(new Button(), FeathersButtonConfig(config));
-					break;
-				case FeathersSliderConfig:
-					item = buildSlider(new Slider(), FeathersSliderConfig(config));
-					break;
-				case FeathersScrollContainerConfig:
-					item = buildScrollContainer(new ScrollContainer(), FeathersScrollContainerConfig(config));
-					break;
-				case FeathersProgressBarConfig:
-					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
-					break;
-				case FeathersTextInput:
-					item = buildTextInput(new TextInput(), FeathersTextInput(config));
-					break;
-				default: return super.preBuildItem(config);
-			}
-			return postBuildItem(item, config);
-		}
-		
-		protected function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
+		public static function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
 			button.useHandCursor = config.useHandCursor;
 			
 			if (Validate.stringIsNotEmpty(config.label)) {
@@ -70,7 +45,7 @@ package slavara.as3.game.starling.gui.builders {
 			return button;
 		}
 		
-		protected function buildSlider(slider:Slider, config:FeathersSliderConfig):DisplayObject {
+		public static function buildSlider(slider:Slider, config:FeathersSliderConfig):DisplayObject {
 			const watcher:DisplayListWatcher = new DisplayListWatcher(slider);
 			
 			slider.minimum = config.minimum;
@@ -113,7 +88,7 @@ package slavara.as3.game.starling.gui.builders {
 			return slider;
 		}
 		
-		protected function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
+		public static function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
 			if (Validate.isNotNull(config.horizontalLayout)) {
 				container.layout = config.horizontalLayout;
 			}
@@ -129,7 +104,7 @@ package slavara.as3.game.starling.gui.builders {
 			return container;
 		}
 		
-		protected function buildProgressBar(progressBar:ProgressBar, config:FeathersProgressBarConfig):DisplayObject {
+		public static function buildProgressBar(progressBar:ProgressBar, config:FeathersProgressBarConfig):DisplayObject {
 			if(Validate.isNotNull(config.backgroundSkin)) {
 				progressBar.backgroundSkin = createImageFromARP(config.backgroundSkin);
 			}
@@ -146,15 +121,50 @@ package slavara.as3.game.starling.gui.builders {
 			return progressBar;
 		}
 		
-		protected function buildTextInput(textInput:TextInput, config:FeathersTextInput):DisplayObject {
+		public static function buildTextInput(textInput:TextInput, config:FeathersTextInput):DisplayObject {
 			textInput.paddingTop = config.paddingTop;
 			textInput.paddingRight = config.paddingRight;
 			textInput.paddingBottom = config.paddingBottom;
 			textInput.paddingLeft = config.paddingLeft;
-			textInput.textEditorProperties.fontFamily = config.fontName;
-			textInput.textEditorProperties.fontSize = config.fontSize;
-			textInput.textEditorProperties.color = config.color;
+			textInput.textEditorFactory = function():ITextEditor
+			{
+				const editor:StageTextTextEditor = new StageTextTextEditor();
+				editor.fontFamily = config.fontName;
+				editor.fontSize = config.fontSize;
+				editor.color = config.color;
+				return editor;
+			}
+			//textInput.textEditorProperties.fontFamily = config.fontName;
+			//textInput.textEditorProperties.fontSize = config.fontSize;
+			//textInput.textEditorProperties.color = config.color;
 			return textInput;
+		}
+		
+		public function FeathersGUIBuilder(config:GUIConfig) {
+			super(config);
+		}
+		
+		protected override function preBuildItem(config:GUIConfig):DisplayObject {
+			var item:DisplayObject;
+			switch(Object(config).constructor) {
+				case FeathersButtonConfig:
+					item = buildButton(new Button(), FeathersButtonConfig(config));
+					break;
+				case FeathersSliderConfig:
+					item = buildSlider(new Slider(), FeathersSliderConfig(config));
+					break;
+				case FeathersScrollContainerConfig:
+					item = buildScrollContainer(new ScrollContainer(), FeathersScrollContainerConfig(config));
+					break;
+				case FeathersProgressBarConfig:
+					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
+					break;
+				case FeathersTextInput:
+					item = buildTextInput(new TextInput(), FeathersTextInput(config));
+					break;
+				default: return super.preBuildItem(config);
+			}
+			return postBuildItem(item, config);
 		}
 	}
 }

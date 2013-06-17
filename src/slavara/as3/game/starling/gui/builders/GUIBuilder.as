@@ -62,9 +62,6 @@ package slavara.as3.game.starling.gui.builders {
 			_onBuild = new Signal();
 		}
 		
-		/**
-		 * create some item
-		 */
 		protected function preBuildItem(config:GUIConfig):DisplayObject {
 			return Validate.isNotNull(config) ? new Sprite() : null;
 		}

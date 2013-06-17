@@ -28,5 +28,9 @@ package slavara.as3.game.starling.gui.configurations.controlls {
 			fontName = name.toString();
 		}
 		
+		public function setHAlign(align:BaseEnum):void {
+			hAlign = align.toString();
+		}
+		
 	}
 }

@@ -20,6 +20,16 @@ package slavara.as3.game.starling.gui.builders {
 			return new Image(ResourceManager.getTextureFromARPBundle(texUri));
 		}
 		
+		public static function buildTextField(config:StarlingTextFieldConfig):DisplayObject {
+			const textField:TextField = new TextField(config.width, config.height, config.text, config.fontName, config.fontSize, config.color, config.bold);
+			textField.hAlign = config.hAlign;
+			return textField;
+		}
+		
+		public static function buildQuad(config:StarlingQuadConfig):DisplayObject {
+			return new Quad(config.width, config.height, config.color, config.premultipliedAlpha);
+		}
+		
 		public function StarlingGUIBuilder(config:GUIConfig) {
 			super(config);
 		}
@@ -45,16 +55,6 @@ package slavara.as3.game.starling.gui.builders {
 				default: item = super.preBuildItem(config);
 			}
 			return postBuildItem(item, config);
-		}
-		
-		protected function buildTextField(config:StarlingTextFieldConfig):DisplayObject {
-			const textField:TextField = new TextField(config.width, config.height, config.text, config.fontName, config.fontSize, config.color, config.bold);
-			textField.hAlign = config.hAlign;
-			return textField;
-		}
-		
-		protected function buildQuad(config:StarlingQuadConfig):DisplayObject {
-			return new Quad(config.width, config.height, config.color, config.premultipliedAlpha);
 		}
 		
 	}
