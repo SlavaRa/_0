@@ -3,6 +3,7 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.Slider;
+	import feathers.controls.TextInput;
 	import feathers.core.DisplayListWatcher;
 	import feathers.display.Scale9Image;
 	import slavara.as3.core.utils.Validate;
@@ -10,6 +11,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersSliderConfig;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInput;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
@@ -37,6 +39,9 @@ package slavara.as3.game.starling.gui.builders {
 					break;
 				case FeathersProgressBarConfig:
 					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
+					break;
+				case FeathersTextInput:
+					item = buildTextInput(new TextInput(), FeathersTextInput(config));
 					break;
 				default: return super.preBuildItem(config);
 			}
@@ -141,5 +146,15 @@ package slavara.as3.game.starling.gui.builders {
 			return progressBar;
 		}
 		
+		protected function buildTextInput(textInput:TextInput, config:FeathersTextInput):DisplayObject {
+			textInput.paddingTop = config.paddingTop;
+			textInput.paddingRight = config.paddingRight;
+			textInput.paddingBottom = config.paddingBottom;
+			textInput.paddingLeft = config.paddingLeft;
+			textInput.textEditorProperties.fontFamily = config.fontName;
+			textInput.textEditorProperties.fontSize = config.fontSize;
+			textInput.textEditorProperties.color = config.color;
+			return textInput;
+		}
 	}
 }
