@@ -1,4 +1,5 @@
 package slavara.as3.game.starling.gui.configurations.controlls {
+	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	
 	/**
@@ -22,6 +23,10 @@ package slavara.as3.game.starling.gui.configurations.controlls {
 		public var color:uint;
 		public var bold:Boolean;
 		public var hAlign:String;
+		
+		public function setFontName(name:BaseEnum):void {
+			fontName = name.toString();
+		}
 		
 	}
 }
