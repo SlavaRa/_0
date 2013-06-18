@@ -5,7 +5,9 @@ package slavara.as3.game.starling.managers.drag {
 	import flash.ui.Keyboard;
 	import org.flashdevelop.utils.TraceLevel;
 	import org.osflash.signals.Signal;
+	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Stage;
@@ -28,6 +30,8 @@ package slavara.as3.game.starling.managers.drag {
 		
 		private static var _instance:StarlingDragManager;
 		private static var _isInitialized:Boolean = true;
+		private static const _MOUSE_POS:Point = new Point();
+		private static const _OBJECTS_UNDER_DRAG_OBJECT:Vector.<DisplayObject> = new <DisplayObject>[];
 		
 		public static function get instance():StarlingDragManager {
 			if (!_instance) {
@@ -80,7 +84,11 @@ package slavara.as3.game.starling.managers.drag {
 			stage.addEventListener(TouchEvent.TOUCH, onStageTouch);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onStageKeyUp);
 			
-			//_dropTarget = StarlingObjectUtils.getDropTarget(stage, new Point(stage.mouseX, stage.mouseY));
+			//TODO: доделать определение dropTarget
+			//_MOUSE_POS.x = Starling.current.nativeOverlay.mouseX;
+			//_MOUSE_POS.y = Starling.current.nativeOverlay.mouseY;
+			//StarlingDisplayUtils.getObjectsUnderPoint(stage, _MOUSE_POS, _OBJECTS_UNDER_DRAG_OBJECT);
+			//_dropTarget = Collection.isNotEmpty(_OBJECTS_UNDER_DRAG_OBJECT) ? _OBJECTS_UNDER_DRAG_OBJECT[0] : null;
 			stage.addChild(_dragObject);
 			_onDragStart.dispatch();
 		}
@@ -93,24 +101,6 @@ package slavara.as3.game.starling.managers.drag {
 				//_onDragFail.dispatch();
 			//}
 		}
-		
-		/*	
-		TODO: getObjectUnderPoint
-		var nodes = [{c:stage, depth:0}];
-		var res:Array<{c, depth}> = [];
-
-		while (nodes.length > 0) {
-		  var c = nodes.shift();
-		  if (c.c.children.length == 0) {
-			  res.push( p );
-		  } else {
-		  var i  = 0;
-		  for (child in c.c.children) {
-			if (child.hitTest(mousePos)) nodes.push({c:child, depth:c.depth + (i++));
-		  }
-		  }
-		}
-		}*/
 		
 		private function onStageTouch(event:TouchEvent):void {
 			const target:DisplayObject = DisplayObject(event.target);
