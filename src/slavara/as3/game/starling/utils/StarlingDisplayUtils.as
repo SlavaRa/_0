@@ -4,7 +4,9 @@ package slavara.as3.game.starling.utils {
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
+	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Stage;
@@ -139,33 +141,48 @@ package slavara.as3.game.starling.utils {
 			}
 		}
 		
-		public static function getObjectsUnderPoint(stage:Stage, point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
+		public static function getObjectsUnderPoint(point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
 			if(Validate.isNull(result)) {
 				result = new <DisplayObject>[];
 			}
-			const nodes:Vector.<DisplayObject> = new <DisplayObject>[stage];
+			Collection.clear(result);
+			const nodes:Vector.<DisplayObject> = new <DisplayObject>[Starling.current.stage];
 			while(nodes.length > 0) {
 				const display:DisplayObject = nodes.shift();
-				if(!(display is DisplayObjectContainer)) {
-					if(display.hitTest(point)) {
-						result.push(display);
-					}
-					continue;
+				if(display.hitTest(point)) {
+					result.push(display);
 				}
 				const container:DisplayObjectContainer = display as DisplayObjectContainer;
-				if(container.numChildren === 0) {
-					result.push(container);
-				} else {
-					for(var i:int = 0; i < container.numChildren; i++) {
-						const child:DisplayObject = container.getChildAt(i);
-						if (child.hitTest(point)) {
-							nodes.push(child);
-						}
+				if(Validate.isNull(container)){
+					continue;
+				}
+				for(var i:int = 0; i < container.numChildren; i++) {
+					const child:DisplayObject = container.getChildAt(i);
+					if (child.hitTest(point)) {
+						nodes.push(child);
 					}
 				}
 			}
+			result.fixed = true;
 			return result;
 		}
+		
+		/*	
+		TODO: getObjectUnderPoint
+		var nodes = [{c:stage, depth:0}];
+		var res:Array<{c, depth}> = [];
+		while (nodes.length > 0) {
+		  var c = nodes.shift();
+		  if (c.c.children.length == 0) {
+			  res.push( p );
+		  } else {
+		  var i  = 0;
+		  for (child in c.c.children) {
+			if (child.hitTest(mousePos)) nodes.push({c:child, depth:c.depth + (i++));
+		  }
+		  }
+		}
+		}*/
 		
 		public function StarlingDisplayUtils() {
 			super();
