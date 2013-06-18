@@ -9,7 +9,6 @@ package slavara.as3.game.starling.utils {
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
-	import starling.display.Stage;
 	import starling.text.TextField;
 	
 	/**
@@ -142,6 +141,11 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function getObjectsUnderPoint(point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
+			CONFIG::debug
+			{
+				Assert.isNull(point, "point");
+			}
+			
 			if(Validate.isNull(result)) {
 				result = new <DisplayObject>[];
 			}
@@ -166,23 +170,6 @@ package slavara.as3.game.starling.utils {
 			result.fixed = true;
 			return result;
 		}
-		
-		/*	
-		TODO: getObjectUnderPoint
-		var nodes = [{c:stage, depth:0}];
-		var res:Array<{c, depth}> = [];
-		while (nodes.length > 0) {
-		  var c = nodes.shift();
-		  if (c.c.children.length == 0) {
-			  res.push( p );
-		  } else {
-		  var i  = 0;
-		  for (child in c.c.children) {
-			if (child.hitTest(mousePos)) nodes.push({c:child, depth:c.depth + (i++));
-		  }
-		  }
-		}
-		}*/
 		
 		public function StarlingDisplayUtils() {
 			super();
