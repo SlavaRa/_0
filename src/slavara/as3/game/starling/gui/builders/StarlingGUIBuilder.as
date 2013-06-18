@@ -10,6 +10,7 @@ package slavara.as3.game.starling.gui.builders {
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.text.TextField;
+	import starling.textures.Texture;
 	
 	/**
 	 * @author SlavaRa
@@ -17,7 +18,11 @@ package slavara.as3.game.starling.gui.builders {
 	public class StarlingGUIBuilder extends GUIBuilder {
 		
 		public static function createImageFromARP(texUri:BaseEnum):Image {
-			return new Image(ResourceManager.getTextureFromARPBundle(texUri));
+			return createImage(ResourceManager.getTextureFromARPBundle(texUri));
+		}
+		
+		public static function createImage(tex:Texture):Image{
+			return new Image(tex)
 		}
 		
 		public static function buildTextField(config:StarlingTextFieldConfig):DisplayObject {

@@ -38,6 +38,11 @@ package slavara.as3.game.starling.display {
 		
 		//} endregion INTERFACE slavara.as3.core.utils.IDestroyable
 		
+		public function setxy(x:Number, y:Number):void {
+			super.x = x;
+			super.y = y;
+		}
+		
 		protected var stateMachine:StateMachine;
 		
 		protected function initialize():void {

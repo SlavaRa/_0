@@ -88,7 +88,7 @@ package slavara.as3.core.data {
 		
 		public function getChildIndex(child:Data):int {
 			Assert.isNull(child, "child");
-			Assert.isNotThis(child, $parent);
+			Assert.isNotThis(child.$parent, this);
 			return _list.indexOf(child);
 		}
 		

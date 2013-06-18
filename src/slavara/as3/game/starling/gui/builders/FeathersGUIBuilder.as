@@ -3,10 +3,8 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.Slider;
-	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.TextInput;
 	import feathers.core.DisplayListWatcher;
-	import feathers.core.ITextEditor;
 	import feathers.display.Scale9Image;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
@@ -126,17 +124,9 @@ package slavara.as3.game.starling.gui.builders {
 			textInput.paddingRight = config.paddingRight;
 			textInput.paddingBottom = config.paddingBottom;
 			textInput.paddingLeft = config.paddingLeft;
-			textInput.textEditorFactory = function():ITextEditor
-			{
-				const editor:StageTextTextEditor = new StageTextTextEditor();
-				editor.fontFamily = config.fontName;
-				editor.fontSize = config.fontSize;
-				editor.color = config.color;
-				return editor;
-			}
-			//textInput.textEditorProperties.fontFamily = config.fontName;
-			//textInput.textEditorProperties.fontSize = config.fontSize;
-			//textInput.textEditorProperties.color = config.color;
+			textInput.textEditorProperties.fontFamily = config.fontName;
+			textInput.textEditorProperties.fontSize = config.fontSize;
+			textInput.textEditorProperties.color = config.color;
 			return textInput;
 		}
 		
