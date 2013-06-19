@@ -1,5 +1,6 @@
 package slavara.as3.game.starling.managers.drag {
 	import flash.errors.IllegalOperationError;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
 	import org.osflash.signals.Signal;
@@ -26,7 +27,7 @@ package slavara.as3.game.starling.managers.drag {
 		
 		private static var _instance:StarlingDragManager;
 		private static var _isInitialized:Boolean = true;
-		//private static const _MOUSE_POS:Point = new Point();
+		private static const _POS:Point = new Point();
 		//private static const _OBJECTS_UNDER_DRAG_OBJECT:Vector.<DisplayObject> = new <DisplayObject>[];
 		
 		public static function get instance():StarlingDragManager {
@@ -61,19 +62,26 @@ package slavara.as3.game.starling.managers.drag {
 			if(Validate.isNull(dragSource)) {
 				return;
 			}
-			if (Validate.isNull(tex)) {
+			if(Validate.isNull(tex)) {
 				throw new ArgumentError();
 			}
-			if (_dragSource === dragSource) {
+			if(_dragSource === dragSource) {
 				return;
 			}
 			
-			if (Validate.isNotNull(_dragSource)) {
+			if(Validate.isNotNull(_dragSource)) {
 				clear();
 			}
 			
 			_dragSource = dragSource;
-			_dragObject = StarlingDragObject.$getInstance(dragSource, tex, rescale, lockCenter, bounds);
+			
+			if(!lockCenter) {
+				_POS.x = Starling.current.nativeOverlay.mouseX;
+				_POS.y = Starling.current.nativeOverlay.mouseY;
+				dragSource.globalToLocal(_POS, _POS);
+			}
+			
+			_dragObject = StarlingDragObject.$getInstance(dragSource, tex, rescale, lockCenter, lockCenter ? null : _POS, bounds);
 			_dragSource.addEventListener(Event.REMOVED_FROM_STAGE, onDragSourceRemovedFromStage);
 			
 			const stage:Stage = Starling.current.stage;

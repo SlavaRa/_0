@@ -29,14 +29,14 @@ package slavara.as3.game.starling.managers.drag {
 		
 		private static var _internalCall:Boolean = false;
 		
-		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null):StarlingDragObject {
+		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, offset:Point = null, bounds:Rectangle = null):StarlingDragObject {
 			_internalCall = true;
-			const result:StarlingDragObject = new StarlingDragObject(dragSource, tex, rescale, lockCenter, bounds);
+			const result:StarlingDragObject = new StarlingDragObject(dragSource, tex, rescale, lockCenter, offset, bounds);
 			_internalCall = false;
 			return result;
 		}
 		
-		public function StarlingDragObject(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null) {
+		public function StarlingDragObject(dragSource:DisplayObject, tex:Texture, rescale:Boolean, lockCenter:Boolean, offset:Point, bounds:Rectangle) {
 			if (!_internalCall) {
 				Error.throwError(IllegalOperationError, 2012, "StarlingDragObject");
 			}
@@ -44,6 +44,7 @@ package slavara.as3.game.starling.managers.drag {
 			_dragSource = dragSource;
 			_rescale = rescale;
 			_lockCenter = lockCenter;
+			_offset = offset;
 			_bounds = bounds;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
@@ -60,6 +61,9 @@ package slavara.as3.game.starling.managers.drag {
 			if(_lockCenter) {
 				mouseX -= width  >> 1;
 				mouseY -= height >> 1;
+			} else {
+				mouseX -= _offset.x;
+				mouseY -= _offset.y;
 			}
 			if (Validate.isNotNull(_bounds)) {
 				mouseX = Math.min(Math.max(_bounds.left, mouseX), _bounds.right);
@@ -69,27 +73,10 @@ package slavara.as3.game.starling.managers.drag {
 			super.y = mouseY;
 		}
 		
-		//public function getBounds():Rectangle {
-			//return _bounds.clone();
-		//}
-		//
-		//public function setBounds(value:Rectangle):void {
-			//if (Validate.isNull(value)) {
-				//return;
-			//}
-			//if (value === _bounds) {
-				//return;
-			//}
-			//if (value.equals(_bounds)) {
-				//return;
-			//}
-			//_bounds = value;
-			//advanceTime(0);
-		//}
-		
 		private var _rescale:Boolean;
 		private var _dragSource:DisplayObject;
 		private var _lockCenter:Boolean;
+		private var _offset:Point;
 		private var _bounds:Rectangle;
 		
 		private function onAddedToStage(event:Event):void {
