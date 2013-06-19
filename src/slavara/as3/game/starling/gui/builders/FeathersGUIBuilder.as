@@ -13,7 +13,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersSliderConfig;
-	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInput;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInputConfig;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
@@ -121,7 +121,7 @@ package slavara.as3.game.starling.gui.builders {
 			return progressBar;
 		}
 		
-		public static function buildTextInput(textInput:TextInput, config:FeathersTextInput):DisplayObject {
+		public static function buildTextInput(textInput:TextInput, config:FeathersTextInputConfig):DisplayObject {
 			textInput.paddingTop = config.paddingTop;
 			textInput.paddingRight = config.paddingRight;
 			textInput.paddingBottom = config.paddingBottom;
@@ -165,8 +165,8 @@ package slavara.as3.game.starling.gui.builders {
 				case FeathersProgressBarConfig:
 					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
 					break;
-				case FeathersTextInput:
-					item = buildTextInput(new TextInput(), FeathersTextInput(config));
+				case FeathersTextInputConfig:
+					item = buildTextInput(new TextInput(), FeathersTextInputConfig(config));
 					break;
 				default: return super.preBuildItem(config);
 			}

@@ -4,9 +4,9 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 	/**
 	 * @author SlavaRa
 	 */
-	public class FeathersTextInput extends StarlingTextFieldConfig {
+	public class FeathersTextInputConfig extends StarlingTextFieldConfig {
 		
-		public function FeathersTextInput() {
+		public function FeathersTextInputConfig() {
 			super();
 			paddingTop = 0;
 			paddingRight = 0;
