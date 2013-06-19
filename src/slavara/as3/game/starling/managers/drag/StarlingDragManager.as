@@ -57,7 +57,7 @@ package slavara.as3.game.starling.managers.drag {
 			if (Validate.isNull(_dragSource)) {
 				throw new IllegalOperationError();
 			}
-			_onDragFail.dispatch();
+			_onDragStop.dispatch();
 			clear();
 		}
 		
@@ -108,10 +108,11 @@ package slavara.as3.game.starling.managers.drag {
 				_onDragMove.dispatch();
 			}
 			if(Validate.isNotNull(event.getTouch(target, TouchPhase.ENDED))) {
-				event.stopImmediatePropagation();
-				_onDragStop.dispatch();
-				clear();
+				stopDrag();
 			}
+			//if(Validate.isNotNull(event.getTouch(target, TouchPhase.HOVER))) {
+				//TODO: set drop target
+			//}
 		}
 		
 		private function onStageKeyUp(event:KeyboardEvent):void {
