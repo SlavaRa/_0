@@ -119,11 +119,9 @@ package slavara.as3.game.starling.gui.builders {
 				image.width = config.rect.x << 1;
 				progressBar.fillSkin = image;
 			}
-			
 			progressBar.minimum = config.minimum;
 			progressBar.maximum = config.maximum;
 			progressBar.value = config.value;
-			
 			return progressBar;
 		}
 		
