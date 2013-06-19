@@ -21,8 +21,8 @@ package slavara.as3.game.starling.gui.builders {
 			return createImage(ResourceManager.getTextureFromARPBundle(texUri));
 		}
 		
-		public static function createImage(tex:Texture):Image{
-			return new Image(tex)
+		public static function createImage(tex:Texture):Image {
+			return new Image(tex);
 		}
 		
 		public static function buildTextField(config:StarlingTextFieldConfig):DisplayObject {

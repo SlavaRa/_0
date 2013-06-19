@@ -1,9 +1,12 @@
 package slavara.as3.game.starling.utils {
 	
+	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
+	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.text.TextField;
@@ -96,10 +99,11 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function setxy(object:DisplayObject, x:Number, y:Number):void {
-			if(Validate.isNotNull(object)) {
-				object.x = x;
-				object.y = y;
+			if(Validate.isNull(object)) {
+				return;
 			}
+			object.x = x;
+			object.y = y;
 		}
 		
 		public static function setscale(object:DisplayObject, scaleX:Number, scaleY:Number):void {
@@ -110,15 +114,19 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function setsize(target:DisplayObject, width:Number = 0, height:Number = 0):void {
-			if (Validate.isNotNull(target)) {
-				target.width = width;
-				target.height = height;
+			if (Validate.isNull(target)) {
+				return;
 			}
+			target.width = width;
+			target.height = height;
 		}
 		
 		public static function resize(target:DisplayObject, width:Number, height:Number, allowEnlarge:Boolean = false):void {
-			var ratioX:Number = width / target.width;
-			var ratioY:Number = height / target.height;
+			if(Validate.isNull(target)){
+				return;
+			}
+			const ratioX:Number = width / target.width;
+			const ratioY:Number = height / target.height;
 			if (ratioX <= ratioY) {
 				if ((ratioX < 1) || allowEnlarge) {
 					target.width = width;
@@ -130,6 +138,37 @@ package slavara.as3.game.starling.utils {
 					target.scaleX = target.scaleY;
 				}
 			}
+		}
+		
+		public static function getObjectsUnderPoint(point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
+			CONFIG::debug
+			{
+				Assert.isNull(point, "point");
+			}
+			
+			if(Validate.isNull(result)) {
+				result = new <DisplayObject>[];
+			}
+			Collection.clear(result);
+			const nodes:Vector.<DisplayObject> = new <DisplayObject>[Starling.current.stage];
+			while(nodes.length > 0) {
+				const display:DisplayObject = nodes.shift();
+				if(display.hitTest(point)) {
+					result.push(display);
+				}
+				const container:DisplayObjectContainer = display as DisplayObjectContainer;
+				if(Validate.isNull(container)){
+					continue;
+				}
+				for(var i:int = 0; i < container.numChildren; i++) {
+					const child:DisplayObject = container.getChildAt(i);
+					if (child.hitTest(point)) {
+						nodes.push(child);
+					}
+				}
+			}
+			result.fixed = true;
+			return result;
 		}
 		
 		public function StarlingDisplayUtils() {
