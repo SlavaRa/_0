@@ -2,6 +2,7 @@ package slavara.as3.game.starling.managers.drag {
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import org.flashdevelop.utils.TraceLevel;
 	import slavara.as3.core.utils.Validate;
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
@@ -54,18 +55,18 @@ package slavara.as3.game.starling.managers.drag {
 				return;
 			}
 			
-			var x:Number = Starling.current.nativeOverlay.mouseX;
-			var y:Number = Starling.current.nativeOverlay.mouseY;
+			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
+			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
 			if(_lockCenter) {
-				x -= width  >> 1;
-				y -= height >> 1;
+				mouseX -= width  >> 1;
+				mouseY -= height >> 1;
 			}
 			if (Validate.isNotNull(_bounds)) {
-				x = Math.min(Math.max(_bounds.left, x), _bounds.right);
-				y = Math.min(Math.max(_bounds.top, y), _bounds.bottom);
+				mouseX = Math.min(Math.max(_bounds.left, mouseX), _bounds.right);
+				mouseY = Math.min(Math.max(_bounds.top, mouseY), _bounds.bottom);
 			}
-			super.x = x;
-			super.y = y;
+			super.x = mouseX;
+			super.y = mouseY;
 		}
 		
 		//public function getBounds():Rectangle {

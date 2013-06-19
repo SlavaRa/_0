@@ -2,6 +2,7 @@ package slavara.as3.game.starling.utils {
 	
 	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
+	import org.flashdevelop.utils.TraceLevel;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;

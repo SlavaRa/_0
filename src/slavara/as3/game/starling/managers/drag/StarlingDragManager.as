@@ -1,13 +1,9 @@
 package slavara.as3.game.starling.managers.drag {
 	import flash.errors.IllegalOperationError;
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.ui.Keyboard;
-	import org.flashdevelop.utils.TraceLevel;
 	import org.osflash.signals.Signal;
-	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
-	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Stage;
@@ -30,8 +26,8 @@ package slavara.as3.game.starling.managers.drag {
 		
 		private static var _instance:StarlingDragManager;
 		private static var _isInitialized:Boolean = true;
-		private static const _MOUSE_POS:Point = new Point();
-		private static const _OBJECTS_UNDER_DRAG_OBJECT:Vector.<DisplayObject> = new <DisplayObject>[];
+		//private static const _MOUSE_POS:Point = new Point();
+		//private static const _OBJECTS_UNDER_DRAG_OBJECT:Vector.<DisplayObject> = new <DisplayObject>[];
 		
 		public static function get instance():StarlingDragManager {
 			if (!_instance) {

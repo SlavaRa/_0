@@ -89,15 +89,21 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		public static function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
-			if (Validate.isNotNull(config.horizontalLayout)) {
+			if(Validate.isNotNull(config.horizontalLayout)) {
+				config.horizontalLayout.useVirtualLayout = config.useVirtualLayout;
 				container.layout = config.horizontalLayout;
 			}
-			if (Validate.isNotNull(config.verticalLayout)) {
+			if(Validate.isNotNull(config.verticalLayout)) {
+				config.verticalLayout.useVirtualLayout = config.useVirtualLayout;
 				container.layout = config.verticalLayout;
 			}
 			if(Validate.isNotNull(config.scrollerProperties)) {
 				container.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
 				container.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
+				container.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
+				container.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
+				container.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
+				container.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
 			}
 			container.horizontalScrollPosition = config.horizontalScrollPosition;
 			container.verticalScrollPosition = config.verticalScrollPosition;
