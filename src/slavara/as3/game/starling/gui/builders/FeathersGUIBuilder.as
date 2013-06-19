@@ -13,7 +13,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersSliderConfig;
-	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInput;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInputConfig;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
@@ -89,15 +89,21 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		public static function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
-			if (Validate.isNotNull(config.horizontalLayout)) {
+			if(Validate.isNotNull(config.horizontalLayout)) {
+				config.horizontalLayout.useVirtualLayout = config.useVirtualLayout;
 				container.layout = config.horizontalLayout;
 			}
-			if (Validate.isNotNull(config.verticalLayout)) {
+			if(Validate.isNotNull(config.verticalLayout)) {
+				config.verticalLayout.useVirtualLayout = config.useVirtualLayout;
 				container.layout = config.verticalLayout;
 			}
 			if(Validate.isNotNull(config.scrollerProperties)) {
 				container.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
 				container.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
+				container.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
+				container.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
+				container.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
+				container.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
 			}
 			container.horizontalScrollPosition = config.horizontalScrollPosition;
 			container.verticalScrollPosition = config.verticalScrollPosition;
@@ -113,30 +119,34 @@ package slavara.as3.game.starling.gui.builders {
 				image.width = config.rect.x << 1;
 				progressBar.fillSkin = image;
 			}
-			
 			progressBar.minimum = config.minimum;
 			progressBar.maximum = config.maximum;
 			progressBar.value = config.value;
-			
 			return progressBar;
 		}
 		
-		public static function buildTextInput(textInput:TextInput, config:FeathersTextInput):DisplayObject {
+		public static function buildTextInput(textInput:TextInput, config:FeathersTextInputConfig):DisplayObject {
 			textInput.paddingTop = config.paddingTop;
 			textInput.paddingRight = config.paddingRight;
 			textInput.paddingBottom = config.paddingBottom;
 			textInput.paddingLeft = config.paddingLeft;
-			textInput.textEditorFactory = function():ITextEditor
-			{
+			textInput.textEditorFactory = function():ITextEditor {
 				const editor:StageTextTextEditor = new StageTextTextEditor();
 				editor.fontFamily = config.fontName;
 				editor.fontSize = config.fontSize;
 				editor.color = config.color;
+				editor.textAlign = config.hAlign;
+				if(Validate.stringIsNotEmpty) {
+					editor.restrict = config.restrict;
+				}
+				if(config.maxChars !== -1) {
+					editor.maxChars = config.maxChars;
+				}
 				return editor;
 			}
-			//textInput.textEditorProperties.fontFamily = config.fontName;
-			//textInput.textEditorProperties.fontSize = config.fontSize;
-			//textInput.textEditorProperties.color = config.color;
+			if(Validate.stringIsNotEmpty(config.text)) {
+				textInput.text = config.text;
+			}
 			return textInput;
 		}
 		
@@ -159,8 +169,8 @@ package slavara.as3.game.starling.gui.builders {
 				case FeathersProgressBarConfig:
 					item = buildProgressBar(new ProgressBar(), FeathersProgressBarConfig(config));
 					break;
-				case FeathersTextInput:
-					item = buildTextInput(new TextInput(), FeathersTextInput(config));
+				case FeathersTextInputConfig:
+					item = buildTextInput(new TextInput(), FeathersTextInputConfig(config));
 					break;
 				default: return super.preBuildItem(config);
 			}

@@ -4,20 +4,23 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 	/**
 	 * @author SlavaRa
 	 */
-	public class FeathersTextInput extends StarlingTextFieldConfig {
+	public class FeathersTextInputConfig extends StarlingTextFieldConfig {
 		
-		public function FeathersTextInput() {
+		public function FeathersTextInputConfig() {
 			super();
-			paddingTop = 10;
-			paddingRight = 10;
-			paddingBottom = 10;
-			paddingLeft = 10;
+			paddingTop = 0;
+			paddingRight = 0;
+			paddingBottom = 0;
+			paddingLeft = 0;
+			restrict = "";
+			maxChars = -1
 		}
 		
 		public var paddingTop:Number;
 		public var paddingRight:Number;
 		public var paddingBottom:Number;
 		public var paddingLeft:Number;
-		
+		public var restrict:String;
+		public var maxChars:int;
 	}
 }

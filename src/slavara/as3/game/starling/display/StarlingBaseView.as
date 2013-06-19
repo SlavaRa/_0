@@ -43,7 +43,6 @@ package slavara.as3.game.starling.display {
 			super.y = y;
 		}
 		
-		
 		protected var stateMachine:StateMachine;
 		
 		protected function initialize():void {
