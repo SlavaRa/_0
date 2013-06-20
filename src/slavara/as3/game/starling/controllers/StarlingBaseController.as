@@ -5,6 +5,7 @@ package slavara.as3.game.starling.controllers {
 	import slavara.as3.core.data.Data;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.IDestroyable;
+	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	
 	/**
@@ -50,6 +51,8 @@ package slavara.as3.game.starling.controllers {
 				return;
 			}
 			removeCommandListeners();
+			destroyView();
+			view = null;
 			_data = null;
 			_container = null;
 			_isDestroyed = true;
@@ -60,8 +63,18 @@ package slavara.as3.game.starling.controllers {
 			return _isDestroyed;
 		}
 		
-		/**virtual*/
+		protected var view:DisplayObject;
+		
 		protected function initialize():void {
+			initializeView();
+		}
+		
+		/**virtual*/
+		protected function initializeView():void {
+		}
+		
+		/**virtual*/
+		protected function destroyView():void {
 		}
 		
 		public function call(commandName:String, ...args):* {
