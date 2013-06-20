@@ -2,7 +2,6 @@ package slavara.as3.game.starling.utils {
 	
 	import flash.geom.Point;
 	import flash.utils.getQualifiedClassName;
-	import org.flashdevelop.utils.TraceLevel;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;
@@ -10,12 +9,69 @@ package slavara.as3.game.starling.utils {
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
+	import starling.display.Image;
+	import starling.display.MovieClip;
+	import starling.display.Quad;
+	import starling.display.QuadBatch;
 	import starling.text.TextField;
 	
 	/**
 	 * @author SlavaRa
 	 */
 	public class StarlingDisplayUtils {
+		
+		//{ region aliases
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getChildByEnum
+		 */
+		public static function getDOby(container:DisplayObjectContainer, enum:BaseEnum):DisplayObject {
+			return getChildByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getContainerByEnum
+		 */
+		public static function getDOCby(container:DisplayObjectContainer, enum:BaseEnum):DisplayObjectContainer {
+			return getContainerByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getTextFieldByEnum
+		 */
+		public static function getTFby(container:DisplayObjectContainer, enum:BaseEnum):TextField {
+			return getTextFieldByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getMovieClipByEnum
+		 */
+		public static function getMCby(container:DisplayObjectContainer, enum:BaseEnum):MovieClip {
+			return getMovieClipByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getImageByEnum
+		 */
+		public static function getIby(container:DisplayObjectContainer, enum:BaseEnum):Image {
+			return getImageByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getQuadByEnum
+		 */
+		public static function getQby(container:DisplayObjectContainer, enum:BaseEnum):Quad {
+			return getQuadByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.StarlingDisplayUtils.getQuadBatchByEnum
+		 */
+		public static function getQBby(container:DisplayObjectContainer, enum:BaseEnum):QuadBatch {
+			return getQuadBatchByEnum(container, enum);
+		}
+		
+		//} endregion
 		
 		public static function addChildTo(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
 			if (Validate.isNull(child)) {
@@ -56,6 +112,22 @@ package slavara.as3.game.starling.utils {
 		
 		public static function getTextFieldByEnum(container:DisplayObjectContainer, enum:BaseEnum):TextField {
 			return getChildByEnum(container, enum) as TextField;
+		}
+		
+		public static function getMovieClipByEnum(container:DisplayObjectContainer, enum:BaseEnum):MovieClip {
+			return getChildByEnum(container, enum) as MovieClip;
+		}
+		
+		public static function getImageByEnum(container:DisplayObjectContainer, enum:BaseEnum):Image {
+			return getChildByEnum(container, enum) as Image;
+		}
+		
+		public static function getQuadByEnum(container:DisplayObjectContainer, enum:BaseEnum):Quad {
+			return getChildByEnum(container, enum) as Quad;
+		}
+		
+		public static function getQuadBatchByEnum(container:DisplayObjectContainer, enum:BaseEnum):QuadBatch {
+			return getChildByEnum(container, enum) as QuadBatch;
 		}
 		
 		public static function getChildByPath(container:DisplayObjectContainer, path:Vector.<BaseEnum>):DisplayObject {
