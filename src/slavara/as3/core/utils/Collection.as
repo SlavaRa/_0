@@ -39,7 +39,8 @@ package slavara.as3.core.utils {
 		 * pos = collection.length if pos >= collection.length;
 		 */
 		public static function insert(item:*, pos:int, collection:Object):* {
-			CONFIG::debug {
+			CONFIG::debug
+			{
 				Assert.isNull(collection, "collection");
 			}
 			
@@ -65,8 +66,9 @@ package slavara.as3.core.utils {
 		/**
 		 * for Object, Dictionary, Array, ByteArray, Vector
 		 */
-		public static function remove(item:*, collection:Object):* {
-			CONFIG::debug {
+		public static function remove(item:*, collection:Object, all:Boolean = true):* {
+			CONFIG::debug
+			{
 				Assert.isNull(collection, "collection");
 			}
 			
@@ -90,6 +92,9 @@ package slavara.as3.core.utils {
 			} else if (item in collection) {
 				delete collection[item];
 			}
+			if(all && exists(item, collection)) {
+				remove(item, collection);
+			}
 			return item;
 		}
 		
@@ -98,7 +103,8 @@ package slavara.as3.core.utils {
 		 * pos = 0 if pos < 0
 		 */
 		public static function removeAt(pos:int, collection:Object):* {
-			CONFIG::debug {
+			CONFIG::debug
+			{
 				Assert.isNull(collection, "collection");
 			}
 			
@@ -128,7 +134,8 @@ package slavara.as3.core.utils {
 		 * for Object, Dictionary, Array, Vector
 		 */
 		public static function exists(item:*, collection:Object):Boolean {
-			CONFIG::debug {
+			CONFIG::debug
+			{
 				Assert.isNull(collection, "collection");
 			}
 			
