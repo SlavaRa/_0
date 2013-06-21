@@ -1,5 +1,6 @@
 package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 	import feathers.text.BitmapFontTextFormat;
+	import feathers.textures.Scale3Textures;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.game.starling.gui.configurations.controlls.StarlingButtonConfig;
 	
@@ -22,6 +23,7 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 		public var label:String;
 		public var textFormat:BitmapFontTextFormat;
 		public var useHandCursor:Boolean
+		public var scale3texDefaultSkin:Scale3Textures;
 		
 	}
 }

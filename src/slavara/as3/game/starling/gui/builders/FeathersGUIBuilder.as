@@ -7,7 +7,9 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.TextInput;
 	import feathers.core.DisplayListWatcher;
 	import feathers.core.ITextEditor;
+	import feathers.display.Scale3Image;
 	import feathers.display.Scale9Image;
+	import feathers.textures.Scale3Textures;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
@@ -23,6 +25,10 @@ package slavara.as3.game.starling.gui.builders {
 	 */
 	public class FeathersGUIBuilder extends StarlingGUIBuilder {
 		
+		public static function createScale3Image(scale3tex:Scale3Textures):DisplayObject {
+			return new Scale3Image(scale3tex);
+		}
+		
 		public static function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
 			button.useHandCursor = config.useHandCursor;
 			
@@ -32,6 +38,8 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			if (Validate.isNotNull(config.texDefaultSkin)) {
 				button.defaultSkin = createImageFromARP(config.texDefaultSkin);
+			} else if(Validate.isNotNull(config.scale3texDefaultSkin)) {
+				button.defaultSkin = createScale3Image(config.scale3texDefaultSkin);
 			}
 			if (Validate.isNotNull(config.texUpSkin)) {
 				button.upSkin = createImageFromARP(config.texUpSkin);
@@ -146,6 +154,9 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			if(Validate.stringIsNotEmpty(config.text)) {
 				textInput.text = config.text;
+			}
+			if(Validate.isNotNull(config.scale3texBackgroundTex)){
+				textInput.backgroundSkin = createScale3Image(config.scale3texBackgroundTex);
 			}
 			return textInput;
 		}

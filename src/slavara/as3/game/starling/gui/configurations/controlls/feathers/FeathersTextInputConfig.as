@@ -1,5 +1,7 @@
 package slavara.as3.game.starling.gui.configurations.controlls.feathers {
+	import feathers.textures.Scale3Textures;
 	import slavara.as3.game.starling.gui.configurations.controlls.StarlingTextFieldConfig;
+	import starling.display.DisplayObject;
 	
 	/**
 	 * @author SlavaRa
@@ -22,5 +24,6 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 		public var paddingLeft:Number;
 		public var restrict:String;
 		public var maxChars:int;
+		public var scale3texBackgroundTex:Scale3Textures;//TODO: переделать на конфиг
 	}
 }

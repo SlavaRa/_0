@@ -2,7 +2,6 @@ package slavara.as3.game.starling.managers.drag {
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-	import org.flashdevelop.utils.TraceLevel;
 	import slavara.as3.core.utils.Validate;
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
