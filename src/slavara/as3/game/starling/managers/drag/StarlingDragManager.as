@@ -76,8 +76,7 @@ package slavara.as3.game.starling.managers.drag {
 			_dragSource = dragSource;
 			
 			if(!lockCenter) {
-				_POS.x = Starling.current.nativeOverlay.mouseX;
-				_POS.y = Starling.current.nativeOverlay.mouseY;
+				_POS.setTo(Starling.current.nativeOverlay.mouseX, Starling.current.nativeOverlay.mouseY);
 				dragSource.globalToLocal(_POS, _POS);
 			}
 			
