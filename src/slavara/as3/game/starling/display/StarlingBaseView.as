@@ -100,6 +100,9 @@ package slavara.as3.game.starling.display {
 		}
 		
 		private function destroyDataStateMachine():void {
+			if(Validate.isNull(_dataStateMachine)) {
+				return;
+			}
 			_dataStateMachine.onChange.remove(stateMachine.setState);
 			_dataStateMachine.onReset.remove(stateMachine.reset);
 			_dataStateMachine = null;

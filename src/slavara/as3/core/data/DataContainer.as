@@ -44,7 +44,7 @@ package slavara.as3.core.data {
 		public function removeChild(child:Data):Data {
 			Assert.isNull(child, "child");
 			Assert.isThis(child, this);
-			return Data(Collection.remove(child, _list));
+			return $removeChildAt(_list.indexOf(child));
 		}
 		
 		public function removeChildAt(index:int):Data {
