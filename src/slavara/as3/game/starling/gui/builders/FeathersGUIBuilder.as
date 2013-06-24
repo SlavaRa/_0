@@ -144,7 +144,7 @@ package slavara.as3.game.starling.gui.builders {
 				editor.fontSize = config.fontSize;
 				editor.color = config.color;
 				editor.textAlign = config.hAlign;
-				if(Validate.stringIsNotEmpty) {
+				if(Validate.stringIsNotEmpty(config.restrict)) {
 					editor.restrict = config.restrict;
 				}
 				if(config.maxChars !== -1) {
