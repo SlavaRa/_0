@@ -67,7 +67,7 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		/**
-		 * setups name, alpha, filter, rotation, scaleX, scaleY, x, y, touchable
+		 * setups name, alpha, filter, rotation, scaleX, scaleY, x, y, touchable, visible
 		 */
 		protected function postBuildItem(item:DisplayObject, config:GUIConfig):DisplayObject {
 			item.name = config.name;
@@ -75,6 +75,7 @@ package slavara.as3.game.starling.gui.builders {
 			item.filter = config.filter;
 			item.rotation = config.rotation;
 			item.touchable = config.touchable;
+			item.visible = config.visible;
 			StarlingDisplayUtils.setxy(item, config.x, config.y);
 			StarlingDisplayUtils.setsize(item, config.width, config.height);
 			StarlingDisplayUtils.setscale(item, config.scaleX, config.scaleY);

@@ -3,6 +3,7 @@ package slavara.as3.game.starling.managers.drag {
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -40,6 +41,9 @@ package slavara.as3.game.starling.managers.drag {
 				Error.throwError(IllegalOperationError, 2012, "StarlingDragObject");
 			}
 			super(tex);
+			if(!rescale) {
+				StarlingDisplayUtils.setsize(this, dragSource.width, dragSource.height);
+			}
 			_dragSource = dragSource;
 			_rescale = rescale;
 			_lockCenter = lockCenter;

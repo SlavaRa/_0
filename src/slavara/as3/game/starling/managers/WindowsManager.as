@@ -86,7 +86,7 @@ package slavara.as3.game.starling.managers {
 			return Boolean(_enum2window[uri]);
 		}
 		
-		public function getWindowByEnum(enum:BaseEnum):BaseWindow {
+		public function getBy(enum:BaseEnum):BaseWindow {
 			return _enum2window[enum] as BaseWindow;
 		}
 		
