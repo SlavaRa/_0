@@ -217,31 +217,28 @@ package slavara.as3.game.starling.utils {
 			}
 		}
 		
-		//TODO: провести тесты
 		public static function getObjectsUnderPoint(point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
 			CONFIG::debug
 			{
 				Assert.isNull(point, "point");
 			}
-			
 			if(Validate.isNull(result)) {
 				result = new <DisplayObject>[];
 			}
 			Collection.clear(result);
 			const nodes:Vector.<DisplayObject> = new <DisplayObject>[Starling.current.stage];
 			while(nodes.length > 0) {
-				const display:DisplayObject = nodes.shift();
-				if(display.hitTest(point)) {
-					result.push(display);
-				}
-				const container:DisplayObjectContainer = display as DisplayObjectContainer;
+				const container:DisplayObjectContainer = nodes.shift() as DisplayObjectContainer;
 				if(Validate.isNull(container)){
 					continue;
 				}
 				for(var i:int = 0; i < container.numChildren; i++) {
 					const child:DisplayObject = container.getChildAt(i);
-					if (child.hitTest(point)) {
-						nodes.push(child);
+					if (child.hitTest(child.globalToLocal(point))) {
+						result.push(child);
+						if(child is DisplayObjectContainer) {
+							nodes.push(child);
+						}
 					}
 				}
 			}
@@ -249,38 +246,25 @@ package slavara.as3.game.starling.utils {
 			return result;
 		}
 		
-		//TODO: провести тесты
 		public static function target2BitmapData(target:DisplayObject):BitmapData {
+			CONFIG::debug
+			{
+				Assert.isNull(target, "target");
+			}
 			if (Validate.isNull(target)) {
 				return null;
 			}
 			
-			const rectanlge:Rectangle = new Rectangle();
-			target.getBounds(target.root, rectanlge);
-			if((Capabilities.os.indexOf("Windows") < 0) && (rectanlge.y > 0)) {
-				rectanlge.y = -rectanlge.y;
-			}
+			const support:RenderSupport = new RenderSupport();
+			const result:BitmapData = new BitmapData(target.width, target.height, true, 0x000000);
 			
 			Starling.context.setBlendFactors(Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA);
-			
-			const support:RenderSupport = new RenderSupport();
 			support.clear();
 			support.setOrthographicProjection(0, 0, Starling.current.stage.stageWidth, Starling.current.stage.stageHeight);
-			support.transformMatrix(target.root);
-			
-			const tX:Number = rectanlge.x;
-			const tY:Number = rectanlge.y;
-			
-			support.translateMatri(angry) -tX, -tY);
-			
-			support.pushMatrix();
-			support.transformMatrix(target);
 			target.render(support, 1);
-			support.popMatrix();
 			support.finishQuadBatch();
-			
-			const result:BitmapData = new BitmapData(rectanlge.width, rectanlge.height, true, 0x0);
 			Starling.context.drawToBitmapData(result);
+			support.dispose();
 			return result;
 		}
 		

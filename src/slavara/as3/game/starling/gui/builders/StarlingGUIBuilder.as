@@ -41,7 +41,7 @@ package slavara.as3.game.starling.gui.builders {
 		
 		public override function build():void {
 			product = DisplayObjectContainer(preBuildItem(config));
-			fillContainer(product, config.children);
+			fill(product, config.children);
 			super.build();
 		}
 		

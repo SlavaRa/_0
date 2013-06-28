@@ -98,6 +98,14 @@ package slavara.as3.core.data {
 			$setChildIndex(child, index);
 		}
 		
+		public function swapChildren(child1:Data, child2:Data):void {
+			Assert.isNull(child1);
+			Assert.isNull(child2);
+			Assert.isNotThis(child1.$parent, this);
+			Assert.isNotThis(child2.$parent, this);
+			$swapChildrenAt(child1, child2, _list.indexOf(child1), _list.indexOf(child2));
+		}
+		
 		public function contains(child:Data):Boolean {
 			Assert.isNull(child, "child");
 			return $contains(child);
@@ -132,6 +140,12 @@ package slavara.as3.core.data {
 			}
 			Collection.removeAt(oldIndex, _list);
 			Collection.insert(child, index, _list);
+		}
+		
+		private function $swapChildrenAt(child1:Data, child2:Data, index1:int, index2:int):void {
+			//TODO: убрать слайс
+			_list.splice(index1, 1, child2);
+			_list.splice(index2, 1, child1);
 		}
 		
 		private function $contains(child:Data):Boolean {

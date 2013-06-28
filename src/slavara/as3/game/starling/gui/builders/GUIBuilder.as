@@ -82,7 +82,7 @@ package slavara.as3.game.starling.gui.builders {
 			return item;
 		}
 		
-		public function fillContainer(container:DisplayObjectContainer, configs:Vector.<GUIConfig>):void {
+		public function fill(container:DisplayObjectContainer, configs:Vector.<GUIConfig>):void {
 			if (Validate.isNull(container)) {
 				return;
 			}
@@ -94,7 +94,7 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			for each (var config:GUIConfig in configs) {
 				const item:DisplayObject = preBuildItem(config);
-				fillContainer(item as DisplayObjectContainer, config.children);
+				fill(item as DisplayObjectContainer, config.children);
 				StarlingDisplayUtils.addChildTo(item, container);
 			}
 		}
