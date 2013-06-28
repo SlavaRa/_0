@@ -1,11 +1,16 @@
 package slavara.as3.game.starling.utils {
 	
+	import flash.display.BitmapData;
+	import flash.display3D.Context3DBlendFactor;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.system.Capabilities;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.core.utils.Validate;
+	import starling.core.RenderSupport;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
@@ -71,7 +76,7 @@ package slavara.as3.game.starling.utils {
 			return getQuadBatchByEnum(container, enum);
 		}
 		
-		//} endregion
+		//} endregion aliases
 		
 		public static function addChildTo(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
 			if (Validate.isNull(child)) {
@@ -102,7 +107,6 @@ package slavara.as3.game.starling.utils {
 				Assert.isNull(container, "container");
 				Assert.isNull(enum, "enum");
 			}
-			
 			return container.getChildByName(enum.toString());
 		}
 		
@@ -213,6 +217,7 @@ package slavara.as3.game.starling.utils {
 			}
 		}
 		
+		//TODO: провести тесты
 		public static function getObjectsUnderPoint(point:Point, result:Vector.<DisplayObject> = null):Vector.<DisplayObject> {
 			CONFIG::debug
 			{
@@ -244,9 +249,43 @@ package slavara.as3.game.starling.utils {
 			return result;
 		}
 		
+		//TODO: провести тесты
+		public static function target2BitmapData(target:DisplayObject):BitmapData {
+			if (Validate.isNull(target)) {
+				return null;
+			}
+			
+			const rectanlge:Rectangle = new Rectangle();
+			target.getBounds(target.root, rectanlge);
+			if((Capabilities.os.indexOf("Windows") < 0) && (rectanlge.y > 0)) {
+				rectanlge.y = -rectanlge.y;
+			}
+			
+			Starling.context.setBlendFactors(Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA);
+			
+			const support:RenderSupport = new RenderSupport();
+			support.clear();
+			support.setOrthographicProjection(0, 0, Starling.current.stage.stageWidth, Starling.current.stage.stageHeight);
+			support.transformMatrix(target.root);
+			
+			const tX:Number = rectanlge.x;
+			const tY:Number = rectanlge.y;
+			
+			support.translateMatri(angry) -tX, -tY);
+			
+			support.pushMatrix();
+			support.transformMatrix(target);
+			target.render(support, 1);
+			support.popMatrix();
+			support.finishQuadBatch();
+			
+			const result:BitmapData = new BitmapData(rectanlge.width, rectanlge.height, true, 0x0);
+			Starling.context.drawToBitmapData(result);
+			return result;
+		}
+		
 		public function StarlingDisplayUtils() {
 			super();
-			
 			CONFIG::debug
 			{
 				if (Object(this).constructor === StarlingDisplayUtils) {
