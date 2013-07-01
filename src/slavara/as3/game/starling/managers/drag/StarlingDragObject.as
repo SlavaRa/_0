@@ -28,6 +28,7 @@ package slavara.as3.game.starling.managers.drag {
 	public final class StarlingDragObject extends Image implements IAnimatable {
 		
 		private static var _internalCall:Boolean = false;
+		private static const _PREV_POS:Point = new Point();
 		
 		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, offset:Point = null, bounds:Rectangle = null):StarlingDragObject {
 			_internalCall = true;
@@ -49,6 +50,7 @@ package slavara.as3.game.starling.managers.drag {
 			_lockCenter = lockCenter;
 			_offset = offset;
 			_bounds = bounds;
+			_PREV_POS.setTo(super.x, super.y);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
@@ -72,6 +74,7 @@ package slavara.as3.game.starling.managers.drag {
 				mouseX = Math.min(Math.max(_bounds.left, mouseX), _bounds.right);
 				mouseY = Math.min(Math.max(_bounds.top, mouseY), _bounds.bottom);
 			}
+			_PREV_POS.setTo(super.x, super.y);
 			super.x = mouseX;
 			super.y = mouseY;
 		}
@@ -105,6 +108,10 @@ package slavara.as3.game.starling.managers.drag {
 			}
 			_lockCenter = value;
 			advanceTime(0);
+		}
+		
+		public function get prevPosition():Point {
+			return _PREV_POS;
 		}
 		
 		public override function set x(value:Number):void {

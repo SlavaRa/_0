@@ -22,7 +22,7 @@ package slavara.as3.core.data {
 		}
 		
 		public function setState(state:BaseEnum):void {
-			_prevState = _curState
+			_prevState = _curState;
 			_curState = state;
 			_onChange.dispatch();
 		}
