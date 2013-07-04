@@ -1,8 +1,11 @@
 package slavara.as3.game.starling.managers.drag {
+	import air.net.SecureSocketMonitor;
+	import feathers.controls.ScreenNavigatorItem;
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.managers.drag.StarlingDragObject;
 	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
@@ -25,32 +28,37 @@ package slavara.as3.game.starling.managers.drag {
 	/**
 	 * @author SlavaRa
 	 */
-	public final class StarlingDragObject extends Image implements IAnimatable {
+	public final class StarlingDragObject extends DisplayObjectContainer implements IAnimatable {
 		
 		private static var _internalCall:Boolean = false;
 		private static const _PREV_POS:Point = new Point();
+		private static const _TMP_POINT:Point = new Point();
 		
-		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, offset:Point = null, bounds:Rectangle = null):StarlingDragObject {
+		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, offset:Point = null, bounds:Rectangle = null, onStage:Boolean = true):StarlingDragObject {
 			_internalCall = true;
-			const result:StarlingDragObject = new StarlingDragObject(dragSource, tex, rescale, lockCenter, offset, bounds);
+			const result:StarlingDragObject = new StarlingDragObject(dragSource, tex, rescale, lockCenter, offset, bounds, onStage);
 			_internalCall = false;
 			return result;
 		}
 		
-		public function StarlingDragObject(dragSource:DisplayObject, tex:Texture, rescale:Boolean, lockCenter:Boolean, offset:Point, bounds:Rectangle) {
+		public function StarlingDragObject(dragSource:DisplayObject, tex:Texture, rescale:Boolean, lockCenter:Boolean, offset:Point, bounds:Rectangle, onStage:Boolean) {
 			if (!_internalCall) {
 				Error.throwError(IllegalOperationError, 2012, "StarlingDragObject");
 			}
-			super(tex);
+			super();
+			if(onStage) {
+				addChild(new Image(tex));
+			}
 			if(!rescale) {
-				StarlingDisplayUtils.setsize(this, dragSource.width, dragSource.height);
+				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
 			}
 			_dragSource = dragSource;
 			_rescale = rescale;
 			_lockCenter = lockCenter;
 			_offset = offset;
 			_bounds = bounds;
-			_PREV_POS.setTo(super.x, super.y);
+			_onStage = onStage;
+			_scaleFactor = 0.0;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
@@ -60,7 +68,6 @@ package slavara.as3.game.starling.managers.drag {
 			if (!super.visible) {
 				return;
 			}
-			
 			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
 			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
 			if(_lockCenter) {
@@ -77,13 +84,21 @@ package slavara.as3.game.starling.managers.drag {
 			_PREV_POS.setTo(super.x, super.y);
 			super.x = mouseX;
 			super.y = mouseY;
+			if(!_onStage) {
+				_TMP_POINT.setTo(super.x, super.y);
+				_dragSource.parent.globalToLocal(_TMP_POINT, _TMP_POINT);
+				_dragSource.x = _TMP_POINT.x + _dragSource.width * _scaleFactor;
+				_dragSource.y = _TMP_POINT.y + _dragSource.height * _scaleFactor;
+			}
 		}
 		
 		private var _rescale:Boolean;
+		private var _scaleFactor:Number;
 		private var _dragSource:DisplayObject;
 		private var _lockCenter:Boolean;
 		private var _offset:Point;
 		private var _bounds:Rectangle;
+		private var _onStage:Boolean;
 		
 		private function onAddedToStage(event:Event):void {
 			advanceTime(0);
@@ -92,6 +107,7 @@ package slavara.as3.game.starling.managers.drag {
 		
 		private function onRemovedFromStage(event:Event):void {
 			Starling.juggler.remove(this);
+			removeChildren(0, -1, true);
 		}
 		
 		public function get dragSource():DisplayObject {
@@ -144,6 +160,12 @@ package slavara.as3.game.starling.managers.drag {
 		public override function set visible(value:Boolean):void {
 			throw new IllegalOperationError();
 		}
-	
+		
+		//TODO: быстрый хак, для решения проблемы драга клипа внутри контейнера,
+		//к которорому применен scale
+		public function set scaleFactor(value:Number):void {
+			_scaleFactor = value;
+		}
+		
 	}
 }

@@ -1,6 +1,7 @@
 package slavara.as3.game.starling.utils {
 	
 	import feathers.controls.Button;
+	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.TextInput;
 	import flash.utils.getQualifiedClassName;
@@ -35,6 +36,13 @@ package slavara.as3.game.starling.utils {
 			return getScrollContainerByEnum(container, enum);
 		}
 		
+		/**
+		 * @see slavara.as3.game.starling.utils.FeathersDisplayUtils.getListByEnum
+		 */
+		public static function getLby(container:DisplayObjectContainer, enum:BaseEnum):List {
+			return getScrollContainerByEnum(container, enum);
+		}
+		
 		//} endregion
 		
 		public static function getButtonByEnum(container:DisplayObjectContainer, enum:BaseEnum):Button {
@@ -47,6 +55,10 @@ package slavara.as3.game.starling.utils {
 		
 		public static function getScrollContainerByEnum(container:DisplayObjectContainer, enum:BaseEnum):ScrollContainer {
 			return StarlingDisplayUtils.getDOby(container, enum) as ScrollContainer;
+		}
+		
+		public static function getListByEnum(container:DisplayObjectContainer, enum:BaseEnum):List {
+			return StarlingDisplayUtils.getDOby(container, enum) as List;
 		}
 		
 		public function FeathersDisplayUtils() {

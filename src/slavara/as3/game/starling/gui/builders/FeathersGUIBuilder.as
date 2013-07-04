@@ -1,5 +1,6 @@
 package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.Button;
+	import feathers.controls.List;
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.Slider;
@@ -12,6 +13,7 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.textures.Scale3Textures;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersListConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersSliderConfig;
@@ -96,26 +98,57 @@ package slavara.as3.game.starling.gui.builders {
 			return slider;
 		}
 		
-		public static function buildScrollContainer(container:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
+		public static function buildScrollContainer(scroll:ScrollContainer, config:FeathersScrollContainerConfig):DisplayObject {
 			if(Validate.isNotNull(config.horizontalLayout)) {
 				config.horizontalLayout.useVirtualLayout = config.useVirtualLayout;
-				container.layout = config.horizontalLayout;
+				scroll.layout = config.horizontalLayout;
 			}
 			if(Validate.isNotNull(config.verticalLayout)) {
 				config.verticalLayout.useVirtualLayout = config.useVirtualLayout;
-				container.layout = config.verticalLayout;
+				scroll.layout = config.verticalLayout;
 			}
 			if(Validate.isNotNull(config.scrollerProperties)) {
-				container.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
-				container.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
-				container.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
-				container.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
-				container.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
-				container.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
+				scroll.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
+				scroll.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
+				scroll.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
+				scroll.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
+				scroll.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
+				scroll.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
 			}
-			container.horizontalScrollPosition = config.horizontalScrollPosition;
-			container.verticalScrollPosition = config.verticalScrollPosition;
-			return container;
+			scroll.horizontalScrollPosition = config.horizontalScrollPosition;
+			scroll.verticalScrollPosition = config.verticalScrollPosition;
+			scroll.elasticity = config.elasticity;
+			scroll.elasticSnapDuration = config.elasticSnapDuration;
+			scroll.hasElasticEdges = config.hasElasticEdges;
+			return scroll;
+		}
+		
+		public static function buildList(list:List, config:FeathersListConfig):DisplayObject {
+			if(Validate.isNotNull(config.horizontalLayout)) {
+				config.horizontalLayout.useVirtualLayout = config.useVirtualLayout;
+				list.layout = config.horizontalLayout;
+			}
+			if(Validate.isNotNull(config.verticalLayout)) {
+				config.verticalLayout.useVirtualLayout = config.useVirtualLayout;
+				list.layout = config.verticalLayout;
+			}
+			if(Validate.isNotNull(config.itemRendererProperties)) {
+				list.itemRendererProperties.gap = config.itemRendererProperties.gap;
+				list.itemRendererProperties.horizontalAlign = config.itemRendererProperties.horizontalAlign;
+				list.itemRendererProperties.iconPosition = config.itemRendererProperties.iconPosition;
+				list.itemRendererProperties.iconSourceField = config.itemRendererProperties.iconSourceField;
+				list.itemRendererProperties.labelField = config.itemRendererProperties.labelField;
+				list.itemRendererProperties.verticalAlign = config.itemRendererProperties.verticalAlign;
+			}
+			if(Validate.isNotNull(config.itemRendererFactory)) {
+				list.itemRendererFactory = config.itemRendererFactory;
+			}
+			list.horizontalScrollPosition = config.horizontalScrollPosition;
+			list.verticalScrollPosition = config.verticalScrollPosition;
+			list.elasticity = config.elasticity;
+			list.elasticSnapDuration = config.elasticSnapDuration;
+			list.hasElasticEdges = config.hasElasticEdges;
+			return list;
 		}
 		
 		public static function buildProgressBar(progressBar:ProgressBar, config:FeathersProgressBarConfig):DisplayObject {
@@ -173,6 +206,9 @@ package slavara.as3.game.starling.gui.builders {
 					break;
 				case FeathersSliderConfig:
 					item = buildSlider(new Slider(), FeathersSliderConfig(config));
+					break;
+				case FeathersListConfig:
+					item = buildList(new List(), FeathersListConfig(config));
 					break;
 				case FeathersScrollContainerConfig:
 					item = buildScrollContainer(new ScrollContainer(), FeathersScrollContainerConfig(config));

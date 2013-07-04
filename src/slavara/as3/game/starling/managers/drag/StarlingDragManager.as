@@ -5,10 +5,10 @@ package slavara.as3.game.starling.managers.drag {
 	import flash.ui.Keyboard;
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.utils.StarlingDisplayUtils;
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.Stage;
-	import starling.events.Event;
 	import starling.events.KeyboardEvent;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
@@ -21,14 +21,17 @@ package slavara.as3.game.starling.managers.drag {
 	 */
 	public class StarlingDragManager {
 		
-		public static function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null):void {
-			instance.startDrag(dragSource, tex, rescale, lockCenter, bounds);
+		public static function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null, onStage:Boolean = true):void {
+			instance.startDrag(dragSource, tex, rescale, lockCenter, bounds, onStage);
+		}
+		
+		public static function stopDrag():void {
+			instance.stopDrag();
 		}
 		
 		private static var _instance:StarlingDragManager;
 		private static var _isInitialized:Boolean = true;
-		private static const _POS:Point = new Point();
-		//private static const _OBJECTS_UNDER_DRAG_OBJECT:Vector.<DisplayObject> = new <DisplayObject>[];
+		private static const _OFFSET:Point = new Point();
 		
 		public static function get instance():StarlingDragManager {
 			if (!_instance) {
@@ -50,7 +53,7 @@ package slavara.as3.game.starling.managers.drag {
 			initialize();
 		}
 		
-		public function stopDrag():void {
+		private function stopDrag():void {
 			if (Validate.isNull(_dragSource)) {
 				throw new IllegalOperationError();
 			}
@@ -58,7 +61,8 @@ package slavara.as3.game.starling.managers.drag {
 			clear();
 		}
 		
-		public function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null):void {
+		//TODO: возможно необходимо избавиться от поля tex, и получать "скриншот" объект прямо здесь
+		private function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean, lockCenter:Boolean, bounds:Rectangle, onStage:Boolean):void {
 			if(Validate.isNull(dragSource)) {
 				return;
 			}
@@ -76,46 +80,33 @@ package slavara.as3.game.starling.managers.drag {
 			_dragSource = dragSource;
 			
 			if(!lockCenter) {
-				_POS.setTo(Starling.current.nativeOverlay.mouseX, Starling.current.nativeOverlay.mouseY);
-				dragSource.globalToLocal(_POS, _POS);
+				_OFFSET.setTo(Starling.current.nativeOverlay.mouseX, Starling.current.nativeOverlay.mouseY);
+				const sX:Number = dragSource.scaleX;
+				const sY:Number = dragSource.scaleY;
+				StarlingDisplayUtils.setscale(dragSource, 1, 1);
+				dragSource.globalToLocal(_OFFSET, _OFFSET);
+				StarlingDisplayUtils.setscale(dragSource, sX, sY);
 			}
 			
-			_dragObject = StarlingDragObject.$getInstance(dragSource, tex, rescale, lockCenter, lockCenter ? null : _POS, bounds);
-			_dragSource.addEventListener(Event.REMOVED_FROM_STAGE, onDragSourceRemovedFromStage);
+			_dragObject = StarlingDragObject.$getInstance(dragSource, tex, rescale, lockCenter, lockCenter ? null : _OFFSET, bounds, onStage);
 			
 			const stage:Stage = Starling.current.stage;
 			stage.addEventListener(TouchEvent.TOUCH, onStageTouch);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onStageKeyUp);
 			
-			//TODO: доделать определение dropTarget
-			//_MOUSE_POS.x = Starling.current.nativeOverlay.mouseX;
-			//_MOUSE_POS.y = Starling.current.nativeOverlay.mouseY;
-			//StarlingDisplayUtils.getObjectsUnderPoint(stage, _MOUSE_POS, _OBJECTS_UNDER_DRAG_OBJECT);
-			//_dropTarget = Collection.isNotEmpty(_OBJECTS_UNDER_DRAG_OBJECT) ? _OBJECTS_UNDER_DRAG_OBJECT[0] : null;
 			stage.addChild(_dragObject);
 			_onDragStart.dispatch();
-		}
-		
-		//TODO:
-		private function onDragSourceRemovedFromStage(event:Event):void {
-			//DisplayObject(event.target).removeEventListener(Event.REMOVED_FROM_STAGE, onDragSourceRemovedFromStage);
-			//if (_dragSource === event.target) {
-				//clear();
-				//_onDragFail.dispatch();
-			//}
 		}
 		
 		private function onStageTouch(event:TouchEvent):void {
 			const target:DisplayObject = DisplayObject(event.target);
 			if(Validate.isNotNull(event.getTouch(target, TouchPhase.MOVED))) {
+				_moved = true;
 				_onDragMove.dispatch();
 			}
 			if(Validate.isNotNull(event.getTouch(target, TouchPhase.ENDED))) {
 				stopDrag();
 			}
-			//if(Validate.isNotNull(event.getTouch(target, TouchPhase.HOVER))) {
-				//TODO: set drop target
-			//}
 		}
 		
 		private function onStageKeyUp(event:KeyboardEvent):void {
@@ -132,8 +123,6 @@ package slavara.as3.game.starling.managers.drag {
 			}
 			
 			if (Validate.isNotNull(_dragSource) && Validate.isNotNull(_dragSource.stage)) {
-				_dragSource.removeEventListener(Event.REMOVED_FROM_STAGE, onDragSourceRemovedFromStage);
-				
 				stage.removeEventListener(TouchEvent.TOUCH, onStageTouch);
 				stage.removeEventListener(KeyboardEvent.KEY_UP, onStageKeyUp);
 			}
@@ -141,23 +130,17 @@ package slavara.as3.game.starling.managers.drag {
 			_dragSource = null;
 			_dragObject = null;
 			_dropTarget = null;
+			_moved = false;
 		}
-		
-		//private function handler_mouseOver(event:MouseEvent):void {
-			//this._dropTarget = event.target as DisplayObject;
-		//}
-		//
-		//private function handler_mouseOut(event:MouseEvent):void {
-			//this._dropTarget = null;
-		//}
 		
 		private var _onDragStart:Signal;
 		private var _onDragMove:Signal;
 		private var _onDragStop:Signal;
 		private var _onDragFail:Signal;
-		private var _dropTarget:DisplayObject;
+		private var _dropTarget:DisplayObject;//TODO: сделать определение
 		private var _dragSource:DisplayObject;
 		private var _dragObject:StarlingDragObject;
+		private var _moved:Boolean;
 		
 		private function initialize():void {
 			_onDragStart = new Signal();
@@ -193,6 +176,10 @@ package slavara.as3.game.starling.managers.drag {
 		public function get dragObject():StarlingDragObject {
 			return _dragObject;
 		}
-	
+		
+		public function get moved():Boolean {
+			return _moved;
+		}
+		
 	}
 }

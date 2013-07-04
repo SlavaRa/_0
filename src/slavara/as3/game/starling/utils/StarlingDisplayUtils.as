@@ -184,10 +184,11 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function setscale(object:DisplayObject, scaleX:Number, scaleY:Number):void {
-			if(Validate.isNotNull(object)) {
-				object.scaleX = scaleX;
-				object.scaleY = scaleY;
+			if(Validate.isNull(object)) {
+				return;
 			}
+			object.scaleX = scaleX;
+			object.scaleY = scaleY;
 		}
 		
 		public static function setsize(target:DisplayObject, width:Number = 0, height:Number = 0):void {
@@ -246,7 +247,7 @@ package slavara.as3.game.starling.utils {
 			return result;
 		}
 		
-		public static function target2BitmapData(target:DisplayObject):BitmapData {
+		public static function target2BitmapData(target:DisplayObject, bounds:Rectangle = null, supportRGB:uint = 0, supportAlpha:Number = 1.0):BitmapData {
 			CONFIG::debug
 			{
 				Assert.isNull(target, "target");
@@ -254,12 +255,15 @@ package slavara.as3.game.starling.utils {
 			if (Validate.isNull(target)) {
 				return null;
 			}
+			if(Validate.isNull(bounds)) {
+				bounds = target.bounds
+			}
 			
 			const support:RenderSupport = new RenderSupport();
-			const result:BitmapData = new BitmapData(target.width, target.height, true, 0x000000);
+			const result:BitmapData = new BitmapData(bounds.width, bounds.height, true, 0x000000);
 			
 			Starling.context.setBlendFactors(Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA);
-			support.clear();
+			support.clear(supportRGB, supportAlpha);
 			support.setOrthographicProjection(0, 0, Starling.current.stage.stageWidth, Starling.current.stage.stageHeight);
 			target.render(support, 1);
 			support.finishQuadBatch();

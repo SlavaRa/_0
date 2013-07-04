@@ -21,14 +21,20 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 			scrollerProperties.scrollBarDisplayMode = Scroller.SCROLL_BAR_DISPLAY_MODE_NONE;
 			scrollerProperties.interactionMode = Scroller.INTERACTION_MODE_TOUCH;
 			touchable = true;
+			elasticity = 1.0;
+			elasticSnapDuration = 0.24;
+			hasElasticEdges = true;
 		}
 		
-		public var horizontalLayout:HorizontalLayout;
-		public var verticalLayout:VerticalLayout;
-		public var useVirtualLayout:Boolean;
 		public var verticalScrollPosition:int;
 		public var horizontalScrollPosition:int;
+		public var verticalLayout:VerticalLayout;
+		public var horizontalLayout:HorizontalLayout;
+		public var useVirtualLayout:Boolean;
 		public var scrollerProperties:ScrollerProperties;
+		public var elasticity:Number;
+		public var elasticSnapDuration:Number;
+		public var hasElasticEdges:Boolean;
 	}
 }
 
