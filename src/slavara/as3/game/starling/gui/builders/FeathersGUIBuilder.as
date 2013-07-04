@@ -143,6 +143,9 @@ package slavara.as3.game.starling.gui.builders {
 			if(Validate.isNotNull(config.itemRendererFactory)) {
 				list.itemRendererFactory = config.itemRendererFactory;
 			}
+			if(Validate.isNotNull(config.dataProvider)){
+				list.dataProvider = config.dataProvider;
+			}
 			list.horizontalScrollPosition = config.horizontalScrollPosition;
 			list.verticalScrollPosition = config.verticalScrollPosition;
 			list.elasticity = config.elasticity;

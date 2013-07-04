@@ -40,7 +40,7 @@ package slavara.as3.game.starling.utils {
 		 * @see slavara.as3.game.starling.utils.FeathersDisplayUtils.getListByEnum
 		 */
 		public static function getLby(container:DisplayObjectContainer, enum:BaseEnum):List {
-			return getScrollContainerByEnum(container, enum);
+			return getListByEnum(container, enum);
 		}
 		
 		//} endregion
