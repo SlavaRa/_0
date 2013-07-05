@@ -146,11 +146,20 @@ package slavara.as3.game.starling.gui.builders {
 			if(Validate.isNotNull(config.dataProvider)){
 				list.dataProvider = config.dataProvider;
 			}
+			if(Validate.isNotNull(config.scrollerProperties)) {
+				list.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
+				list.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
+				list.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
+				list.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
+				list.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
+				list.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
+			}
 			list.horizontalScrollPosition = config.horizontalScrollPosition;
 			list.verticalScrollPosition = config.verticalScrollPosition;
 			list.elasticity = config.elasticity;
 			list.elasticSnapDuration = config.elasticSnapDuration;
 			list.hasElasticEdges = config.hasElasticEdges;
+			list.isEnabled = config.isSelectable;
 			return list;
 		}
 		

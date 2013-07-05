@@ -1,10 +1,12 @@
 package slavara.as3.game.starling.gui.builders {
+	import flash.display.BitmapData;
 	import slavara.as3.core.enums.BaseEnum;
 	import slavara.as3.game.starling.gui.configurations.controlls.StarlingImageConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.StarlingQuadConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.StarlingTextFieldConfig;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.managers.ResourceManager;
+	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 	import starling.display.Image;
@@ -19,6 +21,10 @@ package slavara.as3.game.starling.gui.builders {
 		
 		public static function createImageFromARP(texUri:BaseEnum):Image {
 			return createImage(ResourceManager.getTextureFromARPBundle(texUri));
+		}
+		
+		public static function createImageFromBitmapData(bitmapData:BitmapData):Image {
+			return createImage(TexUtils.getTextureFromBitmapData(bitmapData));
 		}
 		
 		public static function createImage(tex:Texture):Image {

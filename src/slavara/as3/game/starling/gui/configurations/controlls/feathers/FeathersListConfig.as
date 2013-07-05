@@ -11,11 +11,13 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 			super();
 			itemRendererProperties = new ItemRendererProperties();
 			dataProvider = new ListCollection();
+			isSelectable = true;
 		}
 		
 		public var itemRendererProperties:ItemRendererProperties;
 		public var itemRendererFactory:Function/*():IListItemRenderer*/;
 		public var dataProvider:ListCollection;
+		public var isSelectable:Boolean;
 	}
 }
 
