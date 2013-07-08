@@ -22,8 +22,11 @@ package slavara.as3.game.starling.managers.drag {
 	public class StarlingDragManager {
 		
 		public static function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null, onStage:Boolean = true):void {
-			if(dragSource === null) {
-				trace("catch")
+			if(Validate.isNull(dragSource)) {
+				return;
+			}
+			if(Validate.isNull(tex)) {
+				throw new ArgumentError();
 			}
 			instance.startDrag(dragSource, tex, rescale, lockCenter, bounds, onStage);
 		}
@@ -66,12 +69,6 @@ package slavara.as3.game.starling.managers.drag {
 		
 		//TODO: возможно необходимо избавиться от поля tex, и получать "скриншот" объект прямо здесь
 		private function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean, lockCenter:Boolean, bounds:Rectangle, onStage:Boolean):void {
-			if(Validate.isNull(dragSource)) {
-				return;
-			}
-			if(Validate.isNull(tex)) {
-				throw new ArgumentError();
-			}
 			if(_dragSource === dragSource) {
 				return;
 			}
