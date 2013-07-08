@@ -22,6 +22,9 @@ package slavara.as3.game.starling.managers.drag {
 	public class StarlingDragManager {
 		
 		public static function startDrag(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, bounds:Rectangle = null, onStage:Boolean = true):void {
+			if(dragSource === null) {
+				trace("catch")
+			}
 			instance.startDrag(dragSource, tex, rescale, lockCenter, bounds, onStage);
 		}
 		
@@ -79,13 +82,9 @@ package slavara.as3.game.starling.managers.drag {
 			
 			_dragSource = dragSource;
 			
+			_OFFSET.setTo(Starling.current.nativeOverlay.mouseX, Starling.current.nativeOverlay.mouseY);
 			if(!lockCenter) {
-				_OFFSET.setTo(Starling.current.nativeOverlay.mouseX, Starling.current.nativeOverlay.mouseY);
-				const sX:Number = dragSource.scaleX;
-				const sY:Number = dragSource.scaleY;
-				StarlingDisplayUtils.setscale(dragSource, 1, 1);
 				dragSource.globalToLocal(_OFFSET, _OFFSET);
-				StarlingDisplayUtils.setscale(dragSource, sX, sY);
 			}
 			
 			_dragObject = StarlingDragObject.$getInstance(dragSource, tex, rescale, lockCenter, lockCenter ? null : _OFFSET, bounds, onStage);
@@ -117,15 +116,13 @@ package slavara.as3.game.starling.managers.drag {
 		}
 		
 		private function clear():void {
-			const stage:Stage = Starling.current.stage;
 			if (Validate.isNotNull(_dragObject) && Validate.isNotNull(_dragObject.$parent)) {
-				stage.removeChild(_dragObject);
+				_dragObject.$parent.removeChild(_dragObject);
 			}
 			
-			if (Validate.isNotNull(_dragSource) && Validate.isNotNull(_dragSource.stage)) {
-				stage.removeEventListener(TouchEvent.TOUCH, onStageTouch);
-				stage.removeEventListener(KeyboardEvent.KEY_UP, onStageKeyUp);
-			}
+			const stage:Stage = Starling.current.stage;
+			stage.removeEventListener(TouchEvent.TOUCH, onStageTouch);
+			stage.removeEventListener(KeyboardEvent.KEY_UP, onStageKeyUp);
 			
 			_dragSource = null;
 			_dragObject = null;

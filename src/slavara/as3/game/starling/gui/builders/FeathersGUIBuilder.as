@@ -1,5 +1,6 @@
 package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.Button;
+	import feathers.controls.ButtonGroup;
 	import feathers.controls.List;
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
@@ -13,6 +14,7 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.textures.Scale3Textures;
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonGroupConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersListConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
@@ -21,6 +23,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
+	import starling.events.Event;
 	
 	/**
 	 * @author SlavaRa
@@ -53,6 +56,19 @@ package slavara.as3.game.starling.gui.builders {
 				button.defaultIcon = createImageFromARP(config.texDefaultIcon);
 			}
 			return button;
+		}
+		
+		public static function buildButtonGroup(group:ButtonGroup, config:FeathersButtonGroupConfig):DisplayObject {
+			group.direction = config.direction;
+			group.gap = config.gap;
+			group.isEnabled = true;
+			if(Validate.isNotNull(config.dataProvider)) {
+				group.dataProvider = config.dataProvider;
+			}
+			if(Validate.isNotNull(config.buttonFactory)) {
+				group.buttonFactory = config.buttonFactory;
+			}
+			return group;
 		}
 		
 		public static function buildSlider(slider:Slider, config:FeathersSliderConfig):DisplayObject {
@@ -216,6 +232,9 @@ package slavara.as3.game.starling.gui.builders {
 				case FeathersButtonConfig:
 					item = buildButton(new Button(), FeathersButtonConfig(config));
 					break;
+				case FeathersButtonGroupConfig:
+					item = buildButtonGroup(new ButtonGroup(), FeathersButtonGroupConfig(config));
+					break;
 				case FeathersSliderConfig:
 					item = buildSlider(new Slider(), FeathersSliderConfig(config));
 					break;
@@ -235,5 +254,6 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			return postBuildItem(item, config);
 		}
+		
 	}
 }

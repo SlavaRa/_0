@@ -1,6 +1,7 @@
 package slavara.as3.game.starling.utils {
 	
 	import feathers.controls.Button;
+	import feathers.controls.ButtonGroup;
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.TextInput;
@@ -20,6 +21,13 @@ package slavara.as3.game.starling.utils {
 		 */
 		public static function getBTNby(container:DisplayObjectContainer, enum:BaseEnum):Button {
 			return getButtonByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.FeathersDisplayUtils.getButtonGroupByEnum
+		 */
+		public static function getBTNGby(container:DisplayObjectContainer, enum:BaseEnum):ButtonGroup {
+			return getButtonGroupByEnum(container, enum);
 		}
 		
 		/**
@@ -47,6 +55,9 @@ package slavara.as3.game.starling.utils {
 		
 		public static function getButtonByEnum(container:DisplayObjectContainer, enum:BaseEnum):Button {
 			return StarlingDisplayUtils.getDOby(container, enum) as Button;
+		}
+		public static function getButtonGroupByEnum(container:DisplayObjectContainer, enum:BaseEnum):ButtonGroup {
+			return StarlingDisplayUtils.getDOby(container, enum) as ButtonGroup;
 		}
 		
 		public static function getTextInputByEnum(container:DisplayObjectContainer, enum:BaseEnum):TextInput {

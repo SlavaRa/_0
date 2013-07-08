@@ -2,6 +2,7 @@ package slavara.as3.game.starling.managers.drag {
 	import air.net.SecureSocketMonitor;
 	import feathers.controls.ScreenNavigatorItem;
 	import flash.errors.IllegalOperationError;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import slavara.as3.core.utils.Validate;
@@ -33,6 +34,7 @@ package slavara.as3.game.starling.managers.drag {
 		private static var _internalCall:Boolean = false;
 		private static const _PREV_POS:Point = new Point();
 		private static const _TMP_POINT:Point = new Point();
+		private static const _TMP_MATRIX:Matrix = new Matrix();
 		
 		$internal static function $getInstance(dragSource:DisplayObject, tex:Texture, rescale:Boolean = false, lockCenter:Boolean = true, offset:Point = null, bounds:Rectangle = null, onStage:Boolean = true):StarlingDragObject {
 			_internalCall = true;
@@ -58,7 +60,6 @@ package slavara.as3.game.starling.managers.drag {
 			_offset = offset;
 			_bounds = bounds;
 			_onStage = onStage;
-			_scaleFactor = 0.0;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		}
@@ -68,14 +69,20 @@ package slavara.as3.game.starling.managers.drag {
 			if (!super.visible) {
 				return;
 			}
+			if(Validate.isNotNull(_dragSource.parent)) {
+				_dragSource.getTransformationMatrix(Starling.current.stage, _TMP_MATRIX);
+			}
+			if(!_rescale) {
+				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
+			}
 			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
 			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
 			if(_lockCenter) {
 				mouseX -= width  >> 1;
 				mouseY -= height >> 1;
 			} else {
-				mouseX -= _offset.x;
-				mouseY -= _offset.y;
+				mouseX -= _offset.x * _TMP_MATRIX.a;
+				mouseY -= _offset.y * _TMP_MATRIX.a;
 			}
 			if (Validate.isNotNull(_bounds)) {
 				mouseX = Math.min(Math.max(_bounds.left, mouseX), _bounds.right);
@@ -87,13 +94,12 @@ package slavara.as3.game.starling.managers.drag {
 			if(!_onStage) {
 				_TMP_POINT.setTo(super.x, super.y);
 				_dragSource.parent.globalToLocal(_TMP_POINT, _TMP_POINT);
-				_dragSource.x = _TMP_POINT.x + _dragSource.width * _scaleFactor;
-				_dragSource.y = _TMP_POINT.y + _dragSource.height * _scaleFactor;
+				_dragSource.x = _TMP_POINT.x;
+				_dragSource.y = _TMP_POINT.y;
 			}
 		}
 		
 		private var _rescale:Boolean;
-		private var _scaleFactor:Number;
 		private var _dragSource:DisplayObject;
 		private var _lockCenter:Boolean;
 		private var _offset:Point;
@@ -159,12 +165,6 @@ package slavara.as3.game.starling.managers.drag {
 		
 		public override function set visible(value:Boolean):void {
 			throw new IllegalOperationError();
-		}
-		
-		//TODO: быстрый хак, для решения проблемы драга клипа внутри контейнера,
-		//к которорому применен scale
-		public function set scaleFactor(value:Number):void {
-			_scaleFactor = value;
 		}
 		
 	}
