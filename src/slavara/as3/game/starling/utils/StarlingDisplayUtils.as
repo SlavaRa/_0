@@ -272,6 +272,37 @@ package slavara.as3.game.starling.utils {
 			return result;
 		}
 		
+		public static function centerXY(target:DisplayObject, by:DisplayObject):void {
+			if(Validate.isNull(target)){
+				return;
+			}
+			if(Validate.isNull(by)){
+				return;
+			}
+			centerX(target, by);
+			centerY(target, by);
+		}
+		
+		public static function centerX(target:DisplayObject, by:DisplayObject):void {
+			if(Validate.isNull(target)){
+				return;
+			}
+			if(Validate.isNull(by)){
+				return;
+			}
+			target.x = (by.width - target.width) >> 1;
+		}
+		
+		public static function centerY(target:DisplayObject, by:DisplayObject):void {
+			if(Validate.isNull(target)){
+				return;
+			}
+			if(Validate.isNull(by)){
+				return;
+			}
+			target.y = (by.height - target.height) >> 1;
+		}
+		
 		public function StarlingDisplayUtils() {
 			super();
 			CONFIG::debug
