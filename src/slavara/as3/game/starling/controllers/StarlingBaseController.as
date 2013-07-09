@@ -51,6 +51,7 @@ package slavara.as3.game.starling.controllers {
 				return;
 			}
 			removeCommandListeners();
+			removeListeners();
 			destroyView();
 			view = null;
 			_data = null;
@@ -67,10 +68,19 @@ package slavara.as3.game.starling.controllers {
 		
 		protected function initialize():void {
 			initializeView();
+			addListeners();
 		}
 		
 		/**virtual*/
 		protected function initializeView():void {
+		}
+		
+		/**virtual*/
+		protected function addListeners():void {
+		}
+		
+		/**virtual*/
+		protected function removeListeners():void {
 		}
 		
 		/**virtual*/

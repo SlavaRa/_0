@@ -73,7 +73,7 @@ package slavara.as3.game.starling.managers.drag {
 				_dragSource.getTransformationMatrix(Starling.current.stage, _TMP_MATRIX);
 			}
 			if(!_rescale) {
-				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
+				StarlingDisplayUtils.setscale(this, _dragSource.scaleX, _dragSource.scaleY);
 			}
 			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
 			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
@@ -82,7 +82,7 @@ package slavara.as3.game.starling.managers.drag {
 				mouseY -= height >> 1;
 			} else {
 				mouseX -= _offset.x * _TMP_MATRIX.a;
-				mouseY -= _offset.y * _TMP_MATRIX.a;
+				mouseY -= _offset.y * _TMP_MATRIX.d;
 			}
 			if (Validate.isNotNull(_bounds)) {
 				mouseX = Math.min(Math.max(_bounds.left, mouseX), _bounds.right);
