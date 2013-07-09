@@ -45,23 +45,19 @@ package slavara.as3.game.starling.managers {
 				}
 			}
 			
-			_isLoaded = false;
+			_bundles = new <IResBundle>[];
 			_onLoadComplete = new Signal();
 			registerARP();
 		}
 		
-		public function setup(bundles:Vector.<IResBundle>):void {
-			CONFIG::debug
-			{
-				Assert.isNull(bundles, "bundles");
+		public function add(bundle:IResBundle):void {
+			if(Validate.isNull(bundle)){
+				return;
 			}
-			
-			if(Validate.isNull(_bundles)) {
-				_bundles = bundles;
-			} else if(Collection.isNotEmpty(bundles)) {
-				_bundles = _bundles.concat(bundles);
-				_isLoaded = false;
+			if(has(bundle.name)) {
+				return;
 			}
+			_bundles.push(bundle);
 		}
 		
 		public function loadBundles():void {
@@ -72,30 +68,26 @@ package slavara.as3.game.starling.managers {
 				}
 			}
 			
-			if (!_isLoaded && Collection.isNotEmpty(_bundles)) {
-				for each (var item:IResBundle in _bundles) {
-					if(item.isLoaded) {
-						continue;
-					}
-					item.onLoadComplete.addOnce(onBundleLoadComplete);
-					item.load();
-				}
-			} else {
+			if (Collection.isEmpty(_bundles)) {
 				_onLoadComplete.dispatch();
-			}
-		}
-		
-		public function unloadAll():void {
-			if (!_isLoaded) {
 				return;
 			}
 			
 			for each (var item:IResBundle in _bundles) {
-				item.unload();
+				if(item.isLoaded) {
+					continue;
+				}
+				item.onLoadComplete.addOnce(onBundleLoadComplete);
+				item.load();
 			}
+		}
+		
+		public function unloadAll():void {
+			for (var name:* in _ENUM_2_BUNDLE) {
+				IResBundle(_ENUM_2_BUNDLE).unload();
+			}
+			Collection.clear(_ENUM_2_BUNDLE);
 			Collection.clear(_bundles);
-			
-			_isLoaded = false;
 		}
 		
 		public function has(name:BaseEnum):Boolean {
@@ -111,15 +103,14 @@ package slavara.as3.game.starling.managers {
 		
 		private var _bundles:Vector.<IResBundle>;
 		private var _totalLoaded:int;
-		private var _isLoaded:Boolean;
 		private var _onLoadComplete:Signal;
 		
 		private function onBundleLoadComplete(bundle:IResBundle):void {
 			_ENUM_2_BUNDLE[bundle.name] = bundle;
 			_totalLoaded++;
 			if (_totalLoaded === _bundles.length) {
-				_isLoaded = true;
 				_onLoadComplete.dispatch();
+				Collection.clear(_bundles);
 			}
 		}
 		
