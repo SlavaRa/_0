@@ -15,7 +15,6 @@ package slavara.as3.game.starling.gui.windows {
 		
 		public function BaseWindow(builder:IGUIBuilder = null, config:GUIConfig = null) {
 			super(builder || new GUIBuilder(config));
-			
 			_onOpened = new Signal();
 			_onClosed = new Signal();
 		}
@@ -23,7 +22,6 @@ package slavara.as3.game.starling.gui.windows {
 		protected override function configureStateMachine():void {
 			stateMachine.add(StateWindowEnum.CLOSED, StateWindowEnum.OPEN, StateWindowEnum.OPENING);
 			stateMachine.add(StateWindowEnum.OPEN, StateWindowEnum.CLOSED, StateWindowEnum.CLOSING);
-			
 			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.OPENING, onOpeningState);
 			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.OPEN, onOpenState);
 			stateMachine.addTransitionListener(StateMachineEnum.CHANGE, StateWindowEnum.CLOSING, onClosingState);
@@ -35,13 +33,23 @@ package slavara.as3.game.starling.gui.windows {
 		}
 		
 		public function open():BaseWindow {
+			addListeners();
 			stateMachine.setState(StateWindowEnum.OPEN);
 			return this;
 		}
 		
 		public function close():BaseWindow {
+			removeListeners();
 			stateMachine.setState(StateWindowEnum.CLOSED);
 			return this;
+		}
+		
+		/**virtual*/
+		protected function addListeners():void {
+		}
+		
+		/**virtual*/
+		protected function removeListeners():void {
 		}
 		
 		private var _onOpened:Signal;
