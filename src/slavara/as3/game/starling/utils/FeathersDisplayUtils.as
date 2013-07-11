@@ -5,6 +5,7 @@ package slavara.as3.game.starling.utils {
 	import feathers.controls.List;
 	import feathers.controls.ScrollContainer;
 	import feathers.controls.TextInput;
+	import feathers.controls.ToggleSwitch;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.enums.BaseEnum;
 	import starling.display.DisplayObjectContainer;
@@ -28,6 +29,13 @@ package slavara.as3.game.starling.utils {
 		 */
 		public static function getBTNGby(container:DisplayObjectContainer, enum:BaseEnum):ButtonGroup {
 			return getButtonGroupByEnum(container, enum);
+		}
+		
+		/**
+		 * @see slavara.as3.game.starling.utils.FeathersDisplayUtils.getToggleSwitchByEnum
+		 */
+		public static function getTSGby(container:DisplayObjectContainer, enum:BaseEnum):ToggleSwitch {
+			return getToggleSwitchByEnum(container, enum);
 		}
 		
 		/**
@@ -56,8 +64,13 @@ package slavara.as3.game.starling.utils {
 		public static function getButtonByEnum(container:DisplayObjectContainer, enum:BaseEnum):Button {
 			return StarlingDisplayUtils.getDOby(container, enum) as Button;
 		}
+		
 		public static function getButtonGroupByEnum(container:DisplayObjectContainer, enum:BaseEnum):ButtonGroup {
 			return StarlingDisplayUtils.getDOby(container, enum) as ButtonGroup;
+		}
+		
+		public static function getToggleSwitchByEnum(container:DisplayObjectContainer, enum:BaseEnum):ToggleSwitch {
+			return StarlingDisplayUtils.getDOby(container, enum) as ToggleSwitch;
 		}
 		
 		public static function getTextInputByEnum(container:DisplayObjectContainer, enum:BaseEnum):TextInput {

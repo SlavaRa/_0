@@ -7,6 +7,7 @@ package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.Slider;
 	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.TextInput;
+	import feathers.controls.ToggleSwitch;
 	import feathers.core.DisplayListWatcher;
 	import feathers.core.ITextEditor;
 	import feathers.display.Scale3Image;
@@ -20,6 +21,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersSliderConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersTextInputConfig;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersToggleSwitchConfig;
 	import slavara.as3.game.starling.gui.configurations.GUIConfig;
 	import slavara.as3.game.starling.utils.TexUtils;
 	import starling.display.DisplayObject;
@@ -69,6 +71,23 @@ package slavara.as3.game.starling.gui.builders {
 				group.buttonFactory = config.buttonFactory;
 			}
 			return group;
+		}
+		
+		private function buildToggleSwitcher(toggle:ToggleSwitch, config:FeathersToggleSwitchConfig):DisplayObject {
+			toggle.isSelected = config.isSelected;
+			toggle.useHandCursor = config.useHandCursor;
+			if(Validate.isNotNull(config.thumbFactory)) {
+				toggle.thumbFactory = config.thumbFactory;
+			}
+			if(Validate.isNotNull(config.onTrackFactory)) {
+				toggle.onTrackFactory = config.onTrackFactory;
+			}
+			toggle.defaultLabelProperties.textFormat = config.defaultLabelProperties.textFormat;
+			toggle.labelAlign = config.labelAlign;
+			toggle.onText  = config.onText;
+			toggle.offText = config.offText;
+			toggle.trackLayoutMode = config.trackLayoutMode;
+			return toggle;
 		}
 		
 		public static function buildSlider(slider:Slider, config:FeathersSliderConfig):DisplayObject {
@@ -234,6 +253,9 @@ package slavara.as3.game.starling.gui.builders {
 					break;
 				case FeathersButtonGroupConfig:
 					item = buildButtonGroup(new ButtonGroup(), FeathersButtonGroupConfig(config));
+					break;
+				case FeathersToggleSwitchConfig:
+					item = buildToggleSwitcher(new ToggleSwitch(), FeathersToggleSwitchConfig(config));
 					break;
 				case FeathersSliderConfig:
 					item = buildSlider(new Slider(), FeathersSliderConfig(config));
