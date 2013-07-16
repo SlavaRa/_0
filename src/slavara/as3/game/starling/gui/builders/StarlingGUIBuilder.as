@@ -24,7 +24,7 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		public static function createImageFromBitmapData(bitmapData:BitmapData):Image {
-			return createImage(TexUtils.getTextureFromBitmapData(bitmapData));
+			return createImage(TexUtils.getFromBitmapData(bitmapData));
 		}
 		
 		public static function createImage(tex:Texture):Image {

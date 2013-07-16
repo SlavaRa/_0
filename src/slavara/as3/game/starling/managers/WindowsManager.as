@@ -20,16 +20,30 @@ package slavara.as3.game.starling.managers {
 	 */
 	public class WindowsManager {
 		
-		private static var _instance:WindowsManager;
-		private static var _isInitialized:Boolean = true;
+		public static const manager:WindowsManager = new WindowsManager();
 		
-		public static function get instance():WindowsManager {
-			if (!_instance) {
-				_isInitialized = false;
-				_instance = new WindowsManager();
-				_isInitialized = true;
-			}
-			return _instance;
+		public static function setup(enum2window:Dictionary, container:DisplayObjectContainer):WindowsManager {
+			return manager.setup(enum2window, container);
+		}
+		
+		public static function getBy(id:BaseEnum):BaseWindow {
+			return manager.getBy(id);
+		}
+		
+		public static function alert(id:BaseEnum):BaseWindow {
+			return manager.alert(id);
+		}
+		
+		public static function show(id:BaseEnum):BaseWindow {
+			return manager.show(id)
+		}
+		
+		public static function close(window:BaseWindow):void {
+			manager.close(window);
+		}
+		
+		public static function closeAll():void {
+			manager.closeAll();
 		}
 		
 		public function WindowsManager() {
@@ -37,14 +51,15 @@ package slavara.as3.game.starling.managers {
 			
 			CONFIG::debug
 			{
-				if (_isInitialized) {
-					throw new Error("Singleton, use WindowsManager.instance");
+				if (Validate.isNotNull(manager)) {
+					throw new Error("Singleton, use WindowsManager.manager");
 				}
 			}
 			
 			initialize();
 		}
 		
+		//TODO: change 2 add
 		public function setup(enum2window:Dictionary, container:DisplayObjectContainer):WindowsManager {
 			CONFIG::debug
 			{

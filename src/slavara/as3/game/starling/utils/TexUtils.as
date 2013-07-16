@@ -20,7 +20,7 @@ package slavara.as3.game.starling.utils {
 		
 		private static const _bitmapData2tex:Dictionary = new Dictionary(true);
 		
-		public static function getTextureFromBundle(bundle:IResBundle, name:BaseEnum):Texture {
+		public static function getFromBundle(bundle:IResBundle, name:BaseEnum):Texture {
 			CONFIG::debug
 			{
 				Assert.isNull(bundle, "bundle");
@@ -38,7 +38,7 @@ package slavara.as3.game.starling.utils {
 			return new Scale9Textures(ResourceManager.getTextureFromARPBundle(name), scale9Grid);
 		}
 		
-		public static function getTextureFromBitmapData(data:BitmapData, generateMipMaps:Boolean = false, optimizeForRenderToTexture:Boolean = false, scale:Number = 1, cache:Boolean = true):Texture {
+		public static function getFromBitmapData(data:BitmapData, generateMipMaps:Boolean = false, optimizeForRenderToTexture:Boolean = false, scale:Number = 1, cache:Boolean = true):Texture {
 			CONFIG::debug
 			{
 				Assert.isNull(data, "data");
@@ -57,7 +57,7 @@ package slavara.as3.game.starling.utils {
 			return _bitmapData2tex[data] = Texture.fromBitmapData(data, generateMipMaps, optimizeForRenderToTexture, scale);
 		}
 		
-		public static function disposeTextureFromBitmapData(data:BitmapData):void {
+		public static function disposeFromBitmapData(data:BitmapData):void {
 			if(!Collection.exists(data, _bitmapData2tex)) {
 				return;
 			}
