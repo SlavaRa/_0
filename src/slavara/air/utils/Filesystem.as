@@ -1,40 +1,45 @@
 package slavara.air.utils {
 	
 	import air.update.net.FileDownloader;
+	import flash.display.Loader;
+	import flash.display.LoaderInfo;
+	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
+	import flash.system.LoaderContext;
 	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.utils.StringUtils;
 	import slavara.as3.core.utils.Validate;
+	import slavara.as3.game.starling.utils.StarlingDestroyUtils;
 	
 	/**
 	 * @author SlavaRa
 	 */
 	public class Filesystem {
 		
-		public static function readBinaryFile(file:File, uncompress:String = null, result:ByteArray = null):ByteArray {
-			if(Validate.isNull(result)) {
-				result = new ByteArray();
-			}
+		public static function readAndLoadSWFFile(file:File, allowCodeImport:Boolean, onLoadCallback:Function/*(fileName:String, applicationDomain:ApplicationDomain):void*/, destroyLoader:Boolean = false):void {
+			const bytes:ByteArray = new ByteArray();
 			const reader:FileStream = new FileStream();
 			reader.open(file, FileMode.READ);
-			reader.readBytes(result);
+			reader.readBytes(bytes);
 			reader.close();
-			result.position = 0;
-			if(Validate.stringIsNotEmpty(uncompress)) {
-				result.uncompress(uncompress);
-			}
-			return result;
-		}
-		
-		//NOTE: 
-		public static function readUTFFileByPath(path:String):String {
-			if(Validate.stringIsNullOrEmpty(path)) {
-				return null;
-			}
-			return readUTFFile(new File(path));
+			
+			const context:LoaderContext = new LoaderContext();
+			context.allowCodeImport = allowCodeImport;
+			
+			const loader:Loader = new Loader();
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):void {
+				const loaderInfo:LoaderInfo = loader.contentLoaderInfo;
+				loaderInfo.removeEventListener(Event.COMPLETE, arguments.callee);
+				bytes.clear();
+				onLoadCallback(file.name.substring(0, file.name.indexOf(".swf")), loaderInfo.applicationDomain);
+				if(destroyLoader) {
+					StarlingDestroyUtils.destroy(loader);
+				}
+			});
+			loader.loadBytes(bytes, context);
 		}
 		
 		public static function readUTFFile(file:File):String {
@@ -47,6 +52,17 @@ package slavara.air.utils {
 			const config:String = bytes.readUTFBytes(bytes.length).replace(/\\/g, "/");
 			bytes.clear();
 			return config;
+		}
+		
+		public static function writeUTFFile(string:String, file:File):void {
+			const bytes:ByteArray = new ByteArray();
+			const writer:FileStream = new FileStream();
+			bytes.position = 0;
+			bytes.writeUTFBytes(string);
+			writer.open(file, FileMode.WRITE);
+			writer.writeBytes(bytes);
+			writer.close();
+			bytes.clear();
 		}
 		
 		public static function getFiles(path:String, result:Array/*of File*/, anchor:String, recursive:Boolean = false):Array/*of File*/{
