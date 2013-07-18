@@ -63,7 +63,7 @@ package slavara.as3.core.debug {
 		}
 		
 		public static function stringIsNullOrEmpty(string:String, message:String = ""):void {
-			if (Validate.stringIsNullOrEmpty(string)) {
+			if (Validate.stringNonOrEmpty(string)) {
 				Error.throwError(TypeError, 2007, message);
 			}
 		}

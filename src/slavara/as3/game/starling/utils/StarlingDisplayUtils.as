@@ -164,7 +164,7 @@ package slavara.as3.game.starling.utils {
 			const anchorString:String = anchor.toString().toLowerCase();
 			for(var i:int = 0; i < container.numChildren; i++) {
 				const child:DisplayObject = container.getChildAt(i);
-				if(Validate.stringIsNullOrEmpty(child.name)) {
+				if(Validate.stringNonOrEmpty(child.name)) {
 					continue;
 				}
 				if(child.name.toLowerCase().indexOf(anchorString) != -1) {

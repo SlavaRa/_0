@@ -53,7 +53,7 @@ package slavara.as3.core.data {
 		}
 		
 		public override function formatToString(className:String, ... rest):String {
-			if (!Validate.stringIsNullOrEmpty(className)) {
+			if (!Validate.stringNonOrEmpty(className)) {
 				className = "DataBaseNativeEvent";
 				(rest as Array).unshift(className);
 			}

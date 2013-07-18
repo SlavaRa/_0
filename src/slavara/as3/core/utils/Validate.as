@@ -16,7 +16,7 @@ package slavara.as3.core.utils {
 			return !isNull(object);
 		}
 		
-		public static function stringIsNullOrEmpty(string:String):Boolean {
+		public static function stringNonOrEmpty(string:String):Boolean {
 			return isNull(string) || (string.length === 0);
 		}
 		
@@ -77,10 +77,10 @@ package slavara.as3.core.utils {
 		}
 		
 		public static function existsInString(pattern:String, string:String, strict:Boolean = true):Boolean {
-			if (stringIsNullOrEmpty(pattern)) {
+			if (stringNonOrEmpty(pattern)) {
 				return false;
 			}
-			if (stringIsNullOrEmpty(string)) {
+			if (stringNonOrEmpty(string)) {
 				return false;
 			}
 			if(!strict) {

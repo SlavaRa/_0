@@ -19,7 +19,7 @@ package slavara.air.utils {
 	 */
 	public class Filesystem {
 		
-		public static function readAndLoadSWFFile(file:File, allowCodeImport:Boolean, onLoadCallback:Function/*(fileName:String, applicationDomain:ApplicationDomain):void*/, destroyLoader:Boolean = false):void {
+		public static function readAndLoadSWFFile(file:File, allowCodeImport:Boolean, onLoadCallback:Function/*(fileName:String, applicationDomain:ApplicationDomain):void*/, destroyLoader:Boolean = true):void {
 			const bytes:ByteArray = new ByteArray();
 			const reader:FileStream = new FileStream();
 			reader.open(file, FileMode.READ);
@@ -66,7 +66,7 @@ package slavara.air.utils {
 		}
 		
 		public static function getFiles(path:String, result:Array/*of File*/, anchor:String, recursive:Boolean = false):Array/*of File*/{
-			if(Validate.stringIsNullOrEmpty(path)){
+			if(Validate.stringNonOrEmpty(path)){
 				return result;
 			}
 			if(Validate.isNull(result)) {
