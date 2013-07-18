@@ -66,7 +66,7 @@ package slavara.air.utils {
 		}
 		
 		public static function getFiles(path:String, result:Array/*of File*/, anchor:String, recursive:Boolean = false):Array/*of File*/{
-			if(Validate.stringNonOrEmpty(path)){
+			if(Validate.stringIsNullOrEmpty(path)){
 				return result;
 			}
 			if(Validate.isNull(result)) {

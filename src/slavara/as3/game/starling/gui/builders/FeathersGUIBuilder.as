@@ -39,7 +39,7 @@ package slavara.as3.game.starling.gui.builders {
 		public static function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
 			button.useHandCursor = config.useHandCursor;
 			
-			if (Validate.stringIsNotEmpty(config.label)) {
+			if (Validate.stringNonEmpty(config.label)) {
 				button.label = config.label;
 				button.defaultLabelProperties.textFormat = config.textFormat;
 			}
@@ -224,7 +224,7 @@ package slavara.as3.game.starling.gui.builders {
 				editor.fontSize = config.fontSize;
 				editor.color = config.color;
 				editor.textAlign = config.hAlign;
-				if(Validate.stringIsNotEmpty(config.restrict)) {
+				if(Validate.stringNonEmpty(config.restrict)) {
 					editor.restrict = config.restrict;
 				}
 				if(config.maxChars !== -1) {
@@ -232,7 +232,7 @@ package slavara.as3.game.starling.gui.builders {
 				}
 				return editor;
 			}
-			if(Validate.stringIsNotEmpty(config.text)) {
+			if(Validate.stringNonEmpty(config.text)) {
 				textInput.text = config.text;
 			}
 			if(Validate.isNotNull(config.scale3texBackgroundTex)){

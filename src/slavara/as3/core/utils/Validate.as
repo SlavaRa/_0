@@ -16,11 +16,11 @@ package slavara.as3.core.utils {
 			return !isNull(object);
 		}
 		
-		public static function stringNonOrEmpty(string:String):Boolean {
+		public static function stringIsNullOrEmpty(string:String):Boolean {
 			return isNull(string) || (string.length === 0);
 		}
 		
-		public static function stringIsNotEmpty(string:String):Boolean {
+		public static function stringNonEmpty(string:String):Boolean {
 			if(isNull(string)) {
 				return false;
 			}
@@ -77,10 +77,10 @@ package slavara.as3.core.utils {
 		}
 		
 		public static function existsInString(pattern:String, string:String, strict:Boolean = true):Boolean {
-			if (stringNonOrEmpty(pattern)) {
+			if (stringIsNullOrEmpty(pattern)) {
 				return false;
 			}
-			if (stringNonOrEmpty(string)) {
+			if (stringIsNullOrEmpty(string)) {
 				return false;
 			}
 			if(!strict) {

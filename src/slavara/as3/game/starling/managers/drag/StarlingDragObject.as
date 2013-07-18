@@ -132,6 +132,14 @@ package slavara.as3.game.starling.managers.drag {
 			advanceTime(0);
 		}
 		
+		public function get rescale():Boolean {
+			return _rescale;
+		}
+		
+		public function set rescale(value:Boolean):void {
+			_rescale = value;
+		}
+		
 		public function get prevPosition():Point {
 			return _PREV_POS;
 		}
