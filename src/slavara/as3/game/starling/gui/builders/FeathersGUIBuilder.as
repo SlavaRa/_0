@@ -48,6 +48,9 @@ package slavara.as3.game.starling.gui.builders {
 			} else if(Validate.isNotNull(config.scale3texDefaultSkin)) {
 				button.defaultSkin = createScale3Image(config.scale3texDefaultSkin);
 			}
+			if(Validate.isNotNull(config.scale3texHoverSkin)) {
+				button.hoverSkin = createScale3Image(config.scale3texHoverSkin);
+			}
 			if (Validate.isNotNull(config.texUpSkin)) {
 				button.upSkin = createImageFromARP(config.texUpSkin);
 			}

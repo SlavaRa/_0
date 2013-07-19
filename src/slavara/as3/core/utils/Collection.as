@@ -157,7 +157,7 @@ package slavara.as3.core.utils {
 			return true;
 		}
 		
-		public static function isNotEmpty(collection:Object):Boolean {
+		public static function nonEmpty(collection:Object):Boolean {
 			return !isEmpty(collection);
 		}
 		

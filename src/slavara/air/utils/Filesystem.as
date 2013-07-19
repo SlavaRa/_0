@@ -1,6 +1,5 @@
 package slavara.air.utils {
 	
-	import air.update.net.FileDownloader;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
@@ -34,7 +33,7 @@ package slavara.air.utils {
 				const loaderInfo:LoaderInfo = loader.contentLoaderInfo;
 				loaderInfo.removeEventListener(Event.COMPLETE, arguments.callee);
 				bytes.clear();
-				onLoadCallback(file.name.substring(0, file.name.indexOf(".swf")), loaderInfo.applicationDomain);
+				onLoadCallback(file.nativePath, loaderInfo.applicationDomain);
 				if(destroyLoader) {
 					StarlingDestroyUtils.destroy(loader);
 				}

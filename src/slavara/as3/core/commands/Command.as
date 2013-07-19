@@ -14,7 +14,7 @@ package slavara.as3.core.commands{
 			
 			super();
 			this.name = name;
-			if (Collection.isNotEmpty(args)) {
+			if (Collection.nonEmpty(args)) {
 				push.apply(this, args);
 			}
 		}

@@ -96,7 +96,7 @@ package slavara.as3.core.statemachine {
 				delete toState2listeners[to];
 			}
 			
-			if(Collection.isNotEmpty(toState2listeners)) {
+			if(Collection.nonEmpty(toState2listeners)) {
 				return;
 			}
 			

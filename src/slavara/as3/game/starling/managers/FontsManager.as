@@ -64,7 +64,7 @@ package slavara.as3.game.starling.managers {
 			
 			if(Validate.isNull(_bundles)) {
 				_bundles = bundles;
-			} else if(Collection.isNotEmpty(bundles)) {
+			} else if(Collection.nonEmpty(bundles)) {
 				_bundles = _bundles.concat(bundles);
 				_isLoaded = false;
 			}
@@ -78,7 +78,7 @@ package slavara.as3.game.starling.managers {
 				}
 			}
 			
-			if (!_isLoaded && Collection.isNotEmpty(_bundles)) {
+			if (!_isLoaded && Collection.nonEmpty(_bundles)) {
 				for each (var item:IResBundle in _bundles) {
 					if(item.isLoaded) {
 						continue;
