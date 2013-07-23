@@ -2,6 +2,7 @@ package slavara.as3.core.utils {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.display.FrameLabel;
 	import flash.display.IBitmapDrawable;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
@@ -25,6 +26,17 @@ package slavara.as3.core.utils {
 					bitmapData.draw(target, new Matrix(1, 0, 0, 1, Math.ceil(-rect.x + 1), Math.ceil(-rect.y + 1)));
 					return bitmapData;
 				}
+			}
+			Error.throwError(ArgumentError, 0);
+			return null;
+		}
+		
+		public static function getFrameData(source:DisplayObject):FrameData {
+			const rect:Rectangle = source.getBounds(source);
+			if (!rect.isEmpty()) {
+				const bitmapData:BitmapData = new BitmapData(Math.ceil(rect.width + 2), Math.ceil(rect.height + 2), true, 0x000000);
+				bitmapData.draw(source, new Matrix(1, 0, 0, 1, Math.ceil(-rect.x + 1), Math.ceil(-rect.y + 1)));
+				return new FrameData(rect.x, rect.y, bitmapData);
 			}
 			Error.throwError(ArgumentError, 0);
 			return null;
