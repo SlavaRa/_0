@@ -2,6 +2,7 @@ package slavara.as3.game.starling.utils {
 	
 	import feathers.textures.Scale9Textures;
 	import flash.display.BitmapData;
+	import flash.display3D.Context3DProfile;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
@@ -11,6 +12,7 @@ package slavara.as3.game.starling.utils {
 	import slavara.as3.core.utils.Collection;
 	import slavara.as3.game.starling.managers.ResourceManager;
 	import slavara.as3.game.starling.resources.IResBundle;
+	import starling.core.Starling;
 	import starling.textures.Texture;
 
 	/**
@@ -43,13 +45,15 @@ package slavara.as3.game.starling.utils {
 			{
 				Assert.isNull(data, "data");
 			}
-			if(data.width > 2048) {
-				trace(TraceLevel.WARNING+":", "TexUtils", "data.width > 2048", data.width);
-				return null;
-			}
-			if(data.height > 2048) {
-				trace(TraceLevel.WARNING+":", "TexUtils", "data.height > 2048", data.height);
-				return null;
+			if(Starling.current.profile !== Context3DProfile.BASELINE_EXTENDED) {
+				if(data.width > 2048) {
+					trace(TraceLevel.WARNING+":", "TexUtils", "data.width > 2048", data.width);
+					return null;
+				}
+				if(data.height > 2048) {
+					trace(TraceLevel.WARNING+":", "TexUtils", "data.height > 2048", data.height);
+					return null;
+				}
 			}
 			if(Collection.exists(data, _bitmapData2tex)) {
 				return Texture(_bitmapData2tex[data]);
