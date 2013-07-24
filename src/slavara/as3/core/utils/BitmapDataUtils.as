@@ -36,8 +36,8 @@ package slavara.as3.core.utils {
 			if (!rect.isEmpty()) {
 				const w:Number = Math.ceil(rect.width * scaleFactor + 2);
 				const h:Number = Math.ceil(rect.height * scaleFactor + 2);
-				const x:Number = Math.ceil( -rect.x + 1);
-				const y:Number = Math.ceil( -rect.y + 1);
+				const y:Number = Math.ceil( -rect.y + 1) * scaleFactor;
+				const x:Number = Math.ceil( -rect.x + 1) * scaleFactor;
 				const bitmapData:BitmapData = new BitmapData(w, h, true, 0x000000);
 				bitmapData.draw(source, new Matrix(scaleFactor, 0, 0, scaleFactor, x, y));
 				return new FrameData(rect.x, rect.y, bitmapData);
