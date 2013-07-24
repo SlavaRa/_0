@@ -73,7 +73,7 @@ package slavara.as3.game.starling.managers.drag {
 				_dragSource.getTransformationMatrix(Starling.current.stage, _TMP_MATRIX);
 			}
 			if(!_rescale) {
-				StarlingDisplayUtils.setscale(this, _dragSource.scaleX, _dragSource.scaleY);
+				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
 			}
 			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
 			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
