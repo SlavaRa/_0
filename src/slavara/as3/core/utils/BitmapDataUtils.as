@@ -2,8 +2,10 @@ package slavara.as3.core.utils {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.FrameLabel;
 	import flash.display.IBitmapDrawable;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	import flash.utils.getQualifiedClassName;
@@ -40,7 +42,11 @@ package slavara.as3.core.utils {
 				const x:Number = Math.ceil( -rect.x + 1) * scaleFactor;
 				const bitmapData:BitmapData = new BitmapData(w, h, true, 0x000000);
 				bitmapData.draw(source, new Matrix(scaleFactor, 0, 0, scaleFactor, x, y));
-				return new FrameData(rect.x, rect.y, bitmapData);
+				const frameData:FrameData = new FrameData();
+				frameData.rect = rect.clone();
+				frameData.bitmapData = bitmapData;
+				frameData.scaleFactor = scaleFactor;
+				return frameData
 			}
 			Error.throwError(ArgumentError, 0);
 			return null;

@@ -108,11 +108,12 @@ package slavara.as3.core.utils {
 				Assert.isNull(collection, "collection");
 			}
 			
+			if(pos < 0) {
+				return null;
+			}
+			
 			const isVector:Boolean = Validate.isVector(collection);
 			if ((collection is Array) || (collection is ByteArray) || isVector) {
-				if (pos < 0) {
-					pos = 0;
-				}
 				const length:int = collection.length - 1;
 				if (pos > length) {
 					pos = length;
