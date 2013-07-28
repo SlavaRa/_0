@@ -13,6 +13,7 @@ package slavara.as3.game.starling.enums.gui {
 		public static const TEXT_INPUT:BaseEnum = new GUIItemEnum("TextInput");
 		public static const SCROLL_CONTAINER:BaseEnum = new GUIItemEnum("ScrollContainer");
 		public static const LIST:BaseEnum = new GUIItemEnum("List");
+		public static const GROUPED_LIST:BaseEnum = new GUIItemEnum("GroupedList");
 		public static const BUTTON_GROUP:BaseEnum = new GUIItemEnum("ButtonGroup");
 		public static const BUTTON:BaseEnum = new GUIItemEnum("Button");
 		

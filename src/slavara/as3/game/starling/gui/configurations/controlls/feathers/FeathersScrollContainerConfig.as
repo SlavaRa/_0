@@ -35,6 +35,8 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 		public var elasticity:Number;
 		public var elasticSnapDuration:Number;
 		public var hasElasticEdges:Boolean;
+		public var verticalScrollStep:Number;
+		public var horizontalScrollStep:Number;
 	}
 }
 

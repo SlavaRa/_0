@@ -256,7 +256,7 @@ package slavara.as3.game.starling.utils {
 				return null;
 			}
 			if(Validate.isNull(bounds)) {
-				bounds = target.bounds
+				bounds = target.bounds;
 			}
 			
 			const support:RenderSupport = new RenderSupport();

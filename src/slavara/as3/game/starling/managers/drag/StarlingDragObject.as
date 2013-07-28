@@ -1,6 +1,4 @@
 package slavara.as3.game.starling.managers.drag {
-	import air.net.SecureSocketMonitor;
-	import feathers.controls.ScreenNavigatorItem;
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Matrix;
 	import flash.geom.Point;

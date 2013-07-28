@@ -1,6 +1,7 @@
 package slavara.as3.game.starling.gui.builders {
 	import feathers.controls.Button;
 	import feathers.controls.ButtonGroup;
+	import feathers.controls.GroupedList;
 	import feathers.controls.List;
 	import feathers.controls.ProgressBar;
 	import feathers.controls.ScrollContainer;
@@ -16,6 +17,7 @@ package slavara.as3.game.starling.gui.builders {
 	import slavara.as3.core.utils.Validate;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersButtonGroupConfig;
+	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersGroupedListConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersListConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersProgressBarConfig;
 	import slavara.as3.game.starling.gui.configurations.controlls.feathers.FeathersScrollContainerConfig;
@@ -67,12 +69,8 @@ package slavara.as3.game.starling.gui.builders {
 			group.direction = config.direction;
 			group.gap = config.gap;
 			group.isEnabled = true;
-			if(Validate.isNotNull(config.dataProvider)) {
-				group.dataProvider = config.dataProvider;
-			}
-			if(Validate.isNotNull(config.buttonFactory)) {
-				group.buttonFactory = config.buttonFactory;
-			}
+			group.dataProvider = config.dataProvider;
+			group.buttonFactory = config.buttonFactory;
 			return group;
 		}
 		
@@ -155,6 +153,8 @@ package slavara.as3.game.starling.gui.builders {
 			}
 			scroll.horizontalScrollPosition = config.horizontalScrollPosition;
 			scroll.verticalScrollPosition = config.verticalScrollPosition;
+			scroll.horizontalScrollStep = config.horizontalScrollStep;
+			scroll.verticalScrollStep = config.verticalScrollStep;
 			scroll.elasticity = config.elasticity;
 			scroll.elasticSnapDuration = config.elasticSnapDuration;
 			scroll.hasElasticEdges = config.hasElasticEdges;
@@ -178,12 +178,8 @@ package slavara.as3.game.starling.gui.builders {
 				list.itemRendererProperties.labelField = config.itemRendererProperties.labelField;
 				list.itemRendererProperties.verticalAlign = config.itemRendererProperties.verticalAlign;
 			}
-			if(Validate.isNotNull(config.itemRendererFactory)) {
-				list.itemRendererFactory = config.itemRendererFactory;
-			}
-			if(Validate.isNotNull(config.dataProvider)){
-				list.dataProvider = config.dataProvider;
-			}
+			list.itemRendererFactory = config.itemRendererFactory;
+			list.dataProvider = config.dataProvider;
 			if(Validate.isNotNull(config.scrollerProperties)) {
 				list.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
 				list.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
@@ -197,7 +193,46 @@ package slavara.as3.game.starling.gui.builders {
 			list.elasticity = config.elasticity;
 			list.elasticSnapDuration = config.elasticSnapDuration;
 			list.hasElasticEdges = config.hasElasticEdges;
-			list.isEnabled = config.isSelectable;
+			list.isSelectable = config.isSelectable;
+			return list;
+		}
+		
+		public static function buildGroupedList(list:GroupedList, config:FeathersGroupedListConfig):DisplayObject {
+			if(Validate.isNotNull(config.horizontalLayout)) {
+				config.horizontalLayout.useVirtualLayout = config.useVirtualLayout;
+				list.layout = config.horizontalLayout;
+			}
+			if(Validate.isNotNull(config.verticalLayout)) {
+				config.verticalLayout.useVirtualLayout = config.useVirtualLayout;
+				list.layout = config.verticalLayout;
+			}
+			if(Validate.isNotNull(config.headerRendererFunction)) {
+				list.headerRendererFactory = config.headerRendererFunction;
+			}
+			if(Validate.isNotNull(config.itemRendererProperties)) {
+				list.itemRendererProperties.gap = config.itemRendererProperties.gap;
+				list.itemRendererProperties.horizontalAlign = config.itemRendererProperties.horizontalAlign;
+				list.itemRendererProperties.iconPosition = config.itemRendererProperties.iconPosition;
+				list.itemRendererProperties.iconSourceField = config.itemRendererProperties.iconSourceField;
+				list.itemRendererProperties.labelField = config.itemRendererProperties.labelField;
+				list.itemRendererProperties.verticalAlign = config.itemRendererProperties.verticalAlign;
+			}
+			list.itemRendererFactory = config.itemRendererFactory;
+			list.dataProvider = config.dataProvider;
+			if(Validate.isNotNull(config.scrollerProperties)) {
+				list.scrollerProperties.horizontalScrollPolicy = config.scrollerProperties.horizontalScrollPolicy;
+				list.scrollerProperties.verticalScrollPolicy = config.scrollerProperties.verticalScrollPolicy;
+				list.scrollerProperties.scrollBarDisplayMode = config.scrollerProperties.scrollBarDisplayMode;
+				list.scrollerProperties.interactionMode = config.scrollerProperties.interactionMode;
+				list.scrollerProperties.horizontalScrollBarFactory = config.scrollerProperties.horizontalScrollBarFactory;
+				list.scrollerProperties.verticalScrollBarFactory = config.scrollerProperties.verticalScrollBarFactory;
+			}
+			list.horizontalScrollPosition = config.horizontalScrollPosition;
+			list.verticalScrollPosition = config.verticalScrollPosition;
+			list.elasticity = config.elasticity;
+			list.elasticSnapDuration = config.elasticSnapDuration;
+			list.hasElasticEdges = config.hasElasticEdges;
+			list.isSelectable = config.isSelectable;
 			return list;
 		}
 		
@@ -262,6 +297,9 @@ package slavara.as3.game.starling.gui.builders {
 					break;
 				case FeathersSliderConfig:
 					item = buildSlider(new Slider(), FeathersSliderConfig(config));
+					break;
+				case FeathersGroupedListConfig:
+					item = buildGroupedList(new GroupedList(), FeathersGroupedListConfig(config));
 					break;
 				case FeathersListConfig:
 					item = buildList(new List(), FeathersListConfig(config));
