@@ -72,8 +72,9 @@ package slavara.as3.game.starling.gui.builders {
 		protected function postBuildItem(item:DisplayObject, config:GUIConfig):DisplayObject {
 			item.name = config.name;
 			item.alpha = config.alpha;
+			item.skewX = config.skewX;
+			item.skewY = config.skewY;
 			item.filter = config.filter;
-			item.rotation = config.rotation;
 			item.touchable = config.touchable;
 			item.visible = config.visible;
 			StarlingDisplayUtils.setxy(item, config.x, config.y);

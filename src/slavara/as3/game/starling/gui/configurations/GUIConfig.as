@@ -19,6 +19,8 @@ package slavara.as3.game.starling.gui.configurations {
 			scaleX = 1;
 			scaleY = 1;
 			alpha = 1;
+			skewX = 0;
+			skewY = 0;
 			rotation = 0;
 			children = new Vector.<GUIConfig>(0, true);
 			touchable = true;
@@ -36,6 +38,8 @@ package slavara.as3.game.starling.gui.configurations {
 		public var alpha:Number;
 		public var filter:BlurFilter;
 		public var rotation:Number;
+		public var skewX:Number;
+		public var skewY:Number;
 		public var tex:BaseEnum;
 		public var children:Vector.<GUIConfig>;
 		public var touchable:Boolean;
