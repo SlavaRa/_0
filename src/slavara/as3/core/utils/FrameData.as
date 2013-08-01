@@ -8,9 +8,7 @@ package slavara.as3.core.utils {
 	 */
 	public class FrameData {
 		
-		public function FrameData() {
-			super();
-		}
+		public function FrameData() { super(); }
 		
 		public function toString():String {
 			return "[FrameData"
@@ -23,7 +21,5 @@ package slavara.as3.core.utils {
 		public var rect:Rectangle;
 		public var bitmapData:BitmapData;
 		public var scaleFactor:int;
-		
 	}
-
 }

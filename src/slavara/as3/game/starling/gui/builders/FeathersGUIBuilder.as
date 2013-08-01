@@ -39,8 +39,6 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		public static function buildButton(button:Button, config:FeathersButtonConfig):DisplayObject {
-			button.useHandCursor = config.useHandCursor;
-			
 			if (Validate.stringNonEmpty(config.label)) {
 				button.label = config.label;
 				button.defaultLabelProperties.textFormat = config.textFormat;
@@ -76,7 +74,6 @@ package slavara.as3.game.starling.gui.builders {
 		
 		private function buildToggleSwitcher(toggle:ToggleSwitch, config:FeathersToggleSwitchConfig):DisplayObject {
 			toggle.isSelected = config.isSelected;
-			toggle.useHandCursor = config.useHandCursor;
 			if(Validate.isNotNull(config.thumbFactory)) {
 				toggle.thumbFactory = config.thumbFactory;
 			}
@@ -279,9 +276,7 @@ package slavara.as3.game.starling.gui.builders {
 			return textInput;
 		}
 		
-		public function FeathersGUIBuilder(config:GUIConfig) {
-			super(config);
-		}
+		public function FeathersGUIBuilder(config:GUIConfig) { super(config); }
 		
 		protected override function preBuildItem(config:GUIConfig):DisplayObject {
 			var item:DisplayObject;

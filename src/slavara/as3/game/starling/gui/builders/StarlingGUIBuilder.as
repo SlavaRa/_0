@@ -41,9 +41,7 @@ package slavara.as3.game.starling.gui.builders {
 			return new Quad(config.width, config.height, config.color, config.premultipliedAlpha);
 		}
 		
-		public function StarlingGUIBuilder(config:GUIConfig) {
-			super(config);
-		}
+		public function StarlingGUIBuilder(config:GUIConfig) { super(config); }
 		
 		public override function build():void {
 			product = DisplayObjectContainer(preBuildItem(config));

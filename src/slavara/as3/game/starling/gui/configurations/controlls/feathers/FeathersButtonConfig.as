@@ -22,7 +22,6 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 		public var texHoverSkin:BaseEnum;
 		public var label:String;
 		public var textFormat:BitmapFontTextFormat;
-		public var useHandCursor:Boolean
 		public var scale3texDefaultSkin:Scale3Textures;
 		public var scale3texHoverSkin:Scale3Textures;
 		

@@ -32,7 +32,6 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 		public var labelAlign:String;
 		public var onText:String;
 		public var offText:String;
-		public var useHandCursor:Boolean;
 		public var trackLayoutMode:String;
 		
 		public function setAlign(enum:BaseEnum):void {
@@ -44,8 +43,6 @@ package slavara.as3.game.starling.gui.configurations.controlls.feathers {
 
 import feathers.text.BitmapFontTextFormat;
 class DefaultLabelProperties {
-	public function DefaultLabelProperties() {
-		super();
-	}
+	public function DefaultLabelProperties() { super(); }
 	public var textFormat:BitmapFontTextFormat;
 }

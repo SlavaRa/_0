@@ -25,6 +25,7 @@ package slavara.as3.game.starling.gui.configurations {
 			children = new Vector.<GUIConfig>(0, true);
 			touchable = true;
 			visible = true;
+			useHandCursor = false;
 		}
 		
 		public var bundle:IResBundle;
@@ -44,6 +45,7 @@ package slavara.as3.game.starling.gui.configurations {
 		public var children:Vector.<GUIConfig>;
 		public var touchable:Boolean;
 		public var visible:Boolean;
+		public var useHandCursor:Boolean;
 		
 		public function setName(enum:BaseEnum):void {
 			name = enum.toString();

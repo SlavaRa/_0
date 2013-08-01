@@ -29,14 +29,10 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		/* INTERFACE slavara.as3.game.starling.gui.builders.IGUIBuilder */
-		public function build():void {
-			_onBuild.dispatch();
-		}
+		public function build():void { _onBuild.dispatch(); }
 		
 		/* INTERFACE slavara.as3.game.starling.gui.builders.IGUIBuilder */
-		public function getProduct():DisplayObjectContainer {
-			return product;
-		}
+		public function getProduct():DisplayObjectContainer { return product; }
 		
 		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function destroy():void {
@@ -49,9 +45,7 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		/* INTERFACE slavara.as3.core.utils.IDestroyable */
-		public function get isDestroyed():Boolean {
-			return _isDestroyed;
-		}
+		public function get isDestroyed():Boolean { return _isDestroyed; }
 		
 		protected var config:GUIConfig;
 		protected var product:DisplayObjectContainer;
@@ -62,21 +56,17 @@ package slavara.as3.game.starling.gui.builders {
 			_onBuild = new Signal();
 		}
 		
-		protected function preBuildItem(config:GUIConfig):DisplayObject {
-			return Validate.isNotNull(config) ? new Sprite() : null;
-		}
+		protected function preBuildItem(config:GUIConfig):DisplayObject { return Validate.isNotNull(config) ? new Sprite() : null; }
 		
-		/**
-		 * setups name, alpha, filter, rotation, scaleX, scaleY, x, y, touchable, visible
-		 */
 		protected function postBuildItem(item:DisplayObject, config:GUIConfig):DisplayObject {
 			item.name = config.name;
 			item.alpha = config.alpha;
 			item.skewX = config.skewX;
 			item.skewY = config.skewY;
 			item.filter = config.filter;
-			item.touchable = config.touchable;
 			item.visible = config.visible;
+			item.touchable = config.touchable;
+			item.useHandCursor = config.useHandCursor;
 			StarlingDisplayUtils.setxy(item, config.x, config.y);
 			StarlingDisplayUtils.setsize(item, config.width, config.height);
 			StarlingDisplayUtils.setscale(item, config.scaleX, config.scaleY);
@@ -84,13 +74,7 @@ package slavara.as3.game.starling.gui.builders {
 		}
 		
 		public function fill(container:DisplayObjectContainer, configs:Vector.<GUIConfig>):void {
-			if (Validate.isNull(container)) {
-				return;
-			}
-			if (container is TextField) {
-				return;
-			}
-			if (Collection.isEmpty(configs)) {
+			if (Validate.isNull(container) || (container is TextField) || Collection.isEmpty(configs)) {
 				return;
 			}
 			for each (var config:GUIConfig in configs) {
@@ -103,9 +87,7 @@ package slavara.as3.game.starling.gui.builders {
 		private var _isDestroyed:Boolean;
 		private var _onBuild:Signal;
 		
-		public function get onBuild():Signal {
-			return _onBuild;
-		}
+		public function get onBuild():Signal { return _onBuild; }
 		
 	}
 }
