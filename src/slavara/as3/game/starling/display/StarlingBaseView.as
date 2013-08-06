@@ -1,7 +1,6 @@
 package slavara.as3.game.starling.display {
 	import slavara.as3.core.statemachine.IStateMachine;
 	import slavara.as3.core.statemachine.StateMachine;
-	import slavara.as3.core.utils.IDestroyable;
 	import slavara.as3.core.utils.IStateMachineHolder;
 	import slavara.as3.core.utils.Validate;
 	import starling.display.Sprite;
@@ -10,7 +9,7 @@ package slavara.as3.game.starling.display {
 	/**
 	 * @author SlavaRa
 	 */
-	public class StarlingBaseView extends Sprite implements IDestroyable {
+	public class StarlingBaseView extends Sprite {
 		
 		public function StarlingBaseView(data:IStateMachineHolder = null) {
 			super();
@@ -20,23 +19,16 @@ package slavara.as3.game.starling.display {
 			configureStateMachine();
 		}
 		
-		//{ region INTERFACE slavara.as3.core.utils.IDestroyable
-		
-		public function destroy():void {
-			if(_isDestroyed) {
-				return;
+		public override function dispose():void {
+			if(Validate.isNotNull(_dataStateMachine)) {
+				_dataStateMachine.onChange.remove(onDataChange);
+				_dataStateMachine.onReset.remove(stateMachine.reset);
+				_dataStateMachine = null;
 			}
-			removeEventListeners();
-			destroyDataStateMachine();
-			destroyStateMachine();
-			_isDestroyed = true;
+			stateMachine.destroy();
+			stateMachine = null;
+			super.dispose();
 		}
-		
-		public function get isDestroyed():Boolean {
-			return _isDestroyed;
-		}
-		
-		//} endregion INTERFACE slavara.as3.core.utils.IDestroyable
 		
 		public function setxy(x:Number, y:Number):void {
 			super.x = x;
@@ -46,24 +38,19 @@ package slavara.as3.game.starling.display {
 		protected var stateMachine:StateMachine;
 		
 		protected function initialize():void {
-			_isDestroyed = false;
 			_onAddedToStage = false;
 			initializeStateMachine();
 		}
 		
 		/** virtual */
-		protected function configureStateMachine():void {
-		}
+		protected function configureStateMachine():void { }
 		
 		/** virtual */
-		protected function onAddedToStage():void {
-		}
+		protected function onAddedToStage():void { }
 		
 		/** virtual */
-		protected function onRemovedFromStage():void {
-		}
+		protected function onRemovedFromStage():void { }
 		
-		private var _isDestroyed:Boolean;
 		private var _onAddedToStage:Boolean;
 		private var _dataStateMachine:IStateMachine;
 		
@@ -99,18 +86,5 @@ package slavara.as3.game.starling.display {
 			stateMachine.setState(_dataStateMachine.currentState);
 		}
 		
-		private function destroyDataStateMachine():void {
-			if(Validate.isNull(_dataStateMachine)) {
-				return;
-			}
-			_dataStateMachine.onChange.remove(onDataChange);
-			_dataStateMachine.onReset.remove(stateMachine.reset);
-			_dataStateMachine = null;
-		}
-		
-		private function destroyStateMachine():void {
-			stateMachine.destroy();
-			stateMachine = null;
-		}
 	}
 }
