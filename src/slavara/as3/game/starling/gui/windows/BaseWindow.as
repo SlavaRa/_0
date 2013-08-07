@@ -32,6 +32,11 @@ package slavara.as3.game.starling.gui.windows {
 		public function advanceTime(time:Number):void {
 		}
 		
+		protected override function initialize(builder:IGUIBuilder):void {
+			builder.onBuild.addOnce(onBuild);
+			super.initialize(builder);
+		}
+		
 		public function open():BaseWindow {
 			addListeners();
 			stateMachine.setState(StateWindowEnum.OPEN);
@@ -44,12 +49,21 @@ package slavara.as3.game.starling.gui.windows {
 			return this;
 		}
 		
+		public function moveTo(ax:int, ay:int):void {
+			view.x = ax;
+			view.y = ay;
+		}
+		
 		/**virtual*/
 		protected function addListeners():void {
 		}
 		
 		/**virtual*/
 		protected function removeListeners():void {
+		}
+		
+		/**virtual*/
+		protected function onBuild():void {
 		}
 		
 		private var _onOpened:Signal;
@@ -73,17 +87,9 @@ package slavara.as3.game.starling.gui.windows {
 			_onClosed.dispatch(this);
 		}
 		
-		public function get onOpened():Signal {
-			return _onOpened;
-		}
-		
-		public function get onClosed():Signal {
-			return _onClosed;
-		}
-		
-		public function get isOpen():Boolean {
-			return stateMachine.currentState === StateWindowEnum.OPEN;
-		}
+		public function get onOpened():Signal { return _onOpened; }
+		public function get onClosed():Signal { return _onClosed; }
+		public function get isOpen():Boolean { return stateMachine.currentState == StateWindowEnum.OPEN; }
 		
 	}
 }
