@@ -26,25 +26,19 @@ package slavara.as3.game.starling.managers {
 			return manager.setup(enum2window, container);
 		}
 		
-		public static function getBy(id:BaseEnum):BaseWindow {
-			return manager.getBy(id);
-		}
+		public static function getBy(id:BaseEnum):BaseWindow { return manager.getBy(id); }
 		
-		public static function alert(id:BaseEnum):BaseWindow {
-			return manager.alert(id);
-		}
+		public static function alertIsOpened():Boolean { return manager.alertIsOpened(); }
 		
-		public static function show(id:BaseEnum):BaseWindow {
-			return manager.show(id)
-		}
+		public static function alert(id:BaseEnum):BaseWindow { return manager.alert(id); }
 		
-		public static function close(window:BaseWindow):void {
-			manager.close(window);
-		}
+		public static function closeAlert():void { manager._alert.close(); }
 		
-		public static function closeAll():void {
-			manager.closeAll();
-		}
+		public static function show(id:BaseEnum):BaseWindow { return manager.show(id) }
+		
+		public static function close(window:BaseWindow):void { manager.close(window); }
+		
+		public static function closeAll():void { manager.closeAll(); }
 		
 		public function WindowsManager() {
 			super();

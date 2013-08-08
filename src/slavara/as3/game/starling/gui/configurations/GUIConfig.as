@@ -56,7 +56,7 @@ package slavara.as3.game.starling.gui.configurations {
 			this.y = y;
 		}
 		
-		public function setsize(width:Number = 0, height:Number = 0):void {
+		public function size(width:Number = 0, height:Number = 0):void {
 			this.width = width;
 			this.height = height;
 		}

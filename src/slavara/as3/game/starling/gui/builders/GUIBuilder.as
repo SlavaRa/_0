@@ -69,7 +69,7 @@ package slavara.as3.game.starling.gui.builders {
 			item.useHandCursor = config.useHandCursor;
 			StarlingDisplayUtils.setxy(item, config.x, config.y);
 			StarlingDisplayUtils.setsize(item, config.width, config.height);
-			StarlingDisplayUtils.setscale(item, config.scaleX, config.scaleY);
+			StarlingDisplayUtils.scale(item, config.scaleX, config.scaleY);
 			return item;
 		}
 		

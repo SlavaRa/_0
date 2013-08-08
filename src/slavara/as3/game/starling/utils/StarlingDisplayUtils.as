@@ -79,10 +79,7 @@ package slavara.as3.game.starling.utils {
 		//} endregion aliases
 		
 		public static function addChildTo(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
-			if (Validate.isNull(child)) {
-				return null;
-			}
-			if (Validate.isNull(container)) {
+			if (Validate.isNull(child) || Validate.isNull(container)) {
 				return null;
 			}
 			return container.addChild(child);
@@ -183,7 +180,7 @@ package slavara.as3.game.starling.utils {
 			object.y = y;
 		}
 		
-		public static function setscale(object:DisplayObject, scaleX:Number, scaleY:Number):void {
+		public static function scale(object:DisplayObject, scaleX:Number, scaleY:Number):void {
 			if(Validate.isNull(object)) {
 				return;
 			}
@@ -273,10 +270,7 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function centerXY(target:DisplayObject, by:DisplayObject):void {
-			if(Validate.isNull(target)){
-				return;
-			}
-			if(Validate.isNull(by)){
+			if(Validate.isNull(target) || Validate.isNull(by)){
 				return;
 			}
 			centerX(target, by);
@@ -284,23 +278,15 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function centerX(target:DisplayObject, by:DisplayObject):void {
-			if(Validate.isNull(target)){
-				return;
+			if(Validate.isNotNull(target) && Validate.isNotNull(by)){
+				target.x = (by.width - target.width) >> 1;
 			}
-			if(Validate.isNull(by)){
-				return;
-			}
-			target.x = (by.width - target.width) >> 1;
 		}
 		
 		public static function centerY(target:DisplayObject, by:DisplayObject):void {
-			if(Validate.isNull(target)){
-				return;
+			if(Validate.isNotNull(target) && Validate.isNotNull(by)){
+				target.y = (by.height - target.height) >> 1;
 			}
-			if(Validate.isNull(by)){
-				return;
-			}
-			target.y = (by.height - target.height) >> 1;
 		}
 		
 		public function StarlingDisplayUtils() {

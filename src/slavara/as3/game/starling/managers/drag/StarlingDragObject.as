@@ -50,7 +50,7 @@ package slavara.as3.game.starling.managers.drag {
 				addChild(new Image(tex));
 			}
 			if(!rescale) {
-				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
+				StarlingDisplayUtils.scale(this, dragSource.scaleX, dragSource.scaleY);
 			}
 			_dragSource = dragSource;
 			_rescale = rescale;
@@ -71,7 +71,7 @@ package slavara.as3.game.starling.managers.drag {
 				_dragSource.getTransformationMatrix(Starling.current.stage, _TMP_MATRIX);
 			}
 			if(!_rescale) {
-				StarlingDisplayUtils.setscale(this, dragSource.scaleX, dragSource.scaleY);
+				StarlingDisplayUtils.scale(this, dragSource.scaleX, dragSource.scaleY);
 			}
 			var mouseX:Number = Starling.current.nativeOverlay.mouseX;
 			var mouseY:Number = Starling.current.nativeOverlay.mouseY;
