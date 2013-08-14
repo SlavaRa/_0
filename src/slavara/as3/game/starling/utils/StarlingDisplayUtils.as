@@ -86,10 +86,7 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function removeChildFrom(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
-			if(Validate.isNull(child)) {
-				return null;
-			}
-			if(Validate.isNull(child.parent)) {
+			if(Validate.isNull(child) || Validate.isNull(child.parent)) {
 				return null;
 			}
 			if(child.parent !== container) {
@@ -269,6 +266,8 @@ package slavara.as3.game.starling.utils {
 			return result;
 		}
 		
+		//{ region TODO: rename this methods
+		
 		public static function centerXY(target:DisplayObject, by:DisplayObject):void {
 			if(Validate.isNull(target) || Validate.isNull(by)){
 				return;
@@ -286,6 +285,25 @@ package slavara.as3.game.starling.utils {
 		public static function centerY(target:DisplayObject, by:DisplayObject):void {
 			if(Validate.isNotNull(target) && Validate.isNotNull(by)){
 				target.y = (by.height - target.height) >> 1;
+			}
+		}
+		
+		//} endregion
+		
+		public static function centerRelative2Stage(target:DisplayObject):void {
+			centerRelative2StageWidth(target);
+			centerRelative2StageHeight(target);
+		}
+		
+		public static function centerRelative2StageWidth(target:DisplayObject):void {
+			if(Validate.isNotNull(target)) {
+				target.x = (Starling.current.stage.stageWidth - target.width) >> 1;
+			}
+		}
+		
+		public static function centerRelative2StageHeight(target:DisplayObject):void {
+			if(Validate.isNotNull(target)) {
+				target.y = (Starling.current.stage.stageHeight - target.height) >> 1;
 			}
 		}
 		
