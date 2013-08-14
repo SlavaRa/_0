@@ -18,7 +18,7 @@ package slavara.air.utils {
 	 */
 	public class Filesystem {
 		
-		public static function readAndLoadSWFFile(file:File, allowCodeImport:Boolean, onLoadCallback:Function/*(fileName:String, applicationDomain:ApplicationDomain):void*/, destroyLoader:Boolean = true):void {
+		public static function readAndLoadSWFFile(file:File, allowCodeImport:Boolean, onLoadCallback:Function/*(fileName:String, applicationDomain:ApplicationDomain):void*/, destroyLoader:Boolean = true, onLoadParams:Array = null):void {
 			const bytes:ByteArray = new ByteArray();
 			const reader:FileStream = new FileStream();
 			reader.open(file, FileMode.READ);
@@ -33,7 +33,11 @@ package slavara.air.utils {
 				const loaderInfo:LoaderInfo = loader.contentLoaderInfo;
 				loaderInfo.removeEventListener(Event.COMPLETE, arguments.callee);
 				bytes.clear();
-				onLoadCallback(file.nativePath, loaderInfo.applicationDomain);
+				if(Validate.isNotNull(onLoadParams)) {
+					onLoadCallback(file.nativePath, loaderInfo.applicationDomain, onLoadParams);
+				} else {
+					onLoadCallback(file.nativePath, loaderInfo.applicationDomain);
+				}
 				if(destroyLoader) {
 					StarlingDestroyUtils.destroy(loader);
 				}
