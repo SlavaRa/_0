@@ -2,7 +2,6 @@ package slavara.as3.core.data {
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.debug.Assert;
 	import slavara.as3.core.utils.Collection;
-	import slavara.as3.core.utils.MathUtils;
 
 	[ExcludeClass]
 	public class DataContainer extends Data {
@@ -13,7 +12,7 @@ package slavara.as3.core.data {
 			super();
 			CONFIG::debug
 			{
-				if ((this as Object).constructor === DataContainer) {
+				if(Object(this).constructor == DataContainer) {
 					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 				}
 			}
@@ -23,7 +22,7 @@ package slavara.as3.core.data {
 		public function addChild(child:Data):Data {
 			Assert.isNull(child, "child");
 			Assert.isThis(child, this);
-			if (child.$parent === this)	{
+			if(child.$parent == this)	{
 				$setChildIndex(child, _list.indexOf(child));
 				return child;
 			}
@@ -34,7 +33,7 @@ package slavara.as3.core.data {
 			Assert.isNull(child, "child");
 			Assert.indexLessThanOrMoreThan(index, 0, _list.length);
 			Assert.isThis(child, this);
-			if (child.$parent === this) {
+			if(child.$parent == this) {
 				$setChildIndex(child, _list.indexOf(child));
 				return child;
 			}
@@ -65,8 +64,8 @@ package slavara.as3.core.data {
 			Assert.indexLessThan(startIndex, 0);
 			Assert.indexMoreThan(endIndex, _list.length);
 			
-			if (length > 0) {
-				for each (var child:Data in _list.splice(startIndex, length)) {
+			if(length > 0) {
+				for each(var child:Data in _list.splice(startIndex, length)) {
 					child.$setParent(null);
 				}
 			}
@@ -78,10 +77,8 @@ package slavara.as3.core.data {
 		}
 		
 		public function getChildByName(name:String):Data {
-			for each (var child:Data in _list) {
-				if (child.name === name) {
-					return child;
-				}
+			for each(var child:Data in _list) {
+				if(child.name == name) return child;
 			}
 			return null;
 		}
@@ -119,9 +116,7 @@ package slavara.as3.core.data {
 		
 		private function $addChildAt(child:Data, index:int):Data {
 			const parent:DataContainer = child.$parent;
-			if (parent) {
-				parent.$removeChildAt(parent._list.indexOf(child));
-			}
+			if(parent) parent.$removeChildAt(parent._list.indexOf(child));
 			Collection.insert(child, index, _list);
 			child.$setParent(this);
 			return child;
@@ -135,9 +130,7 @@ package slavara.as3.core.data {
 		
 		private function $setChildIndex(child:Data, index:int):void {
 			const oldIndex:int = _list.indexOf(child);
-			if (oldIndex === index) {
-				return;
-			}
+			if(oldIndex == index) return;
 			Collection.removeAt(oldIndex, _list);
 			Collection.insert(child, index, _list);
 		}
@@ -150,17 +143,16 @@ package slavara.as3.core.data {
 		
 		private function $contains(child:Data):Boolean {
 			do {
-				if (child === this) {
+				if(child == this) {
 					return true;
 				}
 				child = child.$parent;
-			} while (child !== null);
+			} while(child != null);
 			return false;
 		}
 		
 		public function get numChildren():int {
 			return _list.length;
 		}
-		
 	}
 }

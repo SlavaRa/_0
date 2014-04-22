@@ -20,28 +20,35 @@ package slavara.as3.core.data {
 					Error.throwError(IllegalOperationError, 2012, "DataBaseNativeEvent");
 				}
 			}
-			
 			super(type, bubbles, cancelable);
 		}
+		
+		$internal var $target:Object;
 		
 		public override function get target():Object {
 			return $target || super.target;
 		}
 		
+		$internal var $eventPhase:uint;
+		
 		public override function get eventPhase():uint {
 			return $eventPhase || super.eventPhase;
 		}
 		
+		$internal var $stopped:Boolean = false;
+		
 		public override function stopPropagation():void {
 			$stopped = true;
 		}
+		
+		$internal var $canceled:Boolean = false;
 		
 		public override function isDefaultPrevented():Boolean {
 			return $canceled;
 		}
 		
 		public override function preventDefault():void {
-			if (super.cancelable) {
+			if(super.cancelable) {
 				super.preventDefault();
 				$canceled = true;
 			}
@@ -53,7 +60,7 @@ package slavara.as3.core.data {
 		}
 		
 		public override function formatToString(className:String, ... rest):String {
-			if (!Validate.stringIsNullOrEmpty(className)) {
+			if(!Validate.stringIsNullOrEmpty(className)) {
 				className = "DataBaseNativeEvent";
 				(rest as Array).unshift(className);
 			}
@@ -68,11 +75,5 @@ package slavara.as3.core.data {
 			const cls:Class = Class(Object(this).constructor);
 			return new cls(super.type, super.bubbles, super.cancelable);
 		}
-		
-		$internal var $target:Object;
-		$internal var $stopped:Boolean = false;
-		$internal var $canceled:Boolean = false;
-		$internal var $eventPhase:uint;
-		
 	}
 }

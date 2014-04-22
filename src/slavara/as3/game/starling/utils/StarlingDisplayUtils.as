@@ -1,5 +1,4 @@
 package slavara.as3.game.starling.utils {
-	
 	import flash.display.BitmapData;
 	import flash.display3D.Context3DBlendFactor;
 	import flash.geom.Point;
@@ -86,10 +85,7 @@ package slavara.as3.game.starling.utils {
 		}
 		
 		public static function removeChildFrom(child:DisplayObject, container:DisplayObjectContainer):DisplayObject {
-			if(Validate.isNull(child) || Validate.isNull(child.parent)) {
-				return null;
-			}
-			if(child.parent !== container) {
+			if(Validate.isNull(child) || Validate.isNull(child.parent) || child.parent != container) {
 				return null;
 			}
 			return container.removeChild(child);

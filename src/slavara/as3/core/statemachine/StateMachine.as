@@ -16,8 +16,6 @@ package slavara.as3.core.statemachine {
 			reset();
 		}
 		
-		//{ region INTERFACE slavara.as3.core.statemachine.IStateMachine
-		
 		public override function reset():void {
 			super.reset();
 			_inTransition = false;
@@ -71,8 +69,6 @@ package slavara.as3.core.statemachine {
 		public function get previousState():BaseEnum {
 			return _prevState;
 		}
-		
-		//} endregion INTERFACE slavara.as3.core.statemachine.IStateMachine
 		
 		public override function destroy():void {
 			_curState = null;

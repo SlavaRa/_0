@@ -1,5 +1,4 @@
 package slavara.as3.game.starling.utils {
-	
 	import feathers.controls.Button;
 	import feathers.controls.ButtonGroup;
 	import feathers.controls.GroupedList;
@@ -99,13 +98,7 @@ package slavara.as3.game.starling.utils {
 		
 		public function FeathersDisplayUtils() {
 			super();
-			CONFIG::debug
-			{
-				if ((this as Object).constructor === FeathersDisplayUtils) {
-					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
-				}
-			}
+			throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 		}
-		
 	}
 }

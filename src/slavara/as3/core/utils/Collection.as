@@ -1,5 +1,4 @@
 package slavara.as3.core.utils {
-	
 	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
 	import slavara.as3.core.debug.Assert;
@@ -13,23 +12,15 @@ package slavara.as3.core.utils {
 		 * for Object, Dictionary, Array, ByteArray, Vector
 		 */
 		public static function clear(collection:Object):void {
-			if (Validate.isNull(collection)) {
-				return;
-			}
-			
-			const isVector:Boolean = Validate.isVector(collection);
-			if (Validate.isArray(collection) || isVector) {
-				var i:int = collection.length;
-				while (i-- > 0) {
-					collection[i] = null;
+			if(Validate.isNotNull(collection)) {
+				const isVector:Boolean = Validate.isVector(collection);
+				if(Validate.isArray(collection) || isVector) {
+					var i:int = collection.length;
+					while(i --> 0) collection[i] = null;
+					if(isVector) collection.fixed = false;
+					collection.length = 0;
 				}
-				if (isVector) {
-					collection.fixed = false;
-				}
-				collection.length = 0;
-			}
-			for (var key:*in collection) {
-				delete collection[key];
+				for(var key:* in collection) delete collection[key];
 			}
 		}
 		
@@ -43,21 +34,13 @@ package slavara.as3.core.utils {
 			{
 				Assert.isNull(collection, "collection");
 			}
-			
 			const isVector:Boolean = Validate.isVector(collection);
-			if (Validate.isArray(collection) || isVector) {
+			if(Validate.isArray(collection) || isVector) {
 				const length:int = collection.length;
-				if (pos < 0) {
-					pos = 0;
-				} else if (pos >= length) {
-					pos = length;
-				}
-				if (isVector) {
-					collection.fixed = false;
-				}
-				for (var i:int = length; i > pos; i--) {
-					collection[i] = collection[i - 1];
-				}
+				if(pos < 0) pos = 0;
+				else if(pos >= length) pos = length;
+				if(isVector) collection.fixed = false;
+				for(var i:int = length; i > pos; i--) collection[i] = collection[i - 1];
 				collection[pos] = item;
 			}
 			return item;
@@ -71,25 +54,20 @@ package slavara.as3.core.utils {
 			{
 				Assert.isNull(collection, "collection");
 			}
-			
 			const isVector:Boolean = Validate.isVector(collection);
-			if (Validate.isArray(collection) || isVector) {
-				for (var i:int = 0, found:Boolean, length:int = collection.length; i < length; i++) {
-					if (found) {
+			if(Validate.isArray(collection) || isVector) {
+				for(var i:int = 0, found:Boolean, length:int = collection.length; i < length; i++) {
+					if(found) {
 						collection[i] = collection[i + 1];
-					} else if (collection[i] === item) {
+					} else if(collection[i] === item) {
 						found = true;
 						length--;
-						if (i !== length) {
-							collection[i] = collection[i + 1];
-						}
+						if(i != length) collection[i] = collection[i + 1];
 					}
 				}
-				if (isVector) {
-					collection.fixed = false;
-				}
+				if(isVector) collection.fixed = false;
 				collection.length = length;
-			} else if (item in collection) {
+			} else if(item in collection) {
 				delete collection[item];
 			}
 			if(all && exists(item, collection)) {
@@ -107,28 +85,20 @@ package slavara.as3.core.utils {
 			{
 				Assert.isNull(collection, "collection");
 			}
-			
-			if(pos < 0) {
-				return null;
+			var result:* = null;
+			if(pos >= 0) {
+				const isVector:Boolean = Validate.isVector(collection);
+				if((collection is Array) || (collection is ByteArray) || isVector) {
+					const length:int = collection.length - 1;
+					if(pos > length) pos = length;
+					const item:* = collection[pos];
+					for(var i:int = pos; i < length; i++) collection[i] = collection[i + 1];
+					if(isVector) collection.fixed = false;
+					collection.length = length;
+					result = item;
+				}
 			}
-			
-			const isVector:Boolean = Validate.isVector(collection);
-			if ((collection is Array) || (collection is ByteArray) || isVector) {
-				const length:int = collection.length - 1;
-				if (pos > length) {
-					pos = length;
-				}
-				const item:* = collection[pos];
-				for (var i:int = pos; i < length; i++) {
-					collection[i] = collection[i + 1];
-				}
-				if (isVector) {
-					collection.fixed = false;
-				}
-				collection.length = length;
-				return item;
-			}
-			return null;
+			return result;
 		}
 		
 		/**
@@ -139,22 +109,17 @@ package slavara.as3.core.utils {
 			{
 				Assert.isNull(collection, "collection");
 			}
-			
-			if ((collection is Array) || Validate.isVector(collection)) {
-				return collection.indexOf(item) !== -1;
+			if((collection is Array) || Validate.isVector(collection)) {
+				return collection.indexOf(item) != -1;
 			}
 			return item in collection;
 		}
 		
 		public static function isEmpty(collection:Object):Boolean {
-			if (Validate.isArray(collection) || Validate.isVector(collection)) {
-				return collection.length === 0;
+			if(Validate.isArray(collection) || Validate.isVector(collection)) {
+				return collection.length == 0;
 			}
-			for (var key:*in collection) {
-				if (Validate.isNotNull(key)) {
-					return false;
-				}
-			}
+			for(var key:* in collection) if(Validate.isNotNull(key)) return false;
 			return true;
 		}
 		
@@ -166,9 +131,8 @@ package slavara.as3.core.utils {
 		 * for Array || ByteArray || Vector
 		 */
 		public static function setLength(collection:Object, length:int):void {
-			if (Validate.isArray(collection)) {
-				collection.length = length;
-			} else if (Validate.isVector(collection)) {
+			if(Validate.isArray(collection)) collection.length = length;
+			else if(Validate.isVector(collection)) {
 				collection.fixed = false;
 				collection.length = length;
 			}
@@ -176,13 +140,10 @@ package slavara.as3.core.utils {
 		
 		public function Collection() {
 			super();
-			
-			CONFIG::debug {
-				if (Object(this).constructor === Collection) {
-					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
-				}
+			CONFIG::debug
+			{
+				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}
-	
 	}
 }

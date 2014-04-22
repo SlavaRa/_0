@@ -1,5 +1,4 @@
 package slavara.as3.core.utils {
-	
 	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
 	
@@ -8,72 +7,68 @@ package slavara.as3.core.utils {
 	 */
 	public class Validate {
 		
+		[Inline]
 		public static function isNull(object:Object):Boolean {
-			return object === null;
+			return object == null;
 		}
 		
+		[Inline]
 		public static function isNotNull(object:Object):Boolean {
 			return !isNull(object);
 		}
 		
 		public static function stringIsNullOrEmpty(string:String):Boolean {
-			return isNull(string) || (string.length === 0);
+			return isNull(string) || (string.length == 0);
 		}
 		
 		public static function stringNonEmpty(string:String):Boolean {
-			if(isNull(string)) {
-				return false;
-			}
-			return string.length > 0;
+			return isNull(string) ? false : string.length > 0;
 		}
 		
+		[Inline]
 		public static function isVector(vector:Object):Boolean {
-			if(vector is Vector.<int>) {
-				return true;
-			}
-			if(vector is Vector.<uint>) {
-				return true;
-			}
-			if(vector is Vector.<Number>) {
-				return true;
-			}
-			if(vector is Vector.<String>) {
-				return true;
-			}
-			if(vector is Vector.<*>) {
-				return true;
-			}
-			return false;
+			return (vector is Vector.<int>)
+			|| (vector is Vector.<uint>)
+			|| (vector is Vector.<Number>)
+			|| (vector is Vector.<String>)
+			|| (vector is Vector.<*>);
 		}
 		
+		[Inline]
 		public static function isArray(array:Object):Boolean {
 			return (array is Array) || (array is ByteArray);
 		}
 		
+		[Inline]
 		public static function collectionIsNullOrEmpty(collection:Object):Boolean {
+			var result:Boolean;
 			if(isArray(collection) || isVector(collection)) {
-				return collection.length === 0;
+				result = collection.length == 0;
 			} else {
 				for (var name:* in collection) {
 					if(isNotNull(name)) {
-						return false;
+						result == false;
+						break;
 					}
 				}
 			}
-			return true;
+			return result
 		}
 		
+		[Inline]
 		public static function collectionIsNotEmpty(collection:Object):Boolean {
+			var result:Boolean;
 			if(isArray(collection) || isVector(collection)) {
-				return collection.length > 0;
+				result = collection.length > 0;
 			} else {
 				for (var name:* in collection) {
 					if(isNotNull(name)) {
-						return true;
+						result = true;
+						break;
 					}
 				}
 			}
-			return false;
+			return result;
 		}
 		
 		public static function existsInString(pattern:String, string:String, strict:Boolean = true):Boolean {
@@ -91,10 +86,9 @@ package slavara.as3.core.utils {
 		
 		public function Validate() {
 			super();
-			
 			CONFIG::debug
 			{
-				if (Object(this).constructor === Validate) {
+				if (Object(this).constructor == Validate) {
 					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 				}
 			}

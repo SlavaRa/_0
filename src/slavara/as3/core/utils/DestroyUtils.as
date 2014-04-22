@@ -19,37 +19,24 @@ package slavara.as3.core.utils {
 	 * @author SlavaRa
 	 */
 	public final class DestroyUtils {
-		
-		public static function destroy(object:*, safeMode:Boolean = true):void {
-			if (object) {
-				
-				if (object is IDestroyable) {
-					IDestroyable(object).destroy();
-				}
-				
-				if (object is Program3D) {
-					Program3D(object).dispose();
-				} else if (object is Texture) {
-					Texture(object).dispose();
-				} else if (object is Context3D) {
-					Context3D(object).dispose();
-				} else if (object is DisplayObject) {
-					destroyDisplayObject(DisplayObject(object), safeMode);
-				} else if (object is Graphics) {
-					Graphics(object).clear();
-				} else if (object is BitmapData && !safeMode) {
-					BitmapData(object).dispose();
-				} else if (object is ByteArray && !safeMode) {
-					ByteArray(object).clear();
-				}
-			}
+
+		[Inline]
+		public static function destroy(object:*, safeMode:Boolean = true):* {
+			if(object is IDestroyable) IDestroyable(object).destroy();
+			if(object is Program3D) Program3D(object).dispose();
+			else if(object is Texture) Texture(object).dispose();
+			else if(object is Context3D) Context3D(object).dispose();
+			else if(object is DisplayObject) destroyDisplayObject(DisplayObject(object), safeMode);
+			else if(object is Graphics) Graphics(object).clear();
+			else if(object is BitmapData && !safeMode) BitmapData(object).dispose();
+			else if(object is ByteArray && !safeMode) ByteArray(object).clear();
+			return null;
 		}
 		
 		private static function destroyDisplayObject(child:DisplayObject, safeMode:Boolean = true):void {
 			if (!child || child.stage) {
 				return;
 			}
-			
 			if (child is Shape) {
 				Shape(child).graphics.clear();
 			} else if (child is Bitmap) {
@@ -102,14 +89,10 @@ package slavara.as3.core.utils {
 		[ExcludeClass]
 		public function DestroyUtils() {
 			super();
-			
 			CONFIG::debug
 			{
-				if (Object(this).constructor === DestroyUtils) {
-					throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
-				}
+				throw new ArgumentError('ArgumentError: ' + getQualifiedClassName(this) + ' class cannot be instantiated.');
 			}
 		}
-		
 	}
 }

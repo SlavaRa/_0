@@ -23,28 +23,21 @@ package slavara.as3.game.starling.gui.builders {
 			{
 				Assert.isNull(config, "config");
 			}
-			
 			super();
 			initialize(config);
 		}
 		
-		/* INTERFACE slavara.as3.game.starling.gui.builders.IGUIBuilder */
 		public function build():void { _onBuild.dispatch(); }
 		
-		/* INTERFACE slavara.as3.game.starling.gui.builders.IGUIBuilder */
 		public function getProduct():DisplayObjectContainer { return product; }
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function destroy():void {
-			DestroyUtils.destroy(_onBuild);
-			DestroyUtils.destroy(product);
-			_onBuild = null;
-			product = null;
+			_onBuild = DestroyUtils.destroy(_onBuild);
+			product = DestroyUtils.destroy(product);
 			config = null;
 			_isDestroyed = true;
 		}
 		
-		/* INTERFACE slavara.as3.core.utils.IDestroyable */
 		public function get isDestroyed():Boolean { return _isDestroyed; }
 		
 		protected var config:GUIConfig;
