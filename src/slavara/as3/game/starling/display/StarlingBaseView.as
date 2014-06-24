@@ -1,5 +1,5 @@
 package slavara.as3.game.starling.display {
-	import slavara.as3.core.statemachine.IStateMachine;
+	import slavara.as3.core.utils.IStateMachine;
 	import slavara.as3.core.statemachine.StateMachine;
 	import slavara.as3.core.utils.IStateMachineHolder;
 	import slavara.as3.core.utils.Validate;

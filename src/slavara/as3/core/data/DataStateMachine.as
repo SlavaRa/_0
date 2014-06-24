@@ -1,7 +1,7 @@
 package slavara.as3.core.data {
 	import org.osflash.signals.Signal;
 	import slavara.as3.core.enums.BaseEnum;
-	import slavara.as3.core.statemachine.IStateMachine;
+	import slavara.as3.core.utils.IStateMachine;
 	
 	/**
 	 * @author SlavaRa
