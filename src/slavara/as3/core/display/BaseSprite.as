@@ -22,7 +22,7 @@ package slavara.as3.core.display {
 		protected function onRemovedFromStage():void {
 		}
 		
-		private var _addedToStage:Boolean = false;
+		private var _addedToStage:Boolean;
 		
 		private function onAddedToStageHandler(event:Event):void {
 			if(_addedToStage) {
@@ -37,6 +37,5 @@ package slavara.as3.core.display {
 			_addedToStage = false;
 			onRemovedFromStage();
 		}
-		
 	}
 }
